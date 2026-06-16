@@ -185,28 +185,23 @@ footer{background:var(--ink);color:#b9b3a6;text-align:center;padding:74px 24px}.
 @media(prefers-reduced-motion:reduce){.photoband .pbimg{animation:none}}
 </style>
 <style id="env-css">
-#intro{background:radial-gradient(130% 100% at 50% 24%,var(--paper),var(--paper-2))!important;perspective:1600px}
-#intro .env-stage{position:relative;transform-style:preserve-3d;animation:envFloat 5s ease-in-out infinite}
-@keyframes envFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-#intro .envelope{--env-l:#e8e3d7;--env-d:#d6cfbe;--seal-l:#9eae8b;--seal-d:#67765a;position:relative;width:min(84vw,360px);height:min(56vw,234px);transform-style:preserve-3d;transition:transform 1.1s var(--ease) .55s,opacity .7s ease .9s}
-#intro .env-pocket{position:absolute;inset:0;border-radius:7px;background:linear-gradient(160deg,var(--env-l),var(--env-d));box-shadow:0 46px 84px -34px rgba(40,36,28,.5)}
-#intro .letter{position:absolute;left:7%;top:6%;width:86%;height:152%;background:var(--paper,#f6f4ee);border:1px solid rgba(0,0,0,.05);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px;box-shadow:0 12px 30px rgba(40,36,28,.18);transform:translateY(0);transition:transform 1.15s var(--ease) .5s,box-shadow .8s var(--ease);z-index:2}
-#intro .letter .l-for{font-family:var(--sans);font-weight:500;letter-spacing:.26em;text-transform:uppercase;font-size:.5rem;color:var(--accent-deep)}
-#intro .letter .l-names{font-family:var(--script);font-size:2.7rem;line-height:1;color:var(--ink)}
-#intro .letter .l-rule{width:40px;height:1px;background:var(--accent)}
-#intro .letter .l-date{font-family:var(--sans);letter-spacing:.3em;text-transform:uppercase;font-size:.5rem;color:var(--soft)}
-#intro .env-front{position:absolute;inset:0;border-radius:7px;z-index:3;background:linear-gradient(160deg,var(--env-d),var(--env-l));clip-path:polygon(0 40%,50% 86%,100% 40%,100% 100%,0 100%)}
-#intro .env-flap{position:absolute;left:0;top:0;width:100%;height:64%;z-index:5;transform-origin:top center;backface-visibility:hidden;background:linear-gradient(180deg,var(--env-l),var(--env-d));clip-path:polygon(0 0,100% 0,50% 100%);transition:transform .9s cubic-bezier(.5,0,.25,1)}
-#intro .wax2{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);z-index:6;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 38% 32%,var(--seal-l),var(--seal-d));box-shadow:0 8px 18px -6px rgba(40,46,30,.6),inset 0 2px 6px rgba(255,255,255,.3),inset 0 -5px 10px rgba(30,38,20,.4);display:flex;align-items:center;justify-content:center;transition:transform .55s var(--ease),opacity .55s var(--ease)}
-#intro .wax2 span{font-family:var(--script);font-size:1.7rem;color:rgba(255,255,255,.92)}
-#intro .tap{display:block;margin-top:44px;font-family:var(--sans);letter-spacing:.32em;text-transform:uppercase;font-size:.56rem;color:var(--accent-deep);animation:fade 2.6s ease infinite}
+#intro{background:radial-gradient(130% 100% at 50% 26%,var(--paper),var(--paper-2))!important}
+#intro .env-stage{position:relative;width:min(88vw,430px);aspect-ratio:3/2;animation:envFloat 5s ease-in-out infinite}
+@keyframes envFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+#intro .env-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 40px 60px rgba(40,36,28,.28));transition:opacity .6s ease}
+#intro .env-o{opacity:0}
+#intro .letter{position:absolute;left:20%;right:20%;top:30%;background:var(--paper);border:1px solid rgba(0,0,0,.05);border-radius:3px;padding:20px 16px;box-shadow:0 20px 44px rgba(40,36,28,.22);text-align:center;opacity:0;transform:translateY(12%) scale(.95);transition:opacity .85s var(--ease) .5s,transform 1s var(--ease) .5s;z-index:3}
+#intro .letter .l-for{font-family:var(--sans);font-weight:500;letter-spacing:.24em;text-transform:uppercase;font-size:.46rem;color:var(--accent-deep)}
+#intro .letter .l-names{font-family:var(--script);font-size:2.1rem;line-height:1;color:var(--ink);margin:8px 0}
+#intro .letter .l-rule{width:34px;height:1px;background:var(--accent);margin:8px auto}
+#intro .letter .l-date{font-family:var(--sans);letter-spacing:.28em;text-transform:uppercase;font-size:.46rem;color:var(--soft)}
+#intro .tap{display:block;margin-top:40px;font-family:var(--sans);letter-spacing:.32em;text-transform:uppercase;font-size:.56rem;color:var(--accent-deep);animation:fade 2.6s ease infinite}
 #intro.opening .env-stage{animation:none}
-#intro.opening .wax2{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-14deg)}
-#intro.opening .env-flap{transform:rotateX(-178deg);z-index:1}
-#intro.opening .letter{transform:translateY(-88%);z-index:8;box-shadow:0 34px 64px rgba(40,36,28,.32)}
-#intro.opening .envelope{transform:translateY(36%) scale(1.05)}
+#intro.opening .env-c{opacity:0}
+#intro.opening .env-o{opacity:1}
+#intro.opening .letter{opacity:1;transform:translateY(-46%) scale(1.04)}
 #intro.opening .tap{opacity:0}
-@media(prefers-reduced-motion:reduce){#intro .env-stage{animation:none}#intro.opening *{transition-duration:.25s!important}}
+@media(prefers-reduced-motion:reduce){#intro .env-stage{animation:none}#intro.opening *{transition-duration:.3s!important}}
 </style>
 </head>
 <body class="locked">
@@ -217,17 +212,13 @@ footer{background:var(--ink);color:#b9b3a6;text-align:center;padding:74px 24px}.
 
 <div id="intro">
   <div class="env-stage">
-    <div class="envelope">
-      <div class="env-pocket"></div>
-      <div class="letter">
-        <div class="l-for" data-i18n="together">Together with our families</div>
-        <div class="l-names" data-couple>Layla &amp; Karim</div>
-        <div class="l-rule"></div>
-        <div class="l-date" data-date-short>19 · 09 · 2026</div>
-      </div>
-      <div class="env-front"></div>
-      <div class="env-flap"></div>
-      <div class="wax2"><span data-mono>L &amp; K</span></div>
+    <img class="env-img env-c" src="images/env-closed.jpg" alt="" decoding="async">
+    <img class="env-img env-o" src="images/env-open.jpg" alt="" decoding="async">
+    <div class="letter">
+      <div class="l-for" data-i18n="together">Together with our families</div>
+      <div class="l-names" data-couple>Layla &amp; Karim</div>
+      <div class="l-rule"></div>
+      <div class="l-date" data-date-short>19 · 09 · 2026</div>
     </div>
   </div>
   <div class="tap" data-i18n="tap">Tap to open the invitation</div>
@@ -445,7 +436,7 @@ function ornament(){
   $$('[data-sprig]').forEach(el=>el.innerHTML=SPRIG);
 }
 function setupVid(){const v=$('#heroVideo');const url=CFG.hero&&CFG.hero.video;if(!url){v.remove();return;}v.src=url;v.muted=true;v.playsInline=true;const F=0.5;function fr(){const d=v.duration;if(d&&!isNaN(d)&&!v.paused){const t=v.currentTime;let o=1;if(t<F)o=t/F;else if(t>d-F)o=Math.max(0,(d-t)/F);v.style.opacity=o.toFixed(3);}requestAnimationFrame(fr);}v.addEventListener('ended',()=>{v.style.opacity=0;setTimeout(()=>{v.currentTime=0;v.play().catch(()=>{});},100);});v.addEventListener('error',()=>v.remove());requestAnimationFrame(fr);window._pv=()=>v.play().catch(()=>{});}
-function openInvite(){var i=$('#intro');if(i.classList.contains('opening'))return;i.classList.add('opening');if(window._pv)window._pv();setTimeout(function(){document.body.classList.remove('locked');i.classList.add('gone');$('#hero').classList.add('open');startCD();},1750);}
+function openInvite(){var i=$('#intro');if(i.classList.contains('opening'))return;i.classList.add('opening');if(window._pv)window._pv();setTimeout(function(){document.body.classList.remove('locked');i.classList.add('gone');$('#hero').classList.add('open');startCD();},1950);}
 $('#intro').addEventListener('click',openInvite);
 let cdT=null;function startCD(){const t=new Date(CFG.date.iso).getTime();function up(){const d=t-Date.now();if(d<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(i=>$('#'+i).textContent='00');clearInterval(cdT);return;}$('#cd-d').textContent=String(Math.floor(d/864e5)).padStart(2,'0');$('#cd-h').textContent=String(Math.floor(d%864e5/36e5)).padStart(2,'0');$('#cd-m').textContent=String(Math.floor(d%36e5/6e4)).padStart(2,'0');$('#cd-s').textContent=String(Math.floor(d%6e4/1e3)).padStart(2,'0');}up();cdT=setInterval(up,1000);}
 document.addEventListener('click',e=>{const h=e.target.closest('.reg-head');if(h){const c=h.parentElement,b=c.querySelector('.reg-body');const o=c.classList.toggle('open');b.style.maxHeight=o?b.scrollHeight+'px':0;return;}const fq=e.target.closest('.faq-q');if(fq){const c=fq.parentElement,b=c.querySelector('.faq-a');const o=c.classList.toggle('open');b.style.maxHeight=o?b.scrollHeight+'px':0;return;}const cb=e.target.closest('.copy-btn');if(cb){const v=cb.getAttribute('data-copy');navigator.clipboard?.writeText(v).then(()=>{const o=cb.textContent;cb.textContent=STR[LANG].added;toast(STR[LANG].added);setTimeout(()=>cb.textContent=o,1700);});}});
