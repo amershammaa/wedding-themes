@@ -119,7 +119,7 @@ header .brand{font-family:var(--serif);font-style:italic;font-size:1.1rem}
 
 /* TRAVEL */
 .hotels{display:grid;gap:16px;margin-top:44px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.hotel{background:#fff;border:1px solid var(--line);border-radius:2px;padding:26px 24px;text-align:start}
+.hotel{background:#fff;border:1px solid var(--line);border-radius:2px;padding:26px 24px;text-align:start;overflow:hidden}.hotel .himg{height:150px;background-size:cover;background-position:center;margin:-26px -24px 18px;transition:transform 1s var(--ease)}.hotel:hover .himg{transform:scale(1.05)}
 .hotel .hn{font-family:var(--serif);font-style:italic;font-size:1.4rem}.hotel .ha{color:var(--soft);font-size:.92rem;margin-top:4px}
 .hotel .hp{display:inline-block;margin-top:12px;font-weight:500;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep)}
 .hotel .hl{display:block;margin-top:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:.58rem;color:var(--ink);border-bottom:1px solid var(--accent);padding-bottom:3px;width:max-content}
@@ -185,7 +185,7 @@ footer{background:var(--ink);color:#b9b3a6;text-align:center;padding:74px 24px}.
 @media(prefers-reduced-motion:reduce){.photoband .pbimg{animation:none}}
 </style>
 <style id="env-css">
-#intro{background:#efe5dc!important}
+#intro{background:#efe5dc!important;perspective:1500px}
 #intro .env-stage{position:relative;width:min(94vw,560px);aspect-ratio:3/2;animation:envFloat 5.5s ease-in-out infinite;transition:transform 1.2s var(--ease)}
 @keyframes envFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 #intro .env-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .7s ease}
@@ -198,7 +198,7 @@ footer{background:var(--ink);color:#b9b3a6;text-align:center;padding:74px 24px}.
 #intro .letter .l-date{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--ink)}
 #intro .letter .l-place{font-family:var(--sans);letter-spacing:.24em;text-transform:uppercase;font-size:.44rem;color:var(--soft);margin-top:6px}
 #intro .tap{display:block;margin-top:22px;font-family:var(--sans);letter-spacing:.32em;text-transform:uppercase;font-size:.56rem;color:var(--accent-deep);animation:fade 2.6s ease infinite}
-#intro.opening .env-stage{animation:none;transform:scale(1.06)}
+#intro.opening .env-stage{animation:none;transform:scale(1.07) translateY(-2%) rotateX(7deg)}
 #intro.opening .env-c{opacity:0}
 #intro.opening .env-o{opacity:1}
 #intro.opening .letter{opacity:1;transform:translate(-50%,-118%) scale(1.04)}
@@ -318,7 +318,7 @@ footer{background:var(--ink);color:#b9b3a6;text-align:center;padding:74px 24px}.
   <div class="pbcap"><div class="pq" data-i18n="rsvptitle">Will you join us?</div></div>
 </section>
 <section class="block" id="rsvp"><div class="wrap center reveal">
-  <span class="eyebrow kicker" data-i18n="rsvplabel">Réponse</span><h2 class="h-title" data-i18n="rsvptitle">Will you join us?</h2>
+  <span class="eyebrow kicker" data-i18n="rsvplabel">Réponse</span><h2 class="h-title" data-i18n="replytitle">Kindly reply</h2>
   <div class="rule"></div><p class="lead" data-rsvp-deadline></p>
   <div class="reserved" id="reserved" hidden><div class="rl" data-i18n="reservedlabel">Reserved for you</div><div class="rt" data-reserved-text></div></div>
   <form id="rsvpForm" autocomplete="on">
@@ -363,9 +363,9 @@ const DEMO_CONFIG={
   ],
   travel:{intro:"A few places we love, all close to the celebration.",intro_ar:"بعض الأماكن التي نحبها، جميعها قريبة من الاحتفال.",
     hotels:[
-      {name:"Le Gray",area:"Beirut Downtown",tier:"Luxury",map:"https://maps.google.com/?q=Le+Gray+Beirut"},
-      {name:"Albergo",area:"Achrafieh",tier:"Boutique",map:"https://maps.google.com/?q=Albergo+Beirut"},
-      {name:"Smallville",area:"Badaro",tier:"Comfort",map:"https://maps.google.com/?q=Smallville+Beirut"}
+      {name:"Le Gray",area:"Beirut Downtown",tier:"Luxury",map:"https://maps.google.com/?q=Le+Gray+Beirut",img:"images/hotel-1.jpg"},
+      {name:"Albergo",area:"Achrafieh",tier:"Boutique",map:"https://maps.google.com/?q=Albergo+Beirut",img:"images/hotel-2.jpg"},
+      {name:"Smallville",area:"Badaro",tier:"Comfort",map:"https://maps.google.com/?q=Smallville+Beirut",img:"images/hotel-3.jpg"}
     ]},
   dressCode:{title:"Black Tie / Formal",title_ar:"لباس رسمي",note:"We'll be celebrating outdoors, so we recommend a light jacket or shawl for the evening.",note_ar:"سنحتفل في الهواء الطلق، لذا ننصح بإحضار سترة خفيفة أو شال للمساء."},
   faq:[
@@ -381,8 +381,8 @@ const DEMO_CONFIG={
   defaultGuest:{seats:2},previewAsGuest:"k7g2",i18n:{default:"en",enableArabic:true}
 };
 const CFG=Object.assign({},DEMO_CONFIG,window.ZAFFA_CONFIG||{});
-const STR={en:{tap:"Tap to open the invitation",rsvp:"RSVP",together:"Together with our families",counting:"Counting down to our day",cantwait:"We can't wait to celebrate with you",days:"Days",hours:"Hours",mins:"Minutes",secs:"Seconds",celebration:"The celebration",when:"When & where",us:"Us",moments:"A few of our moments",giftlabel:"A gift of love",gifttitle:"Wedding list",dresslabel:"Dress code",storylabel:"Our story",storytitle:"How we got here",travellabel:"Travel & stay",traveltitle:"Where to stay",faqlabel:"Good to know",faqtitle:"Questions & answers",rsvplabel:"Réponse",rsvptitle:"Will you join us?",fullname:"Full name",email:"Email",attending:"Will you be there?",yes:"Joyfully yes",no:"Regretfully no",guests:"How many of you?",note:"A note for us (optional)",send:"Send my reply",privacy:"Your reply goes straight to the couple.",thankyou:"Thank you",received:"Your reply has been received. We can't wait to celebrate with you.",directions:"Directions",added:"Copied",err:"We couldn't save your reply. Please try again.",sending:"Sending…",dearguest:"With pleasure, we invite",greetsub:"It would mean the world to us to have you with us on our day.",reservedlabel:"Reserved for you",who:"Who is joining you?",forguest:"For",upto:"Up to the places reserved for you"},
-ar:{tap:"اضغط لفتح الدعوة",rsvp:"تأكيد الحضور",together:"بمشيئة الله نتشرّف بدعوتكم",counting:"العدّ التنازلي ليومنا",cantwait:"لا نطيق الانتظار للاحتفال معكم",days:"يوم",hours:"ساعة",mins:"دقيقة",secs:"ثانية",celebration:"الاحتفال",when:"الزمان والمكان",us:"نحن",moments:"بعض من لحظاتنا",giftlabel:"هدية محبة",gifttitle:"قائمة الهدايا",dresslabel:"اللباس",storylabel:"قصتنا",storytitle:"كيف وصلنا إلى هنا",travellabel:"السفر والإقامة",traveltitle:"أين تقيمون",faqlabel:"معلومات مفيدة",faqtitle:"أسئلة وأجوبة",rsvplabel:"الرد",rsvptitle:"هل ستشاركوننا؟",fullname:"الاسم الكامل",email:"البريد الإلكتروني",attending:"هل ستحضرون؟",yes:"نعم بكل سرور",no:"نعتذر",guests:"كم عددكم؟",note:"رسالة لنا (اختياري)",send:"إرسال الرد",privacy:"يصل ردّكم مباشرة إلى العروسين.",thankyou:"شكراً لكم",received:"تمّ استلام ردّكم. لا نطيق الانتظار للاحتفال معكم.",directions:"الاتجاهات",added:"تم النسخ",err:"تعذّر حفظ الرد. حاول مرة أخرى.",sending:"جارٍ الإرسال…",dearguest:"يسرّنا دعوة",greetsub:"وجودكم معنا في يومنا يعني لنا الكثير.",reservedlabel:"محجوز لكم",who:"من سيحضر معكم؟",forguest:"إلى",upto:"بحد أقصى المقاعد المحجوزة لكم"}};
+const STR={en:{tap:"Tap to open the invitation",rsvp:"RSVP",together:"Together with our families",counting:"Counting down to our day",cantwait:"We can't wait to celebrate with you",days:"Days",hours:"Hours",mins:"Minutes",secs:"Seconds",celebration:"The celebration",when:"When & where",us:"Us",moments:"A few of our moments",giftlabel:"A gift of love",gifttitle:"Wedding list",dresslabel:"Dress code",storylabel:"Our story",storytitle:"How we got here",travellabel:"Travel & stay",traveltitle:"Where to stay",faqlabel:"Good to know",faqtitle:"Questions & answers",rsvplabel:"Réponse",rsvptitle:"Will you join us?",replytitle:"Kindly reply",fullname:"Full name",email:"Email",attending:"Will you be there?",yes:"Joyfully yes",no:"Regretfully no",guests:"How many of you?",note:"A note for us (optional)",send:"Send my reply",privacy:"Your reply goes straight to the couple.",thankyou:"Thank you",received:"Your reply has been received. We can't wait to celebrate with you.",directions:"Directions",added:"Copied",err:"We couldn't save your reply. Please try again.",sending:"Sending…",dearguest:"With pleasure, we invite",greetsub:"It would mean the world to us to have you with us on our day.",reservedlabel:"Reserved for you",who:"Who is joining you?",forguest:"For",upto:"Up to the places reserved for you"},
+ar:{tap:"اضغط لفتح الدعوة",rsvp:"تأكيد الحضور",together:"بمشيئة الله نتشرّف بدعوتكم",counting:"العدّ التنازلي ليومنا",cantwait:"لا نطيق الانتظار للاحتفال معكم",days:"يوم",hours:"ساعة",mins:"دقيقة",secs:"ثانية",celebration:"الاحتفال",when:"الزمان والمكان",us:"نحن",moments:"بعض من لحظاتنا",giftlabel:"هدية محبة",gifttitle:"قائمة الهدايا",dresslabel:"اللباس",storylabel:"قصتنا",storytitle:"كيف وصلنا إلى هنا",travellabel:"السفر والإقامة",traveltitle:"أين تقيمون",faqlabel:"معلومات مفيدة",faqtitle:"أسئلة وأجوبة",rsvplabel:"الرد",rsvptitle:"هل ستشاركوننا؟",replytitle:"يسعدنا ردّكم",fullname:"الاسم الكامل",email:"البريد الإلكتروني",attending:"هل ستحضرون؟",yes:"نعم بكل سرور",no:"نعتذر",guests:"كم عددكم؟",note:"رسالة لنا (اختياري)",send:"إرسال الرد",privacy:"يصل ردّكم مباشرة إلى العروسين.",thankyou:"شكراً لكم",received:"تمّ استلام ردّكم. لا نطيق الانتظار للاحتفال معكم.",directions:"الاتجاهات",added:"تم النسخ",err:"تعذّر حفظ الرد. حاول مرة أخرى.",sending:"جارٍ الإرسال…",dearguest:"يسرّنا دعوة",greetsub:"وجودكم معنا في يومنا يعني لنا الكثير.",reservedlabel:"محجوز لكم",who:"من سيحضر معكم؟",forguest:"إلى",upto:"بحد أقصى المقاعد المحجوزة لكم"}};
 const SPRIG='<svg viewBox="0 0 24 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M12 1v26"/><path d="M12 7c-3-1.4-5.4 .4-6.6 2.6 3 .3 5.4-.6 6.6-2.6z"/><path d="M12 7c3-1.4 5.4 .4 6.6 2.6-3 .3-5.4-.6-6.6-2.6z"/><path d="M12 13c-2.6-1.2-4.8 .4-5.9 2.4 2.7 .3 4.8-.6 5.9-2.4z"/><path d="M12 13c2.6-1.2 4.8 .4 5.9 2.4-2.7 .3-4.8-.6-5.9-2.4z"/><path d="M12 19c-2.2-1-4 .3-5 2 2.3 .2 4-.5 5-2z"/><path d="M12 19c2.2-1 4 .3 5 2-2.3 .2-4-.5-5-2z"/></svg>';
 const RINGS='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="18" cy="30" r="9.5"/><circle cx="30" cy="30" r="9.5"/><path d="M22 13l2-4 2 4-2 3z"/></svg>';
 const GLASS='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 11h18l-2.5 11a6.5 6.5 0 01-13 0z"/><path d="M24 22v12M18.5 37h11"/></svg>';
@@ -419,7 +419,7 @@ function render(){
   if(CFG.verse&&(CFG.verse.ar||CFG.verse.tr)){$('#verseSection').hidden=false;$('[data-verse-ar]').textContent=CFG.verse.ar||"";$('[data-verse-tr]').textContent=CFG.verse.tr||"";$('[data-verse-ref]').textContent=CFG.verse.ref||"";}
   $('#events').innerHTML=(CFG.events||[]).map(ev=>`<div class="event"><div class="ico">${ev.icon==='glass'?GLASS:RINGS}</div><div class="et">${esc(LANG==='ar'&&ev.type_ar?ev.type_ar:ev.type)}</div><div class="ev">${esc(ev.venue)}</div><div class="etime">${esc(ev.time)}</div><div class="ewhere">${esc(ev.area)}</div>${ev.map?`<a class="map" href="${ev.map}" target="_blank" rel="noopener">${STR[LANG].directions}</a>`:""}</div>`).join("");
   if(CFG.story&&CFG.story.length){$('#storySection').hidden=false;$('#story').innerHTML=CFG.story.map(s=>`<div class="st"><div class="yr">${esc(s.year)}</div><div class="sb"><div class="t">${esc(LANG==='ar'&&s.title_ar?s.title_ar:s.title)}</div><div class="d">${esc(LANG==='ar'&&s.text_ar?s.text_ar:s.text)}</div></div></div>`).join("");}
-  if(CFG.travel&&CFG.travel.hotels&&CFG.travel.hotels.length){$('#travelSection').hidden=false;$('[data-travel-intro]').textContent=pick(CFG.travel,'intro');$('#hotels').innerHTML=CFG.travel.hotels.map(h=>`<div class="hotel"><div class="hn">${esc(h.name)}</div><div class="ha">${esc(h.area)}</div>${h.tier?`<div class="hp">${esc(h.tier)}</div>`:""}${h.map?`<a class="hl" href="${h.map}" target="_blank" rel="noopener">${STR[LANG].directions}</a>`:""}</div>`).join("");}
+  if(CFG.travel&&CFG.travel.hotels&&CFG.travel.hotels.length){$('#travelSection').hidden=false;$('[data-travel-intro]').textContent=pick(CFG.travel,'intro');$('#hotels').innerHTML=CFG.travel.hotels.map(h=>`<div class="hotel">${h.img?`<div class="himg" style="background-image:url(\'${h.img}\')"></div>`:""}<div class="hn">${esc(h.name)}</div><div class="ha">${esc(h.area)}</div>${h.tier?`<div class="hp">${esc(h.tier)}</div>`:""}${h.map?`<a class="hl" href="${h.map}" target="_blank" rel="noopener">${STR[LANG].directions}</a>`:""}</div>`).join("");}
   if(CFG.dressCode){$('#dressSection').hidden=false;$('[data-dress-title]').textContent=pick(CFG.dressCode,'title');$('[data-dress-note]').textContent=pick(CFG.dressCode,'note');}
   if(CFG.gallery&&CFG.gallery.length){$('#gallerySection').hidden=false;$('#gallery').innerHTML=CFG.gallery.map(s=>`<a href="${s}" target="_blank" rel="noopener"><img src="${s}" alt="" loading="lazy" decoding="async"></a>`).join("");}
   if(CFG.registry&&CFG.registry.methods){$('#registrySection').hidden=false;$('[data-registry-intro]').textContent=pick(CFG.registry,'intro');
