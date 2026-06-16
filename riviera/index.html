@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>Wedding Invitation</title>
+<meta name="theme-color" content="#fbf6ec">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ============ RIVIERA · coastal-Mediterranean wedding theme (gold-free) ============ */
+:root{
+  --cream:#fbf6ec; --cream-2:#f3ead8; --ink:#34302a; --soft:#7c7567; --line:#e6dcc6;
+  --sea:#3a7088; --sea-deep:#2c5a70; --terra:#c2643f; --terra-deep:#a9522f; --olive:#7d8a59;
+  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --arabic:'Amiri',serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.75;overflow-x:hidden}
+body.locked{overflow:hidden;height:100vh}
+html[dir="rtl"] body{font-family:var(--arabic),var(--sans)}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}em{font-style:italic}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.1}
+.eyebrow{font-family:var(--sans);font-weight:600;letter-spacing:.28em;text-transform:uppercase;font-size:.58rem;color:var(--terra-deep)}
+html[dir="rtl"] .eyebrow{letter-spacing:.08em}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+section{position:relative}
+.reveal>*{opacity:0;transform:translateY(20px);filter:blur(3px);transition:opacity .7s var(--ease),transform .7s var(--ease),filter .7s var(--ease)}.reveal.in>*{opacity:1;transform:none;filter:blur(0)}.reveal.in>*:nth-child(2){transition-delay:.07s}.reveal.in>*:nth-child(3){transition-delay:.14s}.reveal.in>*:nth-child(4){transition-delay:.2s}.reveal.in>*:nth-child(5){transition-delay:.27s}.reveal.in>*:nth-child(6){transition-delay:.34s}.reveal.in>*:nth-child(7){transition-delay:.4s}
+.block{padding:clamp(38px,6.5vw,74px) 0}.center{text-align:center}.kicker{display:block;margin-bottom:16px}
+.h-title{font-family:var(--serif);font-style:italic;font-size:clamp(1.95rem,6vw,3.1rem)}
+.lead{max-width:600px;margin:18px auto 0;color:var(--soft);font-weight:300;font-size:1.04rem}
+.olive{width:64px;height:26px;margin:22px auto;color:var(--olive);opacity:.9}.olive svg{width:100%;height:100%}
+.sun{width:44px;height:44px;margin:0 auto 18px;color:var(--terra);opacity:.92}.sun svg{width:100%;height:100%}
+
+/* INTRO */
+#intro{position:fixed;inset:0;z-index:120;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#f5ead5,#ecdcc0);color:var(--ink);transition:opacity 1.1s var(--ease),visibility 1.1s;padding:40px;cursor:pointer}
+#intro.gone{opacity:0;visibility:hidden}
+#intro .sun{width:58px;height:58px;margin-bottom:22px}
+#intro .forline{font-weight:600;letter-spacing:.3em;text-transform:uppercase;font-size:.56rem;color:var(--terra-deep);margin-bottom:14px}
+#intro .names{font-family:var(--serif);font-style:italic;font-size:2.6rem}
+#intro .date{letter-spacing:.32em;font-size:.62rem;text-transform:uppercase;color:var(--soft);margin-top:8px}
+#intro .tap{margin-top:34px;letter-spacing:.3em;font-size:.56rem;text-transform:uppercase;color:var(--soft);animation:fade 2.6s ease infinite}
+@keyframes fade{0%,100%{opacity:.4}50%{opacity:.85}}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:linear-gradient(rgba(251,246,236,.92),transparent);transition:.4s}
+header.solid{background:rgba(251,246,236,.97);box-shadow:0 1px 0 var(--line)}
+header .brand{font-family:var(--serif);font-style:italic;font-size:1.16rem}
+.tools{display:flex;gap:9px;align-items:center}
+.pill{border:1px solid var(--line);background:rgba(255,255,255,.5);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;border-radius:999px;padding:8px 14px;cursor:pointer;transition:.28s}
+.pill:hover{border-color:var(--terra);color:var(--terra-deep)}
+.nav-rsvp{background:var(--terra);color:#fff !important;border-color:var(--terra)}.nav-rsvp:hover{background:var(--terra-deep);border-color:var(--terra-deep);color:#fff !important}
+
+/* HERO - arched window */
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:96px 24px 50px;text-align:center}
+.archframe{position:relative;width:min(560px,92vw);height:min(76vh,720px);border-radius:50% 50% 6px 6px/32% 32% 6px 6px;overflow:hidden;box-shadow:0 30px 70px -34px rgba(80,60,40,.5);border:1px solid var(--line)}
+.archframe .bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05);animation:kb 16s var(--ease) forwards}
+@keyframes kb{to{transform:scale(1)}}
+.archframe::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,30,20,.18),rgba(40,30,20,.05) 40%,rgba(40,30,20,.5))}
+.archframe .htext{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 22px 44px;color:#fff}
+.htext .pre{letter-spacing:.34em;text-transform:uppercase;font-size:.58rem;margin-bottom:14px;opacity:.92}
+.htext .names{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.6rem,11vw,4.6rem);line-height:1.02;text-shadow:0 2px 24px rgba(0,0,0,.3)}
+.htext .date{font-family:var(--serif);font-size:clamp(.95rem,3.4vw,1.25rem);letter-spacing:.04em;margin-top:10px}
+.htext .place{letter-spacing:.28em;text-transform:uppercase;font-size:.56rem;margin-top:10px;opacity:.9}
+.hero.open .htext>*{animation:rise 1s var(--ease) both}.hero.open .names{animation-delay:.25s}.hero.open .date{animation-delay:.5s}.hero.open .place{animation-delay:.7s}
+@keyframes rise{from{opacity:0;transform:translateY(20px);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)}}
+
+.countdown{display:flex;justify-content:center;gap:clamp(16px,5vw,48px);margin-top:38px}
+.cd-num{font-family:var(--serif);font-size:clamp(2rem,7vw,3rem)}.cd-lab{font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.52rem;color:var(--soft);margin-top:10px}
+.greet{background:var(--cream-2)}.greet .gname{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,5.5vw,2.6rem)}
+.verse{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.verse .ar{font-family:var(--arabic);font-size:clamp(1.4rem,4.8vw,2.1rem);line-height:2;color:var(--sea-deep);direction:rtl}.verse .tr{font-style:italic;color:var(--soft);max-width:580px;margin:16px auto 0}.verse .ref{margin-top:14px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;font-size:.56rem;color:var(--terra-deep)}
+
+/* EVENTS - arched cards */
+.events{display:grid;gap:22px;margin-top:50px;grid-template-columns:repeat(auto-fit,minmax(252px,1fr))}
+.event{background:#fff;border:1px solid var(--line);border-radius:140px 140px 6px 6px;padding:46px 28px 34px;text-align:center;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.event:hover{transform:translateY(-5px);box-shadow:0 26px 56px -34px rgba(120,80,50,.4)}
+.event .ico{width:34px;height:34px;margin:0 auto 16px;color:var(--sea)}
+.event .et{font-weight:600;letter-spacing:.24em;text-transform:uppercase;font-size:.56rem;color:var(--terra-deep)}
+.event .ev{font-family:var(--serif);font-style:italic;font-size:1.5rem;margin:12px 0 4px}
+.event .etime{font-family:var(--serif);font-size:1.16rem}.event .ewhere{color:var(--soft);font-size:.92rem;margin-top:6px}
+.event .map{display:inline-block;margin-top:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.56rem;color:var(--sea-deep);border-bottom:1px solid var(--sea);padding-bottom:3px}
+
+/* GALLERY - arched windows */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:50px}
+.gallery a{border-radius:120px 120px 5px 5px;overflow:hidden;border:1px solid var(--line)}
+.gallery img{width:100%;aspect-ratio:3/4.2;object-fit:cover;transition:.7s var(--ease)}
+.gallery a:hover img{transform:scale(1.05)}
+@media(max-width:640px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+.registry{background:var(--cream-2)}
+.reg-list{max-width:540px;margin:44px auto 0;display:flex;flex-direction:column;gap:12px}
+.reg-card{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.reg-head{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:0;cursor:pointer;padding:20px 22px;font-family:var(--serif);font-style:italic;font-size:1.16rem;text-align:start}
+.reg-head .chev{color:var(--terra);transition:.35s}.reg-card.open .chev{transform:rotate(180deg)}
+.reg-body{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}.reg-inner{padding:2px 22px 24px}
+.ro-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:.92rem}
+.ro-row .k{color:var(--soft);font-size:.78rem}.ro-row .v{font-family:var(--serif);font-size:1.02rem;text-align:end;word-break:break-all}
+.copy-btn{margin-top:18px;width:100%;background:var(--sea-deep);color:#fff;border:0;border-radius:3px;padding:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.62rem;cursor:pointer}
+
+.dress{background:var(--sea-deep);color:#eef3f3;text-align:center}.dress .h-title{color:#fff}.dress .eyebrow{color:#cfe0e2}.dress .lead{color:rgba(238,243,243,.85)}
+
+form{max-width:500px;margin:44px auto 0;text-align:start}.field{margin-bottom:20px}.field[hidden]{display:none}
+label{display:block;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.58rem;color:var(--soft);margin-bottom:9px}
+input[type=text],input[type=email],textarea{width:100%;background:#fff;border:1px solid var(--line);border-radius:3px;padding:14px 15px;font-family:var(--serif);font-size:1.04rem;color:var(--ink)}
+input:focus,textarea:focus{outline:0;border-color:var(--terra)}textarea{resize:vertical;min-height:88px;font-family:var(--sans);font-weight:300;font-size:.95rem}
+.reserved{max-width:500px;margin:0 auto 24px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px}
+.reserved .rl{font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.54rem;color:var(--terra-deep)}.reserved .rt{font-family:var(--serif);font-style:italic;font-size:1.22rem;margin-top:6px}
+.seg{display:flex;gap:10px}.seg label{flex:1;margin:0;cursor:pointer}.seg input{position:absolute;opacity:0}
+.seg .opt{display:block;text-align:center;border:1px solid var(--line);background:#fff;border-radius:3px;padding:14px;font-family:var(--serif);font-size:1.06rem;transition:.25s}
+.seg input:checked + .opt{background:var(--terra);color:#fff;border-color:var(--terra)}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:#fff;width:max-content}
+.stepper button{width:48px;height:50px;border:0;background:none;color:var(--terra-deep);font-size:1.3rem;cursor:pointer}.stepper button:disabled{opacity:.3}
+.stepper .val{width:56px;text-align:center;font-family:var(--serif);font-size:1.26rem}.steplimit{font-size:.72rem;color:var(--soft);margin-top:10px}
+#attendees{display:none}#attendees input{margin-bottom:8px}.honey{position:absolute;left:-9999px}
+.submit{width:100%;background:var(--ink);color:#fff;border:0;border-radius:3px;padding:17px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.7rem;cursor:pointer;margin-top:4px}.submit:hover{background:var(--terra-deep)}.submit:disabled{opacity:.55}
+.form-note{text-align:center;color:var(--soft);font-size:.78rem;margin-top:16px}.form-error{display:none;background:#f6e7e0;color:#9a4b32;border:1px solid #e6c8ba;border-radius:3px;padding:12px;font-size:.86rem;margin-bottom:16px}
+#rsvp-success{display:none;text-align:center}#rsvp-success.show{display:block;animation:rise .9s var(--ease)}
+#rsvp-success .tick{width:56px;height:56px;border-radius:50%;border:1px solid var(--terra);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;color:var(--terra);font-size:1.4rem}
+footer{background:var(--ink);color:#cdc6b8;text-align:center;padding:72px 24px}.fn{font-family:var(--serif);font-style:italic;font-size:2.6rem;color:#f3ead8}.fd{font-weight:600;letter-spacing:.3em;text-transform:uppercase;font-size:.58rem;margin-top:10px}.fmade{margin-top:24px;font-size:.66rem;opacity:.7}
+.sticky-rsvp{position:fixed;left:50%;transform:translateX(-50%) translateY(120%);bottom:18px;z-index:70;background:var(--terra);color:#fff;padding:13px 30px;border-radius:999px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.62rem;transition:.5s var(--ease)}.sticky-rsvp.show{transform:translateX(-50%) translateY(0)}@media(min-width:760px){.sticky-rsvp{display:none}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;font-size:.76rem;opacity:0;transition:.35s;z-index:200}#toast.show{opacity:1;transform:translateX(-50%)}
+.story{max-width:600px;margin:40px auto 0;text-align:start}
+.story .st{display:flex;gap:20px;padding:20px 0;border-top:1px solid var(--line)}.story .st:first-child{border-top:0}
+.story .yr{font-family:var(--serif);font-style:italic;font-size:1.7rem;color:var(--terra-deep);min-width:62px}
+.story .sb .t{font-family:var(--serif);font-style:italic;font-size:1.35rem}.story .sb .d{color:var(--soft);font-size:.96rem;margin-top:4px}
+.hotels{display:grid;gap:16px;margin-top:40px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.hotel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:26px 24px;text-align:start}
+.hotel .hn{font-family:var(--serif);font-style:italic;font-size:1.4rem}.hotel .ha{color:var(--soft);font-size:.92rem;margin-top:4px}
+.hotel .hp{display:inline-block;margin-top:12px;font-weight:600;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-deep)}
+.hotel .hl{display:block;margin-top:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.58rem;color:var(--sea-deep);border-bottom:1px solid var(--sea);padding-bottom:3px;width:max-content}
+.faqlist{max-width:560px;margin:40px auto 0;display:flex;flex-direction:column;gap:10px;text-align:start}
+.faq-card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;background:none;border:0;cursor:pointer;padding:18px 22px;font-family:var(--serif);font-style:italic;font-size:1.18rem;color:var(--ink);text-align:start}
+.faq-q .chev{color:var(--terra);transition:.35s;flex:none}.faq-card.open .chev{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}.faq-a .inner{padding:0 22px 20px;color:var(--soft);font-size:.96rem}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}html{scroll-padding-top:84px}
+@keyframes livecam2{0%{transform:scale(1.1) translate(0,0)}100%{transform:scale(1.2) translate(-3%,-2%)}}#hero .bg,#hero .vphoto,#hero #heroBg,#hero .vpanel .vphoto{animation:livecam2 30s ease-in-out infinite alternate!important;will-change:transform}#hero{will-change:transform}.rippling{position:relative;overflow:hidden}.rpl{position:absolute;border-radius:50%;background:currentColor;opacity:.16;transform:scale(0);animation:rpl .6s var(--ease) forwards;pointer-events:none}@keyframes rpl{to{transform:scale(2.6);opacity:0}}.event:active,.hotel:active,.reg-card:active,.faq-card:active,.gallery a:active,.portrait:active{transform:scale(.985)}.pill,.submit,.copy-btn,.nav-rsvp{transition:transform .14s var(--ease),background .28s,border-color .28s,color .28s}.pill:active,.submit:active,.copy-btn:active,.nav-rsvp:active{transform:scale(.95)}#intro{background:radial-gradient(120% 92% at 50% 34%,#f5f1ea,#e7ddcf)!important;cursor:pointer}#intro>*{display:none!important}#intro>.wax{display:flex!important}#intro>.tapx{display:block!important}.wax{width:154px;height:154px;border-radius:48% 52% 51% 49%/50% 49% 51% 50%;background:radial-gradient(circle at 37% 30%,#a7b6a8,#86988b 52%,#6d7f74 100%);box-shadow:0 18px 34px -12px rgba(0,0,0,.45),inset 0 3px 9px rgba(255,255,255,.3),inset 0 -8px 16px rgba(0,0,0,.3);align-items:center;justify-content:center;position:relative;margin:0 auto 30px;transition:transform 1s var(--ease),opacity 1s var(--ease);animation:waxIdle 5.5s ease-in-out infinite}.wax::before{content:"";position:absolute;inset:13px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22)}.wax .wmono{font-family:var(--serif,Georgia),Georgia,serif;font-style:italic;font-weight:500;font-size:2.5rem;line-height:1;color:rgba(30,55,50,.55);text-shadow:0 1px 0 rgba(255,255,255,.22)}.tapx{margin-top:4px;letter-spacing:.32em;text-transform:uppercase;font-size:.56rem;color:#5d7068;font-family:var(--sans,sans-serif);animation:fade 2.6s ease infinite;text-align:center}@keyframes waxIdle{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}#intro.gone .wax{transform:scale(1.55) rotate(6deg);opacity:0}@media(prefers-reduced-motion:reduce){.wax{animation:none}}</style>
+</head>
+<body class="locked">
+<style>.sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}.sky .cl{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.6),transparent 70%);filter:blur(10px);animation:cldrift linear infinite}@keyframes cldrift{from{transform:translateX(-30vw)}to{transform:translateX(124vw)}}.sky .bt{position:absolute;top:34%;color:rgba(60,100,124,.5);width:44px;height:32px;animation:btdrift 70s linear infinite}.sky .bt svg{width:100%;height:100%;display:block}@keyframes btdrift{from{transform:translateX(112vw)}to{transform:translateX(-20vw)}}@media(prefers-reduced-motion:reduce){.sky *{animation:none}}</style><div class="sky" aria-hidden="true"><div class="cl" style="top:14.0%;width:133px;height:66px;animation-duration:61.6s;animation-delay:-19.2s"></div><div class="cl" style="top:9.1%;width:122px;height:61px;animation-duration:52.0s;animation-delay:-36.7s"></div><div class="cl" style="top:33.2%;width:217px;height:108px;animation-duration:41.8s;animation-delay:-20.8s"></div><div class="cl" style="top:18.2%;width:219px;height:109px;animation-duration:45.2s;animation-delay:-4.2s"></div><div class="bt"><svg viewBox="0 0 44 32" fill="currentColor"><path d="M5 23h34l-4 5H9z"/><path d="M22 23V3l13 16z"/><path d="M22 23V8L10 23z" opacity=".65"/></svg></div></div>
+<style>html,body{overflow-x:hidden}.amb{position:fixed;inset:0;width:100vw;max-width:100%;z-index:0;pointer-events:none;overflow:hidden}#musicBtn{opacity:.6;transition:opacity .3s;cursor:pointer}#musicBtn.on{opacity:1}@media(prefers-reduced-motion:reduce){.amb *{animation:none!important}}.amb .bd{position:absolute}.amb .bd svg{width:100%;height:100%;display:block;overflow:visible}.amb .bd .wg{transform-origin:30px 15px;animation:abflap 1.8s ease-in-out infinite}@keyframes abflap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}@keyframes abdA{from{transform:translate(-22vw,0)}to{transform:translate(74vw,-10vh)}}@keyframes abdB{from{transform:translate(22vw,0)}to{transform:translate(-74vw,-8vh)}}.amb .bd1{top:23.1%;width:58px;height:26.1px;opacity:0.55;animation:abdA 43.4s linear -18.7s infinite}.amb .bd1 .wg{animation-duration:1.7s}.amb .bd2{top:13.3%;width:35px;height:15.8px;opacity:0.83;animation:abdB 59.4s linear -41.5s infinite}.amb .bd2 .wg{animation-duration:1.59s}.amb .bd3{top:17.1%;width:56px;height:25.2px;opacity:0.53;animation:abdA 63.9s linear -51.2s infinite}.amb .bd3 .wg{animation-duration:1.41s}.amb .bd4{top:22.0%;width:37px;height:16.7px;opacity:0.51;animation:abdB 58.8s linear -20.6s infinite}.amb .bd4 .wg{animation-duration:1.87s}.amb .bd5{top:6.7%;width:41px;height:18.4px;opacity:0.62;animation:abdA 65.5s linear -4.3s infinite}.amb .bd5 .wg{animation-duration:1.8s}</style><div class="amb" style="color:rgba(70,108,128,.62)" aria-hidden="true"><div class="bd bd1"><svg viewBox="0 0 60 24" fill="currentColor"><g class="wg"><path d="M3 13C13 13 22 11 30 16C38 11 47 13 57 13C47 16 39 15 30 19C21 15 13 16 3 13Z"/></g></svg></div><div class="bd bd2"><svg viewBox="0 0 60 24" fill="currentColor"><g class="wg"><path d="M3 13C13 13 22 11 30 16C38 11 47 13 57 13C47 16 39 15 30 19C21 15 13 16 3 13Z"/></g></svg></div><div class="bd bd3"><svg viewBox="0 0 60 24" fill="currentColor"><g class="wg"><path d="M3 13C13 13 22 11 30 16C38 11 47 13 57 13C47 16 39 15 30 19C21 15 13 16 3 13Z"/></g></svg></div><div class="bd bd4"><svg viewBox="0 0 60 24" fill="currentColor"><g class="wg"><path d="M3 13C13 13 22 11 30 16C38 11 47 13 57 13C47 16 39 15 30 19C21 15 13 16 3 13Z"/></g></svg></div><div class="bd bd5"><svg viewBox="0 0 60 24" fill="currentColor"><g class="wg"><path d="M3 13C13 13 22 11 30 16C38 11 47 13 57 13C47 16 39 15 30 19C21 15 13 16 3 13Z"/></g></svg></div></div>
+
+
+<div id="intro">
+  <div class="wax"><span class="wmono" data-mono>L &amp; K</span></div><div class="tapx">Tap to open the invitation</div>
+  <div class="sun" data-sun></div>
+  <div class="forline" data-forline hidden></div>
+  <div class="names" data-couple>Layla &amp; Karim</div>
+  <div class="date" data-date-short>19 · 09 · 2026</div>
+  <div class="tap" data-i18n="tap">Tap to open the invitation</div>
+</div>
+
+<header id="hdr">
+  <a class="brand" href="#top" data-mono>L &amp; K</a>
+  <div class="tools"><button class="pill" id="musicBtn" aria-label="Music">♪</button><button class="pill" id="langBtn">ع</button><a class="pill nav-rsvp" href="#rsvp" data-i18n="rsvp">RSVP</a></div>
+</header>
+<a id="top"></a>
+
+<section class="hero" id="hero">
+  <div class="archframe">
+    <div class="bg" id="heroBg"></div>
+    <div class="htext">
+      <div class="pre" data-i18n="together">Together by the sea</div>
+      <div class="names" data-couple>Layla &amp; Karim</div>
+      <div class="date" data-date-long>Saturday, 19 September 2026</div>
+      <div class="place" data-place>Beirut · Lebanon</div>
+    </div>
+  </div>
+</section>
+
+<section class="block center"><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="counting">Counting down to our day</span>
+  <h2 class="h-title" data-i18n="cantwait">We can't wait to celebrate with you</h2>
+  <div class="olive" data-olive></div><p class="lead" data-welcome></p>
+  <div class="countdown">
+    <div><div class="cd-num" id="cd-d">00</div><div class="cd-lab" data-i18n="days">Days</div></div>
+    <div><div class="cd-num" id="cd-h">00</div><div class="cd-lab" data-i18n="hours">Hours</div></div>
+    <div><div class="cd-num" id="cd-m">00</div><div class="cd-lab" data-i18n="mins">Minutes</div></div>
+    <div><div class="cd-num" id="cd-s">00</div><div class="cd-lab" data-i18n="secs">Seconds</div></div>
+  </div>
+</div></section>
+
+<section class="block center greet" id="greetSection" hidden><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="dearguest">With pleasure, we invite</span>
+  <div class="gname" data-guest-name></div><div class="olive" data-olive></div><p class="lead" data-guest-sub></p>
+</div></section>
+
+<section class="block center verse" id="verseSection" hidden><div class="wrap reveal">
+  <div class="ar" data-verse-ar></div><p class="tr" data-verse-tr></p><div class="ref" data-verse-ref></div>
+</div></section>
+
+<section class="block center" id="storySection" hidden><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="storylabel">Our story</span>
+  <h2 class="h-title" data-i18n="storytitle">How we got here</h2><div class="olive" data-olive></div>
+  <div class="story" id="story"></div>
+</div></section>
+
+<section class="block center" id="schedule"><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="celebration">The celebration</span>
+  <h2 class="h-title" data-i18n="when">When &amp; where</h2><div class="olive" data-olive></div>
+  <div class="events" id="events"></div>
+</div></section>
+
+<section class="block center" id="travelSection" hidden><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="travellabel">Travel &amp; stay</span>
+  <h2 class="h-title" data-i18n="traveltitle">Where to rest your head</h2><div class="olive" data-olive></div>
+  <p class="lead" data-travel-intro></p><div class="hotels" id="hotels"></div>
+</div></section>
+
+<section class="block center dress" id="dressSection" hidden><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="dresslabel">Dress code</span>
+  <h2 class="h-title" data-dress-title>Beach Formal</h2>
+  <p class="lead" data-dress-note></p>
+</div></section>
+
+<section class="block center" id="gallerySection" hidden><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="us">Us</span><h2 class="h-title" data-i18n="moments">A few of our moments</h2><div class="olive" data-olive></div>
+  <div class="gallery" id="gallery"></div>
+</div></section>
+
+<section class="block center registry" id="registrySection" hidden><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="giftlabel">A gift of love</span><h2 class="h-title" data-i18n="gifttitle">Wedding list</h2>
+  <div class="olive" data-olive></div><p class="lead" data-registry-intro></p><div class="reg-list" id="registry"></div>
+</div></section>
+
+<section class="block center" id="faqSection" hidden><div class="wrap reveal">
+  <span class="eyebrow kicker" data-i18n="faqlabel">Good to know</span>
+  <h2 class="h-title" data-i18n="faqtitle">Questions &amp; answers</h2><div class="olive" data-olive></div>
+  <div class="faqlist" id="faq"></div>
+</div></section>
+
+<section class="block" id="rsvp"><div class="wrap center reveal">
+  <span class="eyebrow kicker" data-i18n="rsvplabel">Réponse</span><h2 class="h-title" data-i18n="rsvptitle">Will you join us?</h2>
+  <div class="olive" data-olive></div><p class="lead" data-rsvp-deadline></p>
+  <div class="reserved" id="reserved" hidden><div class="rl" data-i18n="reservedlabel">Reserved for you</div><div class="rt" data-reserved-text></div></div>
+  <form id="rsvpForm" autocomplete="on">
+    <div class="form-error" id="formError"></div>
+    <div class="field" id="nameField"><label data-i18n="fullname">Full name</label><input type="text" name="name" required></div>
+    <div class="field" id="emailField"><label data-i18n="email">Email</label><input type="email" name="email"></div>
+    <div class="field"><label data-i18n="attending">Will you be there?</label><div class="seg">
+      <label><input type="radio" name="attending" value="yes" required><span class="opt" data-i18n="yes">Joyfully yes</span></label>
+      <label><input type="radio" name="attending" value="no"><span class="opt" data-i18n="no">Regretfully no</span></label></div></div>
+    <div class="field" id="guestsField"><label data-i18n="guests">How many of you?</label>
+      <div class="stepper"><button type="button" id="gMinus">−</button><span class="val" id="gVal">1</span><button type="button" id="gPlus">+</button></div>
+      <div class="steplimit" id="stepLimit" hidden></div><input type="hidden" name="guests" value="1"></div>
+    <div class="field" id="attendees"></div>
+    <div class="field"><label data-i18n="note">A note for us (optional)</label><textarea name="message"></textarea></div>
+    <div class="honey" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off"></div>
+    <button type="submit" class="submit" id="submitBtn" data-i18n="send">Send my reply</button>
+    <p class="form-note" data-i18n="privacy">Your reply goes straight to the couple.</p>
+  </form>
+  <div id="rsvp-success"><div class="tick">✓</div><h2 class="h-title" data-success-title>Thank you</h2><div class="olive" data-olive></div><p class="lead" data-success-text></p></div>
+</div></section>
+
+<footer><div class="fn" data-couple>Layla &amp; Karim</div><div class="fd" data-date-short>19 · 09 · 2026</div><div class="fmade" data-hashtag></div></footer>
+<a href="#rsvp" class="sticky-rsvp" id="stickyRsvp" data-i18n="rsvp">RSVP</a>
+<div id="toast"></div>
+
+<script>
+const DEMO_CONFIG={
+  couple:{display:"Layla & Karim",monogram:"L & K",display_ar:"ليلى وكريم",monogram_ar:"ل & ك"},
+  date:{iso:"2026-09-19T18:00:00+03:00",short:"19 · 09 · 2026",long:"Saturday, 19 September 2026",long_ar:"السبت ١٩ سبتمبر ٢٠٢٦"},
+  place:{text:"Beirut · Lebanon",text_ar:"بيروت · لبنان"},hashtag:"#LaylaAndKarim",
+  hero:{image:"images/photo-1.jpg"},
+  welcome:{text:"Somewhere between the sea and the sun, we found forever. We would be honoured to have you with us as we celebrate.",text_ar:"بين البحر والشمس وجدنا الأبد. يشرّفنا وجودكم معنا في احتفالنا."},
+  verse:{ar:"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا",tr:"And among His signs is that He created for you mates that you may find tranquility in them.",ref:"Ar-Rum · 30:21"},
+  events:[
+    {type:"Ceremony",type_ar:"مراسم الزواج",time:"6:30 PM",venue:"History Venue",area:"Lebanon",map:"https://maps.google.com/?q=History+Venue+Lebanon"},
+    {type:"Reception",type_ar:"حفل الاستقبال",time:"8:00 PM",venue:"Kyra Village",area:"Daraiya",map:"https://maps.google.com/?q=Kyra+Village"}],
+  gallery:["images/photo-1.jpg","images/photo-2.jpg","images/photo-3.jpg"],
+  story:[
+    {year:"2021",title:"We met",title_ar:"التقينا",text:"A rainy evening in Beirut, a shared umbrella, and a conversation that never quite ended.",text_ar:"مساء ممطر في بيروت، ومظلّة جمعتنا، وحديث لم ينتهِ."},
+    {year:"2024",title:"The question",title_ar:"السؤال",text:"On the coast at sunset, with both families near, Karim asked.",text_ar:"على الساحل عند الغروب، وبين العائلتين، سأل كريم."},
+    {year:"2026",title:"We marry",title_ar:"نتزوّج",text:"And now, by the sea and everyone we love, we begin forever.",text_ar:"والآن، قرب البحر ومن نحب، نبدأ الأبد."}
+  ],
+  travel:{intro:"A few places we love, all close to the celebration.",intro_ar:"بعض الأماكن التي نحبها، جميعها قريبة من الاحتفال.",
+    hotels:[
+      {name:"Le Gray",area:"Beirut Downtown",tier:"Luxury",map:"https://maps.google.com/?q=Le+Gray+Beirut"},
+      {name:"Albergo",area:"Achrafieh",tier:"Boutique",map:"https://maps.google.com/?q=Albergo+Beirut"},
+      {name:"Smallville",area:"Badaro",tier:"Comfort",map:"https://maps.google.com/?q=Smallville+Beirut"}
+    ]},
+  faq:[
+    {q:"What time should we arrive?",q_ar:"متى نصل؟",a:"Doors open at 6:00 PM; the ceremony begins promptly at 6:30 PM.",a_ar:"تفتح الأبواب الساعة ٦:٠٠ مساءً، وتبدأ المراسم تماماً الساعة ٦:٣٠."},
+    {q:"Can we bring our children?",q_ar:"هل نحضر أطفالنا؟",a:"We adore your little ones, but this will be an adults-only celebration.",a_ar:"نحب صغاركم، لكن الاحتفال مخصّص للكبار فقط."},
+    {q:"Is there parking?",q_ar:"هل يوجد موقف للسيارات؟",a:"Yes, complimentary valet parking is available at the venue.",a_ar:"نعم، خدمة صفّ السيارات متوفرة مجاناً في القاعة."}
+  ],
+  registry:{intro:"For those who have kindly asked, we have put together a wedding list.",intro_ar:"لمن تكرّم بالسؤال، أعددنا قائمة هدايا.",
+    methods:[{label:"Bank · UAE AED",rows:[["Account name","Karim Haddad"],["IBAN","AE00 0000 0000 0000 000"],["SWIFT","CITIAEAD"]],copyLabel:"Copy IBAN",copyValue:"AE0000000000000000"},
+             {label:"Whish · USD / LBP",rows:[["Account","Layla & Karim"],["Whish ID","00000000-00"]],copyLabel:"Copy Whish ID",copyValue:"00000000-00"}]},
+  dressCode:{title:"Beach Formal",title_ar:"لباس رسمي للشاطئ",note:"We'll be celebrating by the water, so light linens and comfortable shoes are perfect.",note_ar:"سنحتفل قرب الماء، لذا الأقمشة الخفيفة والأحذية المريحة مثالية."},
+  rsvp:{deadline:"Kindly reply before 1 September 2026.",deadline_ar:"يرجى الرد قبل ١ سبتمبر ٢٠٢٦.",askGuests:true,askNames:true,maxGuests:8,supabaseUrl:"",supabaseKey:"",table:"rsvps"},
+  guests:{"k7g2":{name:"Karim Itani & Family",seats:2},"n4xq":{name:"عائلة بارودي",seats:4,lang:"ar"},"s1ze":{name:"Sara Haddad",seats:1}},
+  defaultGuest:{seats:2},previewAsGuest:"k7g2",i18n:{default:"en",enableArabic:true}
+};
+const CFG=Object.assign({},DEMO_CONFIG,window.ZAFFA_CONFIG||{});
+const STR={en:{tap:"Tap to open the invitation",rsvp:"RSVP",together:"Together by the sea",counting:"Counting down to our day",cantwait:"We can't wait to celebrate with you",days:"Days",hours:"Hours",mins:"Minutes",secs:"Seconds",celebration:"The celebration",when:"When & where",us:"Us",moments:"A few of our moments",giftlabel:"A gift of love",gifttitle:"Wedding list",dresslabel:"Dress code",storylabel:"Our story",storytitle:"How we got here",travellabel:"Travel & stay",traveltitle:"Where to rest your head",faqlabel:"Good to know",faqtitle:"Questions & answers",rsvplabel:"Réponse",rsvptitle:"Will you join us?",fullname:"Full name",email:"Email",attending:"Will you be there?",yes:"Joyfully yes",no:"Regretfully no",guests:"How many of you?",note:"A note for us (optional)",send:"Send my reply",privacy:"Your reply goes straight to the couple.",thankyou:"Thank you",received:"Your reply has been received. We can't wait to celebrate with you.",directions:"Directions",added:"Copied",err:"We couldn't save your reply. Please try again.",sending:"Sending…",dearguest:"With pleasure, we invite",greetsub:"It would mean the world to us to have you with us on our day.",reservedlabel:"Reserved for you",who:"Who is joining you?",forguest:"For",upto:"Up to the places reserved for you"},
+ar:{tap:"اضغط لفتح الدعوة",rsvp:"تأكيد الحضور",together:"معاً قرب البحر",counting:"العدّ التنازلي ليومنا",cantwait:"لا نطيق الانتظار للاحتفال معكم",days:"يوم",hours:"ساعة",mins:"دقيقة",secs:"ثانية",celebration:"الاحتفال",when:"الزمان والمكان",us:"نحن",moments:"بعض من لحظاتنا",giftlabel:"هدية محبة",gifttitle:"قائمة الهدايا",dresslabel:"اللباس",storylabel:"قصتنا",storytitle:"كيف وصلنا إلى هنا",travellabel:"السفر والإقامة",traveltitle:"أين تقيمون",faqlabel:"معلومات مفيدة",faqtitle:"أسئلة وأجوبة",rsvplabel:"الرد",rsvptitle:"هل ستشاركوننا؟",fullname:"الاسم الكامل",email:"البريد الإلكتروني",attending:"هل ستحضرون؟",yes:"نعم بكل سرور",no:"نعتذر",guests:"كم عددكم؟",note:"رسالة لنا (اختياري)",send:"إرسال الرد",privacy:"يصل ردّكم مباشرة إلى العروسين.",thankyou:"شكراً لكم",received:"تمّ استلام ردّكم. لا نطيق الانتظار للاحتفال معكم.",directions:"الاتجاهات",added:"تم النسخ",err:"تعذّر حفظ الرد. حاول مرة أخرى.",sending:"جارٍ الإرسال…",dearguest:"يسرّنا دعوة",greetsub:"وجودكم معنا في يومنا يعني لنا الكثير.",reservedlabel:"محجوز لكم",who:"من سيحضر معكم؟",forguest:"إلى",upto:"بحد أقصى المقاعد المحجوزة لكم"}};
+const OLIVE='<svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><path d="M60 34V12"/><path d="M60 20c-6-3-12-1-16 3 5 2 11 1 16-3z"/><path d="M60 20c6-3 12-1 16 3-5 2-11 1-16-3z"/><path d="M60 27c-5-2-10 0-13 3 4 2 9 1 13-3z"/><path d="M60 27c5-2 10 0 13 3-4 2-9 1-13-3z"/><g fill="currentColor" stroke="none"><circle cx="50" cy="12" r="2.2"/><circle cx="70" cy="12" r="2.2"/><circle cx="60" cy="9" r="2.2"/></g></svg>';
+const SUN='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="24" cy="24" r="9"/><path d="M24 5v5M24 38v5M5 24h5M38 24h5M11 11l3 3M34 34l3 3M37 11l-3 3M14 34l-3 3"/></svg>';
+const RINGS='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="18" cy="30" r="9.5"/><circle cx="30" cy="30" r="9.5"/><path d="M22 13l2-4 2 4-2 3z"/></svg>';
+const GLASS='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 11h18l-2.5 11a6.5 6.5 0 01-13 0z"/><path d="M24 22v12M18.5 37h11"/></svg>';
+let LANG=(CFG.i18n&&CFG.i18n.default)||"en";
+const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+function pick(o,k){if(LANG==="ar"&&o&&o[k+"_ar"])return o[k+"_ar"];return o?o[k]:"";}
+function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+function firstName(n){return(n||"").split(/\s|&/)[0].trim();}
+const GUEST=(function(){const p=new URLSearchParams(location.search);const id=p.get('g')||p.get('gid');let g=null;
+  if(id&&CFG.guests&&CFG.guests[id])g=Object.assign({id},CFG.guests[id]);
+  if(!g){const to=p.get('to'),np=parseInt(p.get('np')||p.get('seats')||'',10);if(to||!isNaN(np))g={id:null,name:to||"",seats:isNaN(np)?null:np};}
+  if(!g&&CFG.previewAsGuest&&CFG.guests&&CFG.guests[CFG.previewAsGuest])g=Object.assign({id:CFG.previewAsGuest},CFG.guests[CFG.previewAsGuest]);
+  const lng=p.get('lng');if(g&&g.lang&&STR[g.lang])LANG=g.lang;if(lng&&STR[lng])LANG=lng;
+  if(g&&g.seats==null)g.seats=(CFG.defaultGuest&&CFG.defaultGuest.seats)||4;return g;})();
+const KNOWN=!!(GUEST&&GUEST.name);
+let G_MAX=(CFG.rsvp&&CFG.rsvp.maxGuests)||10,G_VAL=1;
+function setBounds(){if(KNOWN&&GUEST.seats){G_MAX=GUEST.seats;G_VAL=GUEST.seats;}else{G_MAX=(CFG.rsvp&&CFG.rsvp.maxGuests)||10;G_VAL=1;}sync();}
+function sync(){$('#gVal').textContent=G_VAL;document.querySelector('input[name=guests]').value=G_VAL;$('#gMinus').disabled=G_VAL<=1;$('#gPlus').disabled=G_VAL>=G_MAX;const l=$('#stepLimit');if(KNOWN&&GUEST.seats){l.hidden=false;l.textContent=STR[LANG].upto;}else l.hidden=true;renderAtt();}
+function render(){
+  $$('[data-couple]').forEach(e=>e.innerHTML=esc(pick(CFG.couple,'display')));
+  $$('[data-mono]').forEach(e=>e.innerHTML=esc(pick(CFG.couple,'monogram')));
+  $$('[data-date-short]').forEach(e=>e.textContent=CFG.date.short);
+  $$('[data-date-long]').forEach(e=>e.textContent=pick(CFG.date,'long'));
+  $$('[data-place]').forEach(e=>e.textContent=pick(CFG.place,'text'));
+  document.title=pick(CFG.couple,'display')+" · "+CFG.date.short;
+  if(CFG.hashtag)$('[data-hashtag]').textContent=CFG.hashtag;
+  if(CFG.hero&&CFG.hero.image)$('#heroBg').style.backgroundImage=`url('${CFG.hero.image}')`;
+  $('[data-welcome]').textContent=pick(CFG.welcome,'text');
+  $$('[data-olive]').forEach(e=>e.innerHTML=OLIVE);$$('[data-sun]').forEach(e=>e.innerHTML=SUN);
+  if(KNOWN){$('[data-forline]').hidden=false;$('[data-forline]').textContent=STR[LANG].forguest+" "+GUEST.name;
+    $('#greetSection').hidden=false;$('[data-guest-name]').textContent=GUEST.name;$('[data-guest-sub]').textContent=STR[LANG].greetsub;
+    $('#nameField').hidden=true;$('#nameField').querySelector('input').required=false;$('#emailField').hidden=true;
+    if(GUEST.seats){$('#reserved').hidden=false;$('[data-reserved-text]').textContent=GUEST.seats+" "+(LANG==='ar'?(GUEST.seats===1?'مقعد':'مقاعد'):(GUEST.seats===1?'place reserved':'places reserved'));}}
+  if(CFG.verse&&(CFG.verse.ar||CFG.verse.tr)){$('#verseSection').hidden=false;$('[data-verse-ar]').textContent=CFG.verse.ar||"";$('[data-verse-tr]').textContent=CFG.verse.tr||"";$('[data-verse-ref]').textContent=CFG.verse.ref||"";}
+  $('#events').innerHTML=(CFG.events||[]).map((ev,i)=>`<div class="event"><div class="ico">${i%2?GLASS:RINGS}</div><div class="et">${esc(LANG==='ar'&&ev.type_ar?ev.type_ar:ev.type)}</div><div class="ev">${esc(ev.venue)}</div><div class="etime">${esc(ev.time)}</div><div class="ewhere">${esc(ev.area)}</div>${ev.map?`<a class="map" href="${ev.map}" target="_blank" rel="noopener">${STR[LANG].directions}</a>`:""}</div>`).join("");
+  if(CFG.gallery&&CFG.gallery.length){$('#gallerySection').hidden=false;$('#gallery').innerHTML=CFG.gallery.map(s=>`<a href="${s}" target="_blank" rel="noopener"><img src="${s}" alt="" loading="lazy" decoding="async"></a>`).join("");}
+  if(CFG.registry&&CFG.registry.methods){$('#registrySection').hidden=false;$('[data-registry-intro]').textContent=pick(CFG.registry,'intro');
+    $('#registry').innerHTML=CFG.registry.methods.map(m=>`<div class="reg-card"><button class="reg-head" type="button">${esc(m.label)}<span class="chev">⌄</span></button><div class="reg-body"><div class="reg-inner">${m.rows.map(r=>`<div class="ro-row"><span class="k">${esc(r[0])}</span><span class="v">${esc(r[1])}</span></div>`).join("")}${m.copyValue?`<button class="copy-btn" data-copy="${esc(m.copyValue)}">${esc(m.copyLabel||'Copy')}</button>`:""}</div></div></div>`).join("");}
+  if(CFG.story&&CFG.story.length){$('#storySection').hidden=false;$('#story').innerHTML=CFG.story.map(s=>`<div class="st"><div class="yr">${esc(s.year)}</div><div class="sb"><div class="t">${esc(LANG==='ar'&&s.title_ar?s.title_ar:s.title)}</div><div class="d">${esc(LANG==='ar'&&s.text_ar?s.text_ar:s.text)}</div></div></div>`).join("");}
+  if(CFG.travel&&CFG.travel.hotels&&CFG.travel.hotels.length){$('#travelSection').hidden=false;$('[data-travel-intro]').textContent=pick(CFG.travel,'intro');$('#hotels').innerHTML=CFG.travel.hotels.map(h=>`<div class="hotel"><div class="hn">${esc(h.name)}</div><div class="ha">${esc(h.area)}</div>${h.tier?`<div class="hp">${esc(h.tier)}</div>`:""}${h.map?`<a class="hl" href="${h.map}" target="_blank" rel="noopener">${STR[LANG].directions}</a>`:""}</div>`).join("");}
+  if(CFG.dressCode){$('#dressSection').hidden=false;$('[data-dress-title]').textContent=pick(CFG.dressCode,'title');$('[data-dress-note]').textContent=pick(CFG.dressCode,'note');}
+  if(CFG.faq&&CFG.faq.length){$('#faqSection').hidden=false;$('#faq').innerHTML=CFG.faq.map(f=>`<div class="faq-card"><button class="faq-q" type="button">${esc(LANG==='ar'&&f.q_ar?f.q_ar:f.q)}<span class="chev">⌄</span></button><div class="faq-a"><div class="inner">${esc(LANG==='ar'&&f.a_ar?f.a_ar:f.a)}</div></div></div>`).join("");}
+  $('[data-rsvp-deadline]').textContent=pick(CFG.rsvp,'deadline');
+  $('[data-success-title]').textContent=STR[LANG].thankyou;
+  $('[data-success-text]').textContent=(KNOWN?(STR[LANG].forguest+" "+firstName(GUEST.name)+", "):"")+STR[LANG].received;
+  applyStr();setBounds();
+}
+function applyStr(){const t=STR[LANG];$$('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(t[k])e.textContent=t[k];});document.documentElement.lang=LANG;document.documentElement.dir=LANG==='ar'?'rtl':'ltr';$('#langBtn').textContent=LANG==='ar'?'EN':'ع';}
+$('#langBtn').addEventListener('click',()=>{LANG=LANG==='ar'?'en':'ar';render();});
+function renderAtt(){const w=$('#attendees');if(!w)return;const at=(document.querySelector('input[name=attending]:checked')||{}).value;if(!(CFG.rsvp.askNames&&at==='yes'&&G_VAL>1)){w.style.display='none';w.innerHTML='';return;}const pv=Array.from(w.querySelectorAll('input')).map(i=>i.value);let h=`<label>${STR[LANG].who}</label>`;for(let i=0;i<G_VAL;i++)h+=`<input type="text" value="${pv[i]?esc(pv[i]):''}" placeholder="${esc(STR[LANG].fullname)} ${i+1}">`;w.style.display='';w.innerHTML=h;}
+function openInvite(){document.body.classList.remove('locked');$('#intro').classList.add('gone');$('#hero').classList.add('open');startCD();}
+$('#intro').addEventListener('click',openInvite);
+let cdT=null;function startCD(){const t=new Date(CFG.date.iso).getTime();function up(){const d=t-Date.now();if(d<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(i=>$('#'+i).textContent='00');clearInterval(cdT);return;}$('#cd-d').textContent=String(Math.floor(d/864e5)).padStart(2,'0');$('#cd-h').textContent=String(Math.floor(d%864e5/36e5)).padStart(2,'0');$('#cd-m').textContent=String(Math.floor(d%36e5/6e4)).padStart(2,'0');$('#cd-s').textContent=String(Math.floor(d%6e4/1e3)).padStart(2,'0');}up();cdT=setInterval(up,1000);}
+document.addEventListener('click',e=>{const h=e.target.closest('.reg-head');if(h){const c=h.parentElement,b=c.querySelector('.reg-body');const o=c.classList.toggle('open');b.style.maxHeight=o?b.scrollHeight+'px':0;return;}const fq=e.target.closest('.faq-q');if(fq){const c=fq.parentElement,b=c.querySelector('.faq-a');const o=c.classList.toggle('open');b.style.maxHeight=o?b.scrollHeight+'px':0;return;}const cb=e.target.closest('.copy-btn');if(cb){const v=cb.getAttribute('data-copy');navigator.clipboard?.writeText(v).then(()=>{const o=cb.textContent;cb.textContent=STR[LANG].added;toast(STR[LANG].added);setTimeout(()=>cb.textContent=o,1700);});}});
+$('#gMinus').onclick=()=>{G_VAL=Math.max(1,G_VAL-1);sync();};$('#gPlus').onclick=()=>{G_VAL=Math.min(G_MAX,G_VAL+1);sync();};
+$$('input[name=attending]').forEach(r=>r.addEventListener('change',renderAtt));
+let tT=null;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>e.classList.remove('show'),1700);}
+$('#rsvpForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.target,b=$('#submitBtn'),er=$('#formError');er.style.display='none';if(f.company.value){done();return;}
+  const an=Array.from(document.querySelectorAll('#attendees input')).map(i=>i.value.trim()).filter(Boolean);
+  const p={guest_id:KNOWN?GUEST.id:null,name:KNOWN?GUEST.name:(f.name.value||'').trim(),email:(f.email.value||'').trim()||null,attending:f.attending.value,guests:CFG.rsvp.askGuests?G_VAL:null,attendee_names:an.length?an:null,message:(f.message.value||'').trim()||null,couple:pick(CFG.couple,'display'),lang:LANG,user_agent:navigator.userAgent.slice(0,300)};
+  if(!p.name||!p.attending){er.textContent=STR[LANG].err;er.style.display='block';return;}
+  b.disabled=true;const lb=b.textContent;b.textContent=STR[LANG].sending;
+  if(!CFG.rsvp.supabaseUrl||!CFG.rsvp.supabaseKey){setTimeout(done,700);return;}
+  try{const r=await fetch(CFG.rsvp.supabaseUrl.replace(/\/$/,'')+'/rest/v1/'+(CFG.rsvp.table||'rsvps'),{method:'POST',headers:{'Content-Type':'application/json','apikey':CFG.rsvp.supabaseKey,'Authorization':'Bearer '+CFG.rsvp.supabaseKey,'Prefer':'return=minimal'},body:JSON.stringify(p)});if(!r.ok)throw 0;done();}catch(x){er.textContent=STR[LANG].err;er.style.display='block';b.disabled=false;b.textContent=lb;}});
+function done(){$('#rsvpForm').style.display='none';$('#reserved').hidden=true;$('#rsvp-success').classList.add('show');window.scrollTo({top:$('#rsvp').offsetTop-30,behavior:'smooth'});}
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}}),{threshold:.14});
+$$('.reveal').forEach(e=>io.observe(e));
+window.addEventListener('scroll',()=>{$('#hdr').classList.toggle('solid',scrollY>60);$('#stickyRsvp').classList.toggle('show',scrollY>innerHeight*0.9);},{passive:true});
+render();
+</script>
+
+
+
+
+<audio id="bgm" loop preload="auto" src="../music.m4a"></audio>
+<script>(function(){var b=document.getElementById("bgm"),btn=document.getElementById("musicBtn");if(!b)return;b.volume=.5;var st=false;function start(){if(st)return;var p=b.play();if(p&&p.then){p.then(function(){st=true;if(btn)btn.classList.add("on");}).catch(function(){});}else{st=true;if(btn)btn.classList.add("on");}}["pointerdown","touchstart","click","keydown"].forEach(function(ev){window.addEventListener(ev,function(e){if(btn&&e.target&&e.target.closest&&e.target.closest("#musicBtn"))return;start();},{passive:true});});if(btn)btn.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();if(b.paused){b.play();btn.classList.add("on");st=true;}else{b.pause();btn.classList.remove("on");}});})();</script>
+
+<script>(function(){var hero=document.getElementById("hero");var content=hero?(hero.querySelector(".inner")||hero.querySelector(".hframe")||hero.querySelector(".mihrab")||hero.querySelector(".bignames")||hero.querySelector(".wrap")):null;var reveals=[].slice.call(document.querySelectorAll(".reveal"));function vh(){return window.innerHeight||800;}var ticking=false;function apply(){ticking=false;var y=window.scrollY||window.pageYOffset||0;if(content){var p=Math.min(y/vh(),1);content.style.transform="translateY("+(y*0.2).toFixed(1)+"px)";content.style.opacity=(Math.max(0,1-p)).toFixed(3);}var th=vh()*0.92;for(var i=0;i<reveals.length;i++){var r=reveals[i];if(!r.classList.contains("in")&&r.getBoundingClientRect().top<th){r.classList.add("in");}}}function onS(){if(!ticking){ticking=true;requestAnimationFrame(apply);}}window.addEventListener("scroll",onS,{passive:true});window.addEventListener("resize",onS,{passive:true});apply();setTimeout(apply,350);})();</script>
+<script>(function(){document.addEventListener("click",function(e){var t=e.target.closest(".pill,.submit,.copy-btn,.nav-rsvp,.map,.hl,.sticky-rsvp");if(!t)return;try{t.classList.add("rippling");var b=t.getBoundingClientRect();var d=Math.max(b.width,b.height);var r=document.createElement("span");r.className="rpl";r.style.width=r.style.height=d+"px";r.style.left=(e.clientX-b.left-d/2)+"px";r.style.top=(e.clientY-b.top-d/2)+"px";t.appendChild(r);setTimeout(function(){if(r.parentNode)r.parentNode.removeChild(r);},650);}catch(x){}},{passive:true});})();</script>
+</body>
+</html>
