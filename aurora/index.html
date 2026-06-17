@@ -157,6 +157,38 @@ footer{text-align:center;padding:72px 24px}.fn{font-family:var(--script);font-si
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}html{scroll-padding-top:84px}
 @keyframes livecam2{0%{transform:scale(1.1) translate(0,0)}100%{transform:scale(1.2) translate(-3%,-2%)}}#hero .bg,#hero .vphoto,#hero #heroBg,#hero .vpanel .vphoto{animation:livecam2 30s ease-in-out infinite alternate!important;will-change:transform}#hero{will-change:transform}.rippling{position:relative;overflow:hidden}.rpl{position:absolute;border-radius:50%;background:currentColor;opacity:.16;transform:scale(0);animation:rpl .6s var(--ease) forwards;pointer-events:none}@keyframes rpl{to{transform:scale(2.6);opacity:0}}.event:active,.hotel:active,.reg-card:active,.faq-card:active,.gallery a:active,.portrait:active{transform:scale(.985)}.pill,.submit,.copy-btn,.nav-rsvp{transition:transform .14s var(--ease),background .28s,border-color .28s,color .28s}.pill:active,.submit:active,.copy-btn:active,.nav-rsvp:active{transform:scale(.95)}.aglow{position:fixed;top:-12%;left:-20%;width:140%;height:60%;z-index:0;pointer-events:none;filter:blur(64px);opacity:.5;background:radial-gradient(55% 80% at 28% 32%,rgba(150,120,224,.55),transparent 70%),radial-gradient(50% 70% at 70% 42%,rgba(96,186,204,.42),transparent 70%),radial-gradient(45% 60% at 50% 20%,rgba(204,150,220,.32),transparent 72%);animation:aglow 20s ease-in-out infinite alternate;mix-blend-mode:screen}@keyframes aglow{0%{transform:translate(0,0) scale(1);opacity:.42}50%{opacity:.6}100%{transform:translate(7%,4%) scale(1.14);opacity:.45}}.shoot{box-shadow:0 0 6px 1px rgba(214,200,255,.6)}@media(prefers-reduced-motion:reduce){.aglow{animation:none}}#intro{background:radial-gradient(120% 92% at 50% 34%,#17213f,#0a1024)!important;cursor:pointer}#intro>*{display:none!important}#intro>.wax{display:flex!important}#intro>.tapx{display:block!important}.wax{width:154px;height:154px;border-radius:48% 52% 51% 49%/50% 49% 51% 50%;background:radial-gradient(circle at 37% 30%,#d0b9e2,#b39ccc 52%,#9681b6 100%);box-shadow:0 18px 34px -12px rgba(0,0,0,.45),inset 0 3px 9px rgba(255,255,255,.3),inset 0 -8px 16px rgba(0,0,0,.3);align-items:center;justify-content:center;position:relative;margin:0 auto 30px;transition:transform 1s var(--ease),opacity 1s var(--ease);animation:waxIdle 5.5s ease-in-out infinite}.wax::before{content:"";position:absolute;inset:13px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22)}.wax .wmono{font-family:var(--serif,Georgia),Georgia,serif;font-style:italic;font-weight:500;font-size:2.5rem;line-height:1;color:rgba(28,20,45,.5);text-shadow:0 1px 0 rgba(255,255,255,.22)}.tapx{margin-top:4px;letter-spacing:.32em;text-transform:uppercase;font-size:.56rem;color:rgba(214,200,255,.62);font-family:var(--sans,sans-serif);animation:fade 2.6s ease infinite;text-align:center}@keyframes waxIdle{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}#intro.gone .wax{transform:scale(1.55) rotate(6deg);opacity:0}@media(prefers-reduced-motion:reduce){.wax{animation:none}}</style>
+<style id="env-css">
+#intro{background:#11172c!important;perspective:1500px}
+#intro>.env-stage,#intro>.tap{display:block!important}
+#intro .env-stage{position:relative;width:min(94vw,560px);aspect-ratio:3/2;margin:0 auto;animation:envFloat 5.5s ease-in-out infinite;transition:transform 1.2s var(--ease)}
+@keyframes envFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+#intro .env-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .7s ease}
+#intro .env-o{opacity:0}
+#intro .letter{position:absolute;left:50%;top:50%;width:min(64%,290px);background:#f5f4fb;border-radius:4px;padding:24px 20px;box-shadow:0 28px 56px rgba(0,0,0,.5);text-align:center;opacity:0;transform:translate(-50%,-34%) scale(.9);transition:opacity .85s var(--ease) .55s,transform 1.05s var(--ease) .55s;z-index:4}
+#intro .letter .l-guest{font-family:var(--serif);font-style:italic;font-size:1.02rem;color:#6a5fa8;margin-bottom:8px}
+#intro .letter .l-for{font-family:var(--sans);font-weight:600;letter-spacing:.24em;text-transform:uppercase;font-size:.46rem;color:#8a82b8}
+#intro .letter .l-names{font-family:var(--script);font-size:3rem;line-height:1;color:#2b2658;margin:4px 0}
+#intro .letter .l-rule{width:36px;height:1px;background:#8a7fc0;margin:8px auto}
+#intro .letter .l-date{font-family:var(--serif);font-style:italic;font-size:.98rem;color:#2b2658}
+#intro .letter .l-place{font-family:var(--sans);letter-spacing:.24em;text-transform:uppercase;font-size:.44rem;color:#8a82b8;margin-top:6px}
+#intro .tap{display:block;margin-top:22px;font-family:var(--sans);letter-spacing:.32em;text-transform:uppercase;font-size:.56rem;color:var(--accent);animation:fade 2.6s ease infinite}
+#intro.opening .env-stage{animation:none;transform:scale(1.07) translateY(-2%) rotateX(7deg)}
+#intro.opening .env-c{opacity:0}
+#intro.opening .env-o{opacity:1}
+#intro.opening .letter{opacity:1;transform:translate(-50%,-118%) scale(1.04)}
+#intro.opening .tap{opacity:0}
+@media(prefers-reduced-motion:reduce){#intro .env-stage{animation:none}#intro.opening *{transition-duration:.3s!important}}
+.photoband{position:relative;height:clamp(300px,58vh,560px);overflow:hidden;margin:0}
+.photoband .pbimg{position:absolute;inset:-16% 0;background-size:cover;background-position:center;will-change:transform}
+.photoband::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(8,10,28,.44),rgba(8,10,28,.6));z-index:1}
+.photoband .pbcap{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:24px}
+.photoband .pbcap .pq{font-family:var(--script);font-size:clamp(2.8rem,8vw,5rem);line-height:1;text-shadow:0 2px 34px rgba(0,0,0,.55)}
+.photoband .pbcap>*{opacity:0;transform:translateY(20px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.photoband.in .pbcap>*{opacity:1;transform:none}
+.hotel{overflow:hidden}
+.hotel .himg{height:150px;background-size:cover;background-position:center;margin:-26px -24px 18px;border-radius:6px 6px 0 0;transition:transform 1s var(--ease)}
+.hotel:hover .himg{transform:scale(1.05)}
+</style>
 </head>
 <body class="locked">
 <div class="aglow" aria-hidden="true"></div>
@@ -167,11 +199,18 @@ footer{text-align:center;padding:72px 24px}.fn{font-family:var(--script);font-si
 
 
 <div id="intro">
-  <div class="wax"><span class="wmono" data-mono>L &amp; K</span></div><div class="tapx">Tap to open the invitation</div>
-  <div class="moon"></div>
-  <div class="forline" data-forline hidden></div>
-  <div class="names script" data-couple>Layla &amp; Karim</div>
-  <div class="date" data-date-short>19 · 09 · 2026</div>
+  <div class="env-stage">
+    <img class="env-img env-c" src="images/env-closed.jpg" alt="" decoding="async">
+    <img class="env-img env-o" src="images/env-open.jpg" alt="" decoding="async">
+    <div class="letter">
+      <div class="l-guest" data-forline hidden></div>
+      <div class="l-for" data-i18n="together">Together with our families</div>
+      <div class="l-names" data-couple>Layla &amp; Karim</div>
+      <div class="l-rule"></div>
+      <div class="l-date" data-date-long>Saturday, 19 September 2026</div>
+      <div class="l-place" data-place>Beirut · Lebanon</div>
+    </div>
+  </div>
   <div class="tap" data-i18n="tap">Tap to open the invitation</div>
 </div>
 
@@ -211,6 +250,10 @@ footer{text-align:center;padding:72px 24px}.fn{font-family:var(--script);font-si
   <div class="ar" data-verse-ar></div><p class="tr" data-verse-tr></p><div class="ref" data-verse-ref></div>
 </div></section>
 
+<section class="photoband reveal" data-parallax>
+  <div class="pbimg" style="background-image:url('images/band1.jpg')"></div>
+  <div class="pbcap"><div class="pq" data-couple>Layla &amp; Karim</div></div>
+</section>
 <section class="block center" id="storySection" hidden><div class="wrap reveal">
   <span class="eyebrow kicker" data-i18n="storylabel">Our story</span>
   <h2 class="h-title glow" data-i18n="storytitle">Written in the stars</h2><div class="rule"></div>
@@ -225,7 +268,7 @@ footer{text-align:center;padding:72px 24px}.fn{font-family:var(--script);font-si
 
 <section class="block center" id="travelSection" hidden><div class="wrap reveal">
   <span class="eyebrow kicker" data-i18n="travellabel">Travel &amp; stay</span>
-  <h2 class="h-title glow" data-i18n="traveltitle">Where to rest your head</h2><div class="rule"></div>
+  <h2 class="h-title glow" data-i18n="traveltitle">Where to stay</h2><div class="rule"></div>
   <p class="lead" data-travel-intro></p><div class="hotels" id="hotels"></div>
 </div></section>
 
@@ -251,8 +294,12 @@ footer{text-align:center;padding:72px 24px}.fn{font-family:var(--script);font-si
   <div class="faqlist" id="faq"></div>
 </div></section>
 
+<section class="photoband reveal" data-parallax>
+  <div class="pbimg" style="background-image:url('images/band2.jpg')"></div>
+  <div class="pbcap"><div class="pq" data-i18n="rsvptitle">Will you join us?</div></div>
+</section>
 <section class="block" id="rsvp"><div class="wrap center reveal">
-  <span class="eyebrow kicker" data-i18n="rsvplabel">Réponse</span><h2 class="h-title glow" data-i18n="rsvptitle">Will you join us?</h2>
+  <span class="eyebrow kicker" data-i18n="rsvplabel">Réponse</span><h2 class="h-title glow" data-i18n="replytitle">Kindly reply</h2>
   <div class="rule"></div><p class="lead" data-rsvp-deadline></p>
   <div class="reserved" id="reserved" hidden><div class="rl" data-i18n="reservedlabel">Reserved for you</div><div class="rt" data-reserved-text></div></div>
   <form id="rsvpForm" autocomplete="on">
@@ -288,7 +335,7 @@ const DEMO_CONFIG={
   events:[
     {type:"Ceremony",type_ar:"مراسم الزواج",time:"6:30 PM",venue:"History Venue",area:"Lebanon",map:"https://maps.google.com/?q=History+Venue+Lebanon"},
     {type:"Reception",type_ar:"حفل الاستقبال",time:"8:00 PM",venue:"Kyra Village",area:"Daraiya",map:"https://maps.google.com/?q=Kyra+Village"}],
-  gallery:["images/photo-1.jpg","images/photo-2.jpg","images/photo-3.jpg"],
+  gallery:["images/gal-2.jpg","images/gal-1.jpg","images/gal-3.jpg"],
   story:[
     {year:"2021",title:"We met",title_ar:"التقينا",text:"A rainy evening in Beirut, a shared umbrella, and a conversation that never quite ended.",text_ar:"مساء ممطر في بيروت، ومظلّة جمعتنا، وحديث لم ينتهِ."},
     {year:"2024",title:"The question",title_ar:"السؤال",text:"Under a sky full of stars, with both families near, Karim asked.",text_ar:"تحت سماء مليئة بالنجوم، وبين العائلتين، سأل كريم."},
@@ -296,9 +343,9 @@ const DEMO_CONFIG={
   ],
   travel:{intro:"A few places we love, all close to the celebration.",intro_ar:"بعض الأماكن التي نحبها، جميعها قريبة من الاحتفال.",
     hotels:[
-      {name:"Le Gray",area:"Beirut Downtown",tier:"Luxury",map:"https://maps.google.com/?q=Le+Gray+Beirut"},
-      {name:"Albergo",area:"Achrafieh",tier:"Boutique",map:"https://maps.google.com/?q=Albergo+Beirut"},
-      {name:"Smallville",area:"Badaro",tier:"Comfort",map:"https://maps.google.com/?q=Smallville+Beirut"}
+      {name:"Le Gray",area:"Beirut Downtown",tier:"Luxury",map:"https://maps.google.com/?q=Le+Gray+Beirut",img:"images/hotel-1.jpg"},
+      {name:"Albergo",area:"Achrafieh",tier:"Boutique",map:"https://maps.google.com/?q=Albergo+Beirut",img:"images/hotel-2.jpg"},
+      {name:"Smallville",area:"Badaro",tier:"Comfort",map:"https://maps.google.com/?q=Smallville+Beirut",img:"images/hotel-3.jpg"}
     ]},
   dressCode:{title:"Black Tie",title_ar:"لباس رسمي",note:"An elegant evening under the stars. Floor-length gowns and dark suits.",note_ar:"أمسية أنيقة تحت النجوم. فساتين طويلة وبدلات داكنة."},
   faq:[
@@ -314,8 +361,8 @@ const DEMO_CONFIG={
   defaultGuest:{seats:2},previewAsGuest:"k7g2",i18n:{default:"en",enableArabic:true}
 };
 const CFG=Object.assign({},DEMO_CONFIG,window.ZAFFA_CONFIG||{});
-const STR={en:{tap:"Tap to open the invitation",rsvp:"RSVP",together:"Under the same sky",counting:"Counting the nights",cantwait:"Until we say forever",days:"Days",hours:"Hours",mins:"Minutes",secs:"Seconds",celebration:"The celebration",when:"When & where",us:"Us",moments:"A few of our moments",giftlabel:"A gift of love",gifttitle:"Wedding list",dresslabel:"Dress code",storylabel:"Our story",storytitle:"Written in the stars",travellabel:"Travel & stay",traveltitle:"Where to rest your head",faqlabel:"Good to know",faqtitle:"Questions & answers",rsvplabel:"Réponse",rsvptitle:"Will you join us?",fullname:"Full name",email:"Email",attending:"Will you be there?",yes:"Joyfully yes",no:"Regretfully no",guests:"How many of you?",note:"A note for us (optional)",send:"Send my reply",privacy:"Your reply goes straight to the couple.",thankyou:"Thank you",received:"Your reply has been received. We can't wait to celebrate with you.",directions:"Directions",added:"Copied",err:"We couldn't save your reply. Please try again.",sending:"Sending…",dearguest:"Written in the stars for",greetsub:"It would mean the world to us to have you with us on our night.",reservedlabel:"Reserved for you",who:"Who is joining you?",forguest:"For",upto:"Up to the places reserved for you"},
-ar:{tap:"اضغط لفتح الدعوة",rsvp:"تأكيد الحضور",together:"تحت السماء ذاتها",counting:"نعدّ الليالي",cantwait:"حتى نقول إلى الأبد",days:"يوم",hours:"ساعة",mins:"دقيقة",secs:"ثانية",celebration:"الاحتفال",when:"الزمان والمكان",us:"نحن",moments:"بعض من لحظاتنا",giftlabel:"هدية محبة",gifttitle:"قائمة الهدايا",dresslabel:"اللباس",storylabel:"قصتنا",storytitle:"مكتوب في النجوم",travellabel:"السفر والإقامة",traveltitle:"أين تقيمون",faqlabel:"معلومات مفيدة",faqtitle:"أسئلة وأجوبة",rsvplabel:"الرد",rsvptitle:"هل ستشاركوننا؟",fullname:"الاسم الكامل",email:"البريد الإلكتروني",attending:"هل ستحضرون؟",yes:"نعم بكل سرور",no:"نعتذر",guests:"كم عددكم؟",note:"رسالة لنا (اختياري)",send:"إرسال الرد",privacy:"يصل ردّكم مباشرة إلى العروسين.",thankyou:"شكراً لكم",received:"تمّ استلام ردّكم. لا نطيق الانتظار للاحتفال معكم.",directions:"الاتجاهات",added:"تم النسخ",err:"تعذّر حفظ الرد. حاول مرة أخرى.",sending:"جارٍ الإرسال…",dearguest:"مكتوب في النجوم إلى",greetsub:"وجودكم معنا في ليلتنا يعني لنا الكثير.",reservedlabel:"محجوز لكم",who:"من سيحضر معكم؟",forguest:"إلى",upto:"بحد أقصى المقاعد المحجوزة لكم"}};
+const STR={en:{tap:"Tap to open the invitation",rsvp:"RSVP",together:"Under the same sky",counting:"Counting the nights",cantwait:"Until we say forever",days:"Days",hours:"Hours",mins:"Minutes",secs:"Seconds",celebration:"The celebration",when:"When & where",us:"Us",moments:"A few of our moments",giftlabel:"A gift of love",gifttitle:"Wedding list",dresslabel:"Dress code",storylabel:"Our story",storytitle:"Written in the stars",travellabel:"Travel & stay",traveltitle:"Where to stay",faqlabel:"Good to know",faqtitle:"Questions & answers",rsvplabel:"Réponse",rsvptitle:"Will you join us?",replytitle:"Kindly reply",fullname:"Full name",email:"Email",attending:"Will you be there?",yes:"Joyfully yes",no:"Regretfully no",guests:"How many of you?",note:"A note for us (optional)",send:"Send my reply",privacy:"Your reply goes straight to the couple.",thankyou:"Thank you",received:"Your reply has been received. We can't wait to celebrate with you.",directions:"Directions",added:"Copied",err:"We couldn't save your reply. Please try again.",sending:"Sending…",dearguest:"Written in the stars for",greetsub:"It would mean the world to us to have you with us on our night.",reservedlabel:"Reserved for you",who:"Who is joining you?",forguest:"For",upto:"Up to the places reserved for you"},
+ar:{tap:"اضغط لفتح الدعوة",rsvp:"تأكيد الحضور",together:"تحت السماء ذاتها",counting:"نعدّ الليالي",cantwait:"حتى نقول إلى الأبد",days:"يوم",hours:"ساعة",mins:"دقيقة",secs:"ثانية",celebration:"الاحتفال",when:"الزمان والمكان",us:"نحن",moments:"بعض من لحظاتنا",giftlabel:"هدية محبة",gifttitle:"قائمة الهدايا",dresslabel:"اللباس",storylabel:"قصتنا",storytitle:"مكتوب في النجوم",travellabel:"السفر والإقامة",traveltitle:"أين تقيمون",faqlabel:"معلومات مفيدة",faqtitle:"أسئلة وأجوبة",rsvplabel:"الرد",rsvptitle:"هل ستشاركوننا؟",replytitle:"يسعدنا ردّكم",fullname:"الاسم الكامل",email:"البريد الإلكتروني",attending:"هل ستحضرون؟",yes:"نعم بكل سرور",no:"نعتذر",guests:"كم عددكم؟",note:"رسالة لنا (اختياري)",send:"إرسال الرد",privacy:"يصل ردّكم مباشرة إلى العروسين.",thankyou:"شكراً لكم",received:"تمّ استلام ردّكم. لا نطيق الانتظار للاحتفال معكم.",directions:"الاتجاهات",added:"تم النسخ",err:"تعذّر حفظ الرد. حاول مرة أخرى.",sending:"جارٍ الإرسال…",dearguest:"مكتوب في النجوم إلى",greetsub:"وجودكم معنا في ليلتنا يعني لنا الكثير.",reservedlabel:"محجوز لكم",who:"من سيحضر معكم؟",forguest:"إلى",upto:"بحد أقصى المقاعد المحجوزة لكم"}};
 const STAR='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.2 7.2L21 9.6l-5.4 4.2L17.4 21 12 16.9 6.6 21l1.8-7.2L3 9.6l6.8-.4z"/></svg>';
 let LANG=(CFG.i18n&&CFG.i18n.default)||"en";
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
@@ -341,7 +388,7 @@ function render(){
   document.title=pick(CFG.couple,'display')+" · "+CFG.date.short;
   if(CFG.hashtag)$('[data-hashtag]').textContent=CFG.hashtag;
   $('[data-welcome]').textContent=pick(CFG.welcome,'text');
-  if(KNOWN){$('[data-forline]').hidden=false;$('[data-forline]').textContent=STR[LANG].forguest+" "+GUEST.name;
+  if(KNOWN){var _fl=$('[data-forline]');if(_fl){_fl.hidden=false;_fl.textContent=STR[LANG].forguest+" "+GUEST.name;}
     $('#greetSection').hidden=false;$('[data-guest-name]').textContent=GUEST.name;$('[data-guest-sub]').textContent=STR[LANG].greetsub;
     $('#nameField').hidden=true;$('#nameField').querySelector('input').required=false;$('#emailField').hidden=true;
     if(GUEST.seats){$('#reserved').hidden=false;$('[data-reserved-text]').textContent=GUEST.seats+" "+(LANG==='ar'?(GUEST.seats===1?'مقعد':'مقاعد'):(GUEST.seats===1?'place reserved':'places reserved'));}}
@@ -351,7 +398,7 @@ function render(){
   if(CFG.registry&&CFG.registry.methods){$('#registrySection').hidden=false;$('[data-registry-intro]').textContent=pick(CFG.registry,'intro');
     $('#registry').innerHTML=CFG.registry.methods.map(m=>`<div class="reg-card"><button class="reg-head" type="button">${esc(m.label)}<span class="chev">⌄</span></button><div class="reg-body"><div class="reg-inner">${m.rows.map(r=>`<div class="ro-row"><span class="k">${esc(r[0])}</span><span class="v">${esc(r[1])}</span></div>`).join("")}${m.copyValue?`<button class="copy-btn" data-copy="${esc(m.copyValue)}">${esc(m.copyLabel||'Copy')}</button>`:""}</div></div></div>`).join("");}
   if(CFG.story&&CFG.story.length){$('#storySection').hidden=false;$('#story').innerHTML=CFG.story.map(s=>`<div class="st"><div class="yr">${esc(s.year)}</div><div class="sb"><div class="t">${esc(LANG==='ar'&&s.title_ar?s.title_ar:s.title)}</div><div class="d">${esc(LANG==='ar'&&s.text_ar?s.text_ar:s.text)}</div></div></div>`).join("");}
-  if(CFG.travel&&CFG.travel.hotels&&CFG.travel.hotels.length){$('#travelSection').hidden=false;$('[data-travel-intro]').textContent=pick(CFG.travel,'intro');$('#hotels').innerHTML=CFG.travel.hotels.map(h=>`<div class="hotel"><div class="hn">${esc(h.name)}</div><div class="ha">${esc(h.area)}</div>${h.tier?`<div class="hp">${esc(h.tier)}</div>`:""}${h.map?`<a class="hl" href="${h.map}" target="_blank" rel="noopener">${STR[LANG].directions}</a>`:""}</div>`).join("");}
+  if(CFG.travel&&CFG.travel.hotels&&CFG.travel.hotels.length){$('#travelSection').hidden=false;$('[data-travel-intro]').textContent=pick(CFG.travel,'intro');$('#hotels').innerHTML=CFG.travel.hotels.map(h=>`<div class="hotel">${h.img?`<div class="himg" style="background-image:url(\'${h.img}\')"></div>`:""}<div class="hn">${esc(h.name)}</div><div class="ha">${esc(h.area)}</div>${h.tier?`<div class="hp">${esc(h.tier)}</div>`:""}${h.map?`<a class="hl" href="${h.map}" target="_blank" rel="noopener">${STR[LANG].directions}</a>`:""}</div>`).join("");}
   if(CFG.dressCode){$('#dressSection').hidden=false;$('[data-dress-title]').textContent=pick(CFG.dressCode,'title');$('[data-dress-note]').textContent=pick(CFG.dressCode,'note');}
   if(CFG.faq&&CFG.faq.length){$('#faqSection').hidden=false;$('#faq').innerHTML=CFG.faq.map(f=>`<div class="faq-card"><button class="faq-q" type="button">${esc(LANG==='ar'&&f.q_ar?f.q_ar:f.q)}<span class="chev">⌄</span></button><div class="faq-a"><div class="inner">${esc(LANG==='ar'&&f.a_ar?f.a_ar:f.a)}</div></div></div>`).join("");}
   $('[data-rsvp-deadline]').textContent=pick(CFG.rsvp,'deadline');
@@ -362,7 +409,7 @@ function render(){
 function applyStr(){const t=STR[LANG];$$('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(t[k])e.textContent=t[k];});document.documentElement.lang=LANG;document.documentElement.dir=LANG==='ar'?'rtl':'ltr';$('#langBtn').textContent=LANG==='ar'?'EN':'ع';}
 $('#langBtn').addEventListener('click',()=>{LANG=LANG==='ar'?'en':'ar';render();});
 function renderAtt(){const w=$('#attendees');if(!w)return;const at=(document.querySelector('input[name=attending]:checked')||{}).value;if(!(CFG.rsvp.askNames&&at==='yes'&&G_VAL>1)){w.style.display='none';w.innerHTML='';return;}const pv=Array.from(w.querySelectorAll('input')).map(i=>i.value);let h=`<label>${STR[LANG].who}</label>`;for(let i=0;i<G_VAL;i++)h+=`<input type="text" value="${pv[i]?esc(pv[i]):''}" placeholder="${esc(STR[LANG].fullname)} ${i+1}">`;w.style.display='';w.innerHTML=h;}
-function openInvite(){document.body.classList.remove('locked');$('#intro').classList.add('gone');$('#hero').classList.add('open');startCD();}
+function openInvite(){var i=$('#intro');if(i.classList.contains('opening'))return;i.classList.add('opening');if(window._pv)window._pv();setTimeout(function(){document.body.classList.remove('locked');i.classList.add('gone');$('#hero').classList.add('open');startCD();},2150);}
 $('#intro').addEventListener('click',openInvite);
 let cdT=null;function startCD(){const t=new Date(CFG.date.iso).getTime();(function k(){const d=t-Date.now();if(d<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(i=>$('#'+i).textContent='00');clearInterval(cdT);return;}$('#cd-d').textContent=String(Math.floor(d/864e5)).padStart(2,'0');$('#cd-h').textContent=String(Math.floor(d%864e5/36e5)).padStart(2,'0');$('#cd-m').textContent=String(Math.floor(d%36e5/6e4)).padStart(2,'0');$('#cd-s').textContent=String(Math.floor(d%6e4/1e3)).padStart(2,'0');})();cdT=setInterval(()=>{const d=t-Date.now();if(d<=0){clearInterval(cdT);return;}$('#cd-d').textContent=String(Math.floor(d/864e5)).padStart(2,'0');$('#cd-h').textContent=String(Math.floor(d%864e5/36e5)).padStart(2,'0');$('#cd-m').textContent=String(Math.floor(d%36e5/6e4)).padStart(2,'0');$('#cd-s').textContent=String(Math.floor(d%6e4/1e3)).padStart(2,'0');},1000);}
 document.addEventListener('click',e=>{const h=e.target.closest('.reg-head');if(h){const c=h.parentElement,b=c.querySelector('.reg-body');const o=c.classList.toggle('open');b.style.maxHeight=o?b.scrollHeight+'px':0;return;}const fq=e.target.closest('.faq-q');if(fq){const c=fq.parentElement,b=c.querySelector('.faq-a');const o=c.classList.toggle('open');b.style.maxHeight=o?b.scrollHeight+'px':0;return;}const cb=e.target.closest('.copy-btn');if(cb){const v=cb.getAttribute('data-copy');navigator.clipboard?.writeText(v).then(()=>{const o=cb.textContent;cb.textContent=STR[LANG].added;toast(STR[LANG].added);setTimeout(()=>cb.textContent=o,1700);});}});
@@ -396,5 +443,6 @@ render();
 
 <script>(function(){var hero=document.getElementById("hero");var content=hero?(hero.querySelector(".inner")||hero.querySelector(".hframe")||hero.querySelector(".mihrab")||hero.querySelector(".bignames")||hero.querySelector(".wrap")):null;var reveals=[].slice.call(document.querySelectorAll(".reveal"));function vh(){return window.innerHeight||800;}var ticking=false;function apply(){ticking=false;var y=window.scrollY||window.pageYOffset||0;if(content){var p=Math.min(y/vh(),1);content.style.transform="translateY("+(y*0.2).toFixed(1)+"px)";content.style.opacity=(Math.max(0,1-p)).toFixed(3);}var th=vh()*0.92;for(var i=0;i<reveals.length;i++){var r=reveals[i];if(!r.classList.contains("in")&&r.getBoundingClientRect().top<th){r.classList.add("in");}}}function onS(){if(!ticking){ticking=true;requestAnimationFrame(apply);}}window.addEventListener("scroll",onS,{passive:true});window.addEventListener("resize",onS,{passive:true});apply();setTimeout(apply,350);})();</script>
 <script>(function(){document.addEventListener("click",function(e){var t=e.target.closest(".pill,.submit,.copy-btn,.nav-rsvp,.map,.hl,.sticky-rsvp");if(!t)return;try{t.classList.add("rippling");var b=t.getBoundingClientRect();var d=Math.max(b.width,b.height);var r=document.createElement("span");r.className="rpl";r.style.width=r.style.height=d+"px";r.style.left=(e.clientX-b.left-d/2)+"px";r.style.top=(e.clientY-b.top-d/2)+"px";t.appendChild(r);setTimeout(function(){if(r.parentNode)r.parentNode.removeChild(r);},650);}catch(x){}},{passive:true});})();</script>
+<script>(function(){var ims=[].slice.call(document.querySelectorAll('.photoband .pbimg'));if(!ims.length)return;var t=false;function pb(){t=false;var vh=innerHeight||800;ims.forEach(function(im){var p=im.parentElement.getBoundingClientRect();var c=p.top+p.height/2;var off=(c-vh/2)/vh;im.style.transform='translateY('+(off*-46).toFixed(1)+'px)';});}addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(pb);}},{passive:true});addEventListener('resize',pb);pb();})();</script>
 </body>
 </html>
