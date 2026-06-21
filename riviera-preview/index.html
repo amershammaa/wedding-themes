@@ -5,85 +5,203 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>Riviera · Layla &amp; Karim</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--sea:#2e6376;--ink:#14242a;--font-display:'Fraunces',Georgia,serif;--font-sans:'Inter',system-ui,sans-serif}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{font-family:var(--font-sans);background:var(--ink);color:#fff;overflow:hidden}
-#hero{position:fixed;inset:0;overflow:hidden;background:var(--ink)}
-#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#hero .grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,36,42,.82),rgba(20,36,42,.15) 45%,rgba(20,36,42,.45))}
-#hero .masthead{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:64px 24px 0;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.8)}
-#hero .title{position:absolute;left:0;right:0;bottom:0;padding:0 24px 96px}
-#hero .title h1{font-family:var(--font-display);font-size:clamp(56px,16vw,140px);line-height:.92;color:#fff;max-width:46rem}
-#hero .title h1 .b{font-style:italic;font-weight:300;color:rgba(255,255,255,.92)}
-#hero .title h1 .j{font-size:.42em;font-style:normal;letter-spacing:.3em;color:rgba(255,255,255,.7);margin-inline-end:.7rem;vertical-align:middle}
-#hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.85)}
-#hero .meta .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.6);align-self:center}
-#hero .rise{opacity:0;transform:translateY(16px)}
-#hero.shown .rise{opacity:1;transform:none;transition:opacity 1s ease,transform 1s ease}
-#hero.shown .rise.r2{transition-delay:.18s}
-#scrollhint{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6);opacity:0}
-#hero.shown #scrollhint{opacity:1;transition:opacity 1s ease 1.2s;animation:fl 2.6s ease 2s infinite}
-@keyframes fl{0%,100%{opacity:.4}50%{opacity:.8}}
-#cover{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--sea);cursor:pointer;perspective:2200px;transition:opacity .5s ease 1.05s}
+:root{--sea:#2e6376;--ink:#1c3138;--cream:#f5f0e7;--sand:#ece3d4;--clay:#bf6b4a;--line:#ddd2c0;--white:#fffdf9;
+--display:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--ease:cubic-bezier(.22,.61,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden;height:100vh}
+.display{font-family:var(--display)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+.eyebrow{font-family:var(--sans);font-weight:600;letter-spacing:.3em;text-transform:uppercase;font-size:.6rem;color:var(--clay)}
+.h-title{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(2rem,6vw,3.1rem);line-height:1.04;color:var(--ink)}
+.rule{width:46px;height:1px;background:var(--clay);margin:18px auto}
+.lead{max-width:600px;margin:18px auto 0;color:#5d6b6e;font-size:1.05rem}
+.block{padding:clamp(64px,11vw,120px) 0;text-align:center}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.in > * + *{}
+/* ===== HERO ===== */
+.hero{position:relative;height:100svh;overflow:hidden;color:#fff}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,36,42,.82),rgba(20,36,42,.12) 45%,rgba(20,36,42,.5))}
+.hero .masthead{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:54px 26px 0;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.hero .htitle{position:absolute;left:0;right:0;bottom:0;padding:0 26px 92px}
+.hero h1{font-family:var(--display);font-size:clamp(52px,12vw,104px);line-height:.92;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.hero h1 .b{font-style:italic;font-weight:300;color:rgba(255,255,255,.92)}
+.hero h1 .j{font-size:.4em;font-style:normal;letter-spacing:.3em;color:rgba(255,255,255,.72);margin-inline-end:.7rem;vertical-align:middle}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.88);text-shadow:0 1px 10px rgba(0,0,0,.4)}
+.hero .meta .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.6);align-self:center}
+.scrollhint{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.7);animation:fl 2.6s ease infinite}
+@keyframes fl{0%,100%{opacity:.4;transform:translateY(0)}50%{opacity:.85;transform:translateY(4px)}}
+/* ===== sections ===== */
+.welcome{background:var(--cream)}
+.story{background:var(--sand)}
+.story .timeline{max-width:560px;margin:44px auto 0;text-align:start}
+.story .st{display:flex;gap:22px;padding:22px 0;border-top:1px solid var(--line)}
+.story .st:first-child{border-top:0}
+.story .yr{font-family:var(--display);font-style:italic;font-size:1.7rem;color:var(--sea);min-width:70px}
+.story .sb .t{font-family:var(--display);font-style:italic;font-size:1.3rem}
+.story .sb .d{color:#5d6b6e;margin-top:4px;font-size:.97rem}
+.day{background:var(--cream)}
+.events{display:grid;gap:18px;margin-top:50px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.event{background:var(--white);border:1px solid var(--line);border-radius:4px;padding:40px 30px;text-align:center}
+.event .et{font-weight:600;letter-spacing:.26em;text-transform:uppercase;font-size:.56rem;color:var(--clay)}
+.event .ev{font-family:var(--display);font-style:italic;font-size:1.7rem;margin:12px 0 4px}
+.event .etime{font-family:var(--display);font-size:1.2rem;color:var(--sea)}
+.event .ew{color:#5d6b6e;font-size:.94rem;margin-top:6px}
+.event .map{display:inline-block;margin-top:18px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:.56rem;color:var(--ink);border-bottom:1px solid var(--clay);padding-bottom:3px}
+.count{background:var(--sea);color:#fff}
+.count .eyebrow{color:rgba(255,255,255,.8)}.count .h-title{color:#fff}
+.cd{display:flex;justify-content:center;gap:clamp(18px,6vw,54px);margin-top:40px}
+.cd .n{font-family:var(--display);font-size:clamp(2.2rem,7vw,3.4rem);line-height:1}
+.cd .l{font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.52rem;color:rgba(255,255,255,.75);margin-top:10px}
+.gallery{background:var(--sand)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:50px}
+.grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:3px;filter:saturate(.98)}
+@media(max-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.rsvp{background:var(--cream)}
+form{max-width:480px;margin:44px auto 0;text-align:start}
+.field{margin-bottom:20px}
+label{display:block;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.56rem;color:#5d6b6e;margin-bottom:9px}
+input,.seg{width:100%;background:var(--white);border:1px solid var(--line);border-radius:3px;padding:14px 15px;font-family:var(--display);font-size:1.04rem;color:var(--ink)}
+.seg{display:flex;gap:10px;padding:0;border:0;background:none}
+.seg button{flex:1;background:var(--white);border:1px solid var(--line);border-radius:3px;padding:14px;font-family:var(--display);font-size:1.04rem;color:var(--ink);cursor:pointer}
+.seg button.on{background:var(--sea);color:#fff;border-color:var(--sea)}
+.submit{width:100%;background:var(--ink);color:#fff;border:0;border-radius:3px;padding:16px;font-family:var(--sans);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.62rem;cursor:pointer;margin-top:6px}
+footer{background:var(--ink);color:#cdd6d6;text-align:center;padding:74px 26px}
+footer .fn{font-family:var(--display);font-style:italic;font-size:2.6rem;color:#fff}
+footer .fd{font-weight:600;letter-spacing:.3em;text-transform:uppercase;font-size:.56rem;margin-top:12px;color:rgba(255,255,255,.6)}
+/* ===== COVER ===== */
+#cover{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--sea);cursor:pointer;perspective:2200px;transition:opacity .55s ease 1.05s}
 #cover.opening{opacity:0;pointer-events:none}
-#cover .card{position:relative;width:min(82vw,380px);height:min(82vh,560px);border-radius:3px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.45);transform-origin:left center;transform:rotateY(0);transition:transform 1.25s cubic-bezier(.55,0,.2,1);transform-style:preserve-3d}
+#cover .card{position:relative;width:min(80vw,360px);height:min(80vh,540px);border-radius:3px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.45);transform-origin:left center;transform:rotateY(0);transition:transform 1.25s cubic-bezier(.55,0,.2,1);transform-style:preserve-3d}
 #cover.opening .card{transform:rotateY(168deg)}
 #cover .photo{position:absolute;inset:0;background:#2e6376 center/cover}
-#cover .cgrad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,40,48,.35),rgba(20,40,48,.15) 38%,rgba(20,40,48,.72))}
-#cover .clines{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:28px;color:#fff}
-#cover .crow{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+#cover .cgrad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,40,48,.35),rgba(20,40,48,.12) 38%,rgba(20,40,48,.72))}
+#cover .clines{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:26px;color:#fff}
+#cover .crow{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.85)}
 #cover .ctitle{text-align:center}
-#cover .ctitle .eye{display:block;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.85)}
-#cover .ctitle .names{font-family:var(--font-display);display:block;margin-top:12px;font-size:clamp(40px,12vw,76px);line-height:.95;color:#fff}
-#cover .ctitle .names .amp{font-style:italic;color:rgba(255,255,255,.85);margin:0 8px}
-#cover .spine{position:absolute;inset-block:0;inset-inline-start:0;width:24px;background:linear-gradient(to right,rgba(255,255,255,.22),rgba(255,255,255,0))}
-#cover .hint{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.85);transition:opacity .35s;animation:fl 2.6s ease infinite}
-#cover.opening .hint{opacity:0}
-.note{position:fixed;left:0;right:0;bottom:6px;text-align:center;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);z-index:120;pointer-events:none}
+#cover .ctitle .eye{display:block;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+#cover .ctitle .names{font-family:var(--display);display:block;margin-top:10px;font-size:clamp(34px,9vw,58px);line-height:.98;color:#fff}
+#cover .ctitle .names .amp{font-style:italic;color:rgba(255,255,255,.85)}
+#cover .spine{position:absolute;inset-block:0;inset-inline-start:0;width:22px;background:linear-gradient(to right,rgba(255,255,255,.2),rgba(255,255,255,0))}
+#cover .hint{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.85);animation:fl 2.6s ease infinite}
+#cover.opening .hint{opacity:0;transition:opacity .35s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
-<body>
-<section id="hero">
-  <video id="hv" muted loop playsinline preload="auto" poster="hero-poster.jpg">
-    <source src="hero-loop.mp4" type="video/mp4">
-  </video>
-  <div class="grad"></div>
-  <div class="masthead"><span class="rise">Save the date</span><span class="rise r2">Vol. 2026</span></div>
-  <div class="title">
-    <h1 class="rise"><span>Layla</span><br><span class="b"><span class="j">AND</span>Karim</span></h1>
-    <div class="meta rise r2"><span>Saturday, 19 September 2026</span><span class="dot"></span><span>Beirut · Lebanon</span></div>
-  </div>
-  <div id="scrollhint">Scroll to explore</div>
-</section>
+<body class="locked">
+<main id="page">
+  <section class="hero">
+    <video id="hv" muted loop playsinline preload="auto" poster="hero-poster.jpg"><source src="hero-loop.mp4" type="video/mp4"></video>
+    <div class="grad"></div>
+    <div class="masthead"><span>Save the date</span><span>Vol. 2026</span></div>
+    <div class="htitle">
+      <h1><span>Layla</span><br><span class="b"><span class="j">AND</span>Karim</span></h1>
+      <div class="meta"><span>Saturday, 19 September 2026</span><span class="dot"></span><span>Beirut · Lebanon</span></div>
+    </div>
+    <div class="scrollhint">Scroll to explore</div>
+  </section>
+
+  <section class="block welcome reveal"><div class="wrap">
+    <span class="eyebrow">Together by the sea</span>
+    <h2 class="h-title" style="margin-top:14px">We're getting married</h2>
+    <div class="rule"></div>
+    <p class="lead">With the joy in our hearts and our families beside us, we invite you to celebrate the beginning of our forever — on the shores we love most.</p>
+  </div></section>
+
+  <section class="block story reveal"><div class="wrap">
+    <span class="eyebrow">Our story</span>
+    <h2 class="h-title" style="margin-top:14px">How we got here</h2>
+    <div class="timeline">
+      <div class="st"><div class="yr display">2021</div><div class="sb"><div class="t">We met</div><div class="d">A summer evening on the marina, a shared sunset, and a conversation that never quite ended.</div></div></div>
+      <div class="st"><div class="yr display">2024</div><div class="sb"><div class="t">The question</div><div class="d">At golden hour out on the water, with the coastline glowing, Karim asked.</div></div></div>
+      <div class="st"><div class="yr display">2026</div><div class="sb"><div class="t">We marry</div><div class="d">And now, surrounded by everyone we love, we begin forever.</div></div></div>
+    </div>
+  </div></section>
+
+  <section class="block day reveal"><div class="wrap">
+    <span class="eyebrow">The celebration</span>
+    <h2 class="h-title" style="margin-top:14px">When &amp; where</h2>
+    <div class="events">
+      <div class="event"><div class="et">Ceremony</div><div class="ev">Saint George Bay</div><div class="etime">4:30 in the afternoon</div><div class="ew">Corniche, Beirut</div><a class="map" href="#">Directions</a></div>
+      <div class="event"><div class="et">Reception</div><div class="ev">Sporting Club</div><div class="etime">7:00 in the evening</div><div class="ew">Manara, Beirut</div><a class="map" href="#">Directions</a></div>
+    </div>
+  </div></section>
+
+  <section class="block count reveal"><div class="wrap">
+    <span class="eyebrow">Counting down</span>
+    <h2 class="h-title" style="margin-top:14px">Until we say "I do"</h2>
+    <div class="cd">
+      <div><div class="n" id="cd-d">00</div><div class="l">Days</div></div>
+      <div><div class="n" id="cd-h">00</div><div class="l">Hours</div></div>
+      <div><div class="n" id="cd-m">00</div><div class="l">Minutes</div></div>
+      <div><div class="n" id="cd-s">00</div><div class="l">Seconds</div></div>
+    </div>
+  </div></section>
+
+  <section class="block gallery reveal"><div class="wrap">
+    <span class="eyebrow">Us</span>
+    <h2 class="h-title" style="margin-top:14px">A few of our moments</h2>
+    <div class="grid"><img src="g1.jpg" alt=""><img src="g2.jpg" alt=""><img src="g3.jpg" alt=""></div>
+  </div></section>
+
+  <section class="block rsvp reveal"><div class="wrap">
+    <span class="eyebrow">Réponse</span>
+    <h2 class="h-title" style="margin-top:14px">Will you join us?</h2>
+    <div class="rule"></div>
+    <form onsubmit="event.preventDefault();this.innerHTML='<p class=lead style=\'text-align:center\'>Thank you — we can\'t wait to celebrate with you.</p>';">
+      <div class="field"><label>Full name</label><input type="text" placeholder="Your name"></div>
+      <div class="field"><label>Will you be there?</label><div class="seg"><button type="button" class="on" onclick="this.classList.add('on');this.nextElementSibling.classList.remove('on')">Joyfully yes</button><button type="button" onclick="this.classList.add('on');this.previousElementSibling.classList.remove('on')">Regretfully no</button></div></div>
+      <div class="field"><label>How many of you?</label><input type="text" placeholder="2"></div>
+      <button class="submit" type="submit">Send my reply</button>
+    </form>
+  </div></section>
+
+  <footer><div class="fn">Layla &amp; Karim</div><div class="fd">19 · 09 · 2026 · Beirut</div></footer>
+</main>
+
 <div id="cover">
   <div class="card">
     <div class="photo" style="background-image:url('hero-poster.jpg')"></div>
     <div class="cgrad"></div>
     <div class="clines">
       <div class="crow"><span>Save the date</span><span>Vol. 2026</span></div>
-      <div class="ctitle"><span class="eye">Together by the sea</span><span class="names">Layla<span class="amp">&amp;</span>Karim</span></div>
+      <div class="ctitle"><span class="eye">Together by the sea</span><span class="names">Layla <span class="amp">&amp;</span> Karim</span></div>
       <div class="crow"><span>19 September 2026</span><span>Beirut</span></div>
     </div>
     <div class="spine"></div>
   </div>
   <div class="hint">Tap to open</div>
 </div>
-<div class="note">Riviera theme · video opener preview</div>
+
 <script>
 (function(){
-  var cover=document.getElementById('cover'), hero=document.getElementById('hero'), v=document.getElementById('hv');
+  var cover=document.getElementById('cover'), v=document.getElementById('hv');
   function open(){
     if(cover.classList.contains('opening'))return;
     cover.classList.add('opening');
     if(v){v.muted=true;var p=v.play();if(p&&p.catch)p.catch(function(){});}
-    hero.classList.add('shown');
+    setTimeout(function(){document.body.classList.remove('locked');},1100);
     setTimeout(function(){cover.style.display='none';},1700);
   }
   cover.addEventListener('click',open);
   cover.addEventListener('touchend',function(e){e.preventDefault();open();},{passive:false});
+
+  // reveal on scroll
+  var rev=[].slice.call(document.querySelectorAll('.reveal'));
+  function check(){var vh=innerHeight*0.86;rev.forEach(function(r){if(!r.classList.contains('in')&&r.getBoundingClientRect().top<vh)r.classList.add('in');});}
+  addEventListener('scroll',function(){requestAnimationFrame(check);},{passive:true});
+  setTimeout(check,1200);
+
+  // countdown
+  var target=new Date('2026-09-19T16:30:00').getTime();
+  function tick(){var d=Math.max(0,target-Date.now()),D=Math.floor(d/86400000),H=Math.floor(d/3600000)%24,M=Math.floor(d/60000)%60,S=Math.floor(d/1000)%60;
+    var set=function(id,n){var e=document.getElementById(id);if(e)e.textContent=(n<10?'0':'')+n;};
+    set('cd-d',D);set('cd-h',H);set('cd-m',M);set('cd-s',S);}
+  tick();setInterval(tick,1000);
 })();
 </script>
 </body>
