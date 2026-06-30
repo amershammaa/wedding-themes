@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rosie &amp; Scott — Fulidhoo, Maldives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f3ece0; --paper:#fbf6eb; --green:#4c6651; --green-deep:#33493b; --ink:#46503e; --muted:#8a8a72;
+    --sage:#6f8066; --aqua:#5f928a; --blush:#c6a298; --line:rgba(51,73,59,.16); --line-soft:rgba(51,73,59,.09);
+    --display:"Cormorant Garamond",serif; --body:"EB Garamond",serif; --script:"Great Vibes",cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);color:var(--ink);background:#e7ddc9;-webkit-font-smoothing:antialiased;line-height:1.55}
+  img,video{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:480px;margin:0 auto;background:var(--cream);position:relative;overflow:hidden;min-height:100vh}
+  @media(min-width:768px){.wrap{box-shadow:0 40px 120px -40px rgba(40,50,30,.5)}}
+
+  .eyebrow{font-family:var(--body);font-size:10px;letter-spacing:.46em;text-transform:uppercase;color:var(--green)}
+  .title{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(28px,7.5vw,36px);line-height:1.08;color:var(--green-deep);margin-top:8px}
+  .sec{padding:54px 26px;text-align:center;position:relative;overflow:hidden}
+  .tone-paper{background:var(--paper)}.tone-cream{background:var(--cream)}
+
+  /* OPENER — two watercolor frames cross-fade (start -> end), then reveal */
+  #gate{position:fixed;inset:0;z-index:90;max-width:480px;left:50%;transform:translateX(-50%);cursor:pointer;overflow:hidden;color:#fff;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:opacity 1.1s ease}
+  #gate.gone{opacity:0;visibility:hidden;pointer-events:none}
+  #gate .frame{position:absolute;inset:0}
+  #gate .f1{animation:kb 14s ease-in-out infinite alternate}
+  #gate .f2{opacity:0;transition:opacity 1.8s ease}
+  #gate.playing .f2{opacity:1}
+  #gate.playing .f1{opacity:0;transition:opacity 1.8s ease}
+  #gate .vig{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,28,18,.62),rgba(20,28,18,0) 44%,rgba(20,28,18,.4))}
+  #gate .txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;transition:opacity .6s ease}
+  #gate.playing .txt{opacity:0}
+  #gate .save{font-size:11px;letter-spacing:.46em;text-transform:uppercase;color:rgba(255,255,255,.9);opacity:0;animation:rise 1s .2s forwards}
+  #gate .nm{font-family:var(--script);font-size:82px;line-height:.96;margin-top:12px;text-shadow:0 2px 40px rgba(0,0,0,.45);opacity:0;animation:rise 1.1s .38s forwards}
+  #gate .amp{font-family:var(--display);font-style:italic;opacity:.9}
+  #gate .dt{margin-top:18px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.92);opacity:0;animation:rise 1.1s .56s forwards}
+  #gate .ddia{width:7px;height:7px;transform:rotate(45deg);background:rgba(255,255,255,.7);margin:20px auto 0;opacity:0;animation:rise 1.1s .72s forwards}
+  #gate .tap{margin-top:20px;font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:rgba(255,255,255,.82);opacity:0;animation:rise 1.1s .9s forwards}
+  #gate .tap b{display:inline-block;font-weight:400;animation:pulse 2.4s ease-in-out infinite}
+  @keyframes kb{from{transform:scale(1.05)}to{transform:scale(1.16)}}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+  /* HERO (watercolor sea) */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;color:#fff;padding:0 28px 80px;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;z-index:0;animation:kb 20s ease-in-out infinite alternate}
+  #herovid.bg{animation:none}
+  .hero .scr{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(20,28,18,.66),rgba(20,28,18,.04) 50%,rgba(20,28,18,.3))}
+  .hero .c{position:relative;z-index:2;width:100%}
+  .hero .mono{font-family:var(--script);font-size:34px;opacity:.92}
+  .hero .nm{font-family:var(--script);font-size:78px;line-height:.96;margin-top:2px;text-shadow:0 2px 38px rgba(0,0,0,.45)}
+  .hero .amp{font-family:var(--display);font-style:italic;opacity:.9}
+  .hero .sub{margin-top:16px;font-family:var(--display);font-style:italic;font-size:18px;color:rgba(255,255,255,.94);max-width:26ch;margin-left:auto;margin-right:auto}
+  .hero .meta{margin-top:14px;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+  .scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;text-align:center}
+  .scrollcue .ln{width:1px;height:34px;margin:0 auto;background:rgba(255,255,255,.6);transform-origin:top;animation:drop 1.9s ease-in-out infinite}
+  .scrollcue .t{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:8px}
+  @keyframes drop{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+  /* birds */
+  .birds{position:absolute;top:6%;left:0;width:100%;height:90px;pointer-events:none;z-index:1}
+  .birds svg{position:absolute;stroke:#414a36;fill:none;stroke-width:2.1;stroke-linecap:round;opacity:0}
+  .hero-birds{top:15%;z-index:2}
+  .hero-birds svg{stroke:#3a4030}
+  .b1{left:16%;width:32px;animation:fly1 11s linear infinite}
+  .b2{left:40%;width:24px;animation:fly2 13s linear 2s infinite}
+  .b3{left:68%;width:28px;animation:fly1 14s linear 1s infinite}
+  @keyframes fly1{0%{opacity:0;transform:translate(0,36px)}12%{opacity:.78}88%{opacity:.78}100%{opacity:0;transform:translate(72px,-52px)}}
+  @keyframes fly2{0%{opacity:0;transform:translate(0,28px)}12%{opacity:.72}88%{opacity:.72}100%{opacity:0;transform:translate(-58px,-48px)}}
+
+  /* watercolor art */
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @keyframes floaty2{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(.8deg)}}
+  .art{display:block;margin:0 auto}
+  .crown{width:min(80%,320px);margin:0 auto -6px;position:relative;z-index:1}
+  .divider-art{width:170px;margin:14px auto 0}
+  .palm-img{width:min(54%,180px);margin:0 auto 8px;animation:floaty 8s ease-in-out infinite}
+  .shells-img{width:min(70%,250px);margin:6px auto 0;animation:floaty2 10s ease-in-out infinite}
+  .boat-img{width:min(86%,360px);margin:6px auto 0;animation:floaty2 11s ease-in-out infinite}
+
+  .names-big{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(44px,13vw,72px);line-height:.98;color:var(--green-deep);margin-top:4px}
+  .names-big .and{display:block;font-style:italic;text-transform:lowercase;font-weight:400;font-size:.4em;letter-spacing:.04em;color:var(--sage);margin:6px 0}
+  .req{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--green);line-height:2;margin-top:8px}
+  .lede{font-family:var(--display);font-style:italic;font-size:clamp(18px,4.6vw,21px);line-height:1.6;color:var(--ink);max-width:30ch;margin:14px auto 0;opacity:.92}
+
+  /* countdown */
+  .cd{display:flex;justify-content:center;gap:18px;margin-top:24px}
+  .cd .u{text-align:center;min-width:54px}
+  .cd .n{font-family:var(--display);font-size:clamp(38px,9vw,52px);line-height:1;color:var(--green-deep)}
+  .cd .l{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+  /* stay */
+  .stay{margin-top:26px;display:grid;gap:22px;text-align:center}
+  .stay .blk .h{font-family:var(--display);font-style:italic;font-size:21px;color:var(--green-deep)}
+  .stay .blk .p{font-size:15px;line-height:1.6;color:var(--ink);max-width:34ch;margin:8px auto 0;opacity:.92}
+  .maplink{display:inline-block;margin-top:14px;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--green);border-bottom:1px solid var(--line);padding-bottom:5px;text-decoration:none}
+
+  .btn{display:inline-block;margin-top:24px;padding:15px 42px;border:1px solid rgba(255,255,255,.62);color:#fff;font-family:var(--body);font-size:12px;letter-spacing:.28em;text-transform:uppercase;border-radius:2px;text-decoration:none;transition:.35s}
+  .btn:active{background:#fff;color:var(--green-deep)}
+  .film{position:relative;min-height:92svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 28px;overflow:hidden}
+  .film .bg{position:absolute;inset:0;z-index:0;animation:kb 18s ease-in-out infinite alternate}
+  .film .scr{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(20,28,18,.64),rgba(20,28,18,.06) 50%,rgba(20,28,18,.34))}
+  .film .c{position:relative;z-index:2}
+  .film .ek{font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+  .film .ch{font-family:var(--display);font-style:italic;font-size:34px;color:#fff;margin-top:8px;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+  .film .cb{font-family:var(--display);font-style:italic;font-size:18px;line-height:1.5;color:rgba(255,255,255,.92);max-width:30ch;margin:12px auto 0}
+
+  footer{background:var(--green-deep);text-align:center;padding:46px 28px 62px;color:#eef0e2}
+  footer .mn{font-family:var(--script);font-size:44px;color:#fff}
+  footer .tg{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:12px}
+
+  .rise{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
+  .rise.in{opacity:1;transform:none}
+  .rise.d1{transition-delay:.12s}.rise.d2{transition-delay:.24s}.rise.d3{transition-delay:.36s}
+  .cta{position:fixed;z-index:70;left:50%;bottom:18px;transform:translateX(-50%) translateY(16px);background:var(--green-deep);color:#fff;border:none;border-radius:999px;padding:13px 28px;font-family:var(--body);font-size:12px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;box-shadow:0 14px 36px -14px rgba(30,40,20,.7);opacity:0;pointer-events:none;transition:opacity .5s,transform .5s}
+  .cta.show{opacity:1;transform:translateX(-50%);pointer-events:auto}
+  /* string lights + celebrations */
+  .celebrations{padding-top:64px}
+  .lights{position:absolute;top:0;left:0;width:100%;height:64px;pointer-events:none;z-index:2}
+  .lights .wire{fill:none;stroke:var(--sage);stroke-width:1;opacity:.5}
+  .lights .bulb-line{stroke:var(--sage);stroke-width:.7;opacity:.4}
+  .lights .bulb{fill:#fff3da;animation:twinkle 2.6s ease-in-out infinite;filter:drop-shadow(0 0 3px rgba(255,239,200,.9))}
+  @keyframes twinkle{0%,100%{opacity:.4}50%{opacity:1}}
+  .events{margin-top:30px;display:grid;gap:0;max-width:340px;margin-left:auto;margin-right:auto}
+  .ev{padding:18px 0;border-top:1px solid var(--line-soft)}
+  .ev:last-child{border-bottom:1px solid var(--line-soft)}
+  .ev-t{font-family:var(--display);font-style:italic;font-size:24px;color:var(--green-deep);line-height:1.1}
+  .ev-w{font-size:12.5px;letter-spacing:.08em;color:var(--muted);margin-top:6px;text-transform:uppercase}
+  /* lush florals + fluttering + interactivity */
+  .garland{display:block;width:min(94%,430px);margin:-6px auto 8px;pointer-events:none}
+  .birds svg path{transform-origin:50% 50%;animation:flap .5s ease-in-out infinite}
+  @keyframes flap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}
+  .b4{left:50%;width:26px;animation:fly2 16s linear 4s infinite}
+  .b5{left:82%;width:22px;animation:fly1 18s linear 6s infinite}
+  .ev{transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  .ev:hover{transform:translateX(6px)}
+  .cd .u{transition:transform .4s ease}.cd .u:hover{transform:translateY(-4px)}
+  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none}*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- OPENER : two watercolor frames -->
+  <div id="gate" role="button" tabindex="0" aria-label="Tap to open the invitation">
+    <div class="frame"><img src="art/curtain-start.jpg" alt=""></div>
+    <div class="vig"></div>
+    <div class="txt">
+      <div class="save">Save the Date</div>
+      <div class="nm">Rosie <span class="amp">&amp;</span> Scott</div>
+      <div class="dt">01 July 2027 · Maldives</div>
+      <div class="ddia"></div>
+      <div class="tap"><b>Tap to open</b></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <video id="herovid" class="bg" muted playsinline preload="auto" poster="art/curtain-start.jpg"><source src="art/opener.mp4" type="video/mp4"></video>
+    <div class="scr"></div>
+    <div class="birds hero-birds">
+      <svg class="b1" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b2" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b3" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b4" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b5" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+    </div>
+    <div class="c">
+      <div class="mono">R &amp; S</div>
+      <div class="nm">Rosie <span class="amp">&amp;</span> Scott</div>
+      <div class="sub">invite you to celebrate our wedding week</div>
+      <div class="meta">Fulidhoo, Maldives · 01 July 2027</div>
+    </div>
+    <div class="scrollcue"><div class="ln"></div><div class="t">Scroll</div></div>
+  </section>
+
+  <!-- INVITATION -->
+  <section class="sec tone-paper">
+    <div class="birds">
+      <svg class="b1" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b2" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b3" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b4" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+      <svg class="b5" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
+    </div>
+    <img class="art crown rise" src="art/crown.png" alt="">
+    <div class="req rise d1">Together with their families<br>request the pleasure of your company</div>
+    <div class="names-big rise d1">Rosie <span class="and">and</span> Scott</div>
+    <img class="art divider-art rise d2" src="art/sprig.png" alt="">
+    <p class="lede rise d2">Where the tide is slow, the sky turns gold, and the people we love are all in one place.</p>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="sec tone-cream">
+    <img class="art garland" src="art/garland.png" alt="">
+    <img class="art palm-img rise" src="art/palm.png" alt="" style="margin-top:34px">
+    <div class="eyebrow rise">Counting down</div>
+    <h2 class="title rise">Until 01 July</h2>
+    <div class="cd rise d1" id="cd">
+      <div class="u"><div class="n" data-d>—</div><div class="l">Days</div></div>
+      <div class="u"><div class="n" data-h>—</div><div class="l">Hours</div></div>
+      <div class="u"><div class="n" data-m>—</div><div class="l">Min</div></div>
+      <div class="u"><div class="n" data-s>—</div><div class="l">Sec</div></div>
+    </div>
+  </section>
+
+  <!-- THE CELEBRATIONS (wedding-week schedule + string lights) -->
+  <section class="sec tone-paper celebrations">
+    <svg class="lights" viewBox="0 0 400 64" preserveAspectRatio="none" aria-hidden="true">
+      <path class="wire" d="M-4 8 Q100 50 200 12 Q300 50 404 12"/>
+      <g class="bulbs"></g>
+    </svg>
+    <div class="eyebrow rise">The Celebrations</div>
+    <h2 class="title rise">Our wedding week</h2>
+    <p class="lede rise d1">Over five unforgettable days, we invite you to join us on the island of Fulidhoo, for sunset celebrations, ocean adventures, and the start of our forever.</p>
+
+    <div class="events">
+      <div class="ev rise">
+        <div class="ev-t">Welcome Dinner</div>
+        <div class="ev-w">Fulidhoo Beach · 28 June 2027 · 7.30pm</div>
+      </div>
+      <div class="ev rise">
+        <div class="ev-t">Engagement Party</div>
+        <div class="ev-w">Kinan Sentral · 29 June 2027 · 4.30pm</div>
+      </div>
+      <div class="ev rise">
+        <div class="ev-t">The Ceremony</div>
+        <div class="ev-w">Fulidhoo Sandbank · 01 July 2027 · 5.00pm</div>
+      </div>
+      <div class="ev rise">
+        <div class="ev-t">The Reception</div>
+        <div class="ev-w">Fulidhoo Beach · 01 July 2027 · 7.30pm</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAVEL & STAY -->
+  <section class="sec tone-cream">
+    <img class="art garland" src="art/garland.png" alt="">
+    <div class="eyebrow rise" style="margin-top:30px">Travel &amp; Stay</div>
+    <h2 class="title rise">Getting to the island</h2>
+    <img class="art boat-img rise" src="art/boat.png" alt="">
+    <div class="stay">
+      <div class="blk rise d1">
+        <div class="h">Getting there</div>
+        <p class="p">Fly into Malé (MLE). From the airport, a scenic speedboat brings you across to Fulidhoo in about ninety minutes.</p>
+      </div>
+      <div class="blk rise d1">
+        <div class="h">Where to stay</div>
+        <p class="p">A preferred room block is held at the Fulidhoo Beach Retreat for our guests, with special rates for a three-night stay.</p>
+        <a class="maplink" href="#" onclick="return false">View the map</a>
+      </div>
+      <div class="blk rise d2">
+        <div class="h">Good to know</div>
+        <p class="p">Barefoot luxury — pack light linens, swimwear and something lovely for the beach ceremony at golden hour.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="film" id="rsvp">
+    <div class="bg"><img src="art/hero-sea.jpg" alt=""></div>
+    <div class="scr"></div>
+    <div class="c">
+      <div class="ek">Will you join us?</div>
+      <div class="ch">Kindly reply</div>
+      <div style="width:7px;height:7px;transform:rotate(45deg);background:#fff;opacity:.7;margin:14px auto 0"></div>
+      <p class="cb">Kindly let us know by the 1st of June 2027.</p>
+      <a class="btn" href="#" onclick="return false">Reply to our invitation</a>
+    </div>
+  </section>
+
+  <footer><div class="mn">Rosie &amp; Scott</div><div class="tg">01 · 07 · 2027 · Fulidhoo, Maldives</div></footer>
+</div>
+
+<button class="cta" id="cta">RSVP</button>
+
+<script>
+  var gate=document.getElementById('gate'), cta=document.getElementById('cta');
+  var opened=false;
+  var hv=document.getElementById('herovid');
+  // after the curtains finish opening, keep the video looping from second 2 (sea + boat only)
+  if(hv) hv.addEventListener('ended', function(){ try{hv.currentTime=2;}catch(e){} hv.play().catch(function(){}); });
+  function open(){ if(opened)return; opened=true;
+    if(hv){ hv.muted=true; try{hv.currentTime=0;}catch(e){} hv.play().catch(function(){}); }
+    gate.classList.add('gone'); document.body.style.overflow=''; }
+  document.body.style.overflow='hidden';
+  gate.addEventListener('click',open);
+  gate.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();open();} });
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.16,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rise').forEach(function(el){io.observe(el);});
+
+  // hang fairy-light bulbs along the swag
+  (function(){ var g=document.querySelector('.lights .bulbs'); if(!g)return;
+    function quad(p,c,q,t){var u=1-t;return [u*u*p[0]+2*u*t*c[0]+t*t*q[0], u*u*p[1]+2*u*t*c[1]+t*t*q[1]];}
+    var swags=[[[-4,8],[100,50],[200,12]],[[200,12],[300,50],[404,12]]], h='';
+    swags.forEach(function(s){ for(var i=1;i<=6;i++){ var t=i/7, pt=quad(s[0],s[1],s[2],t), hang=6+(i%2)*3;
+      h+='<line class="bulb-line" x1="'+pt[0].toFixed(1)+'" y1="'+pt[1].toFixed(1)+'" x2="'+pt[0].toFixed(1)+'" y2="'+(pt[1]+hang).toFixed(1)+'"/>';
+      h+='<circle class="bulb" cx="'+pt[0].toFixed(1)+'" cy="'+(pt[1]+hang+2.4).toFixed(1)+'" r="2.5" style="animation-delay:'+(Math.random()*2.4).toFixed(2)+'s"/>'; } });
+    g.innerHTML=h;
+  })();
+
+  var target=new Date('2027-07-01T16:00:00').getTime(), cd=document.getElementById('cd');
+  var qd=cd.querySelector('[data-d]'),qh=cd.querySelector('[data-h]'),qm=cd.querySelector('[data-m]'),qs=cd.querySelector('[data-s]');
+  function rem(){ var d=target-Date.now(); if(d<0)d=0; return {d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)}; }
+  function tick(){ var r=rem(); qd.textContent=r.d; qh.textContent=String(r.h).padStart(2,'0'); qm.textContent=String(r.m).padStart(2,'0'); qs.textContent=String(r.s).padStart(2,'0'); }
+  var cdSeen=false;
+  function countUp(){ var end=rem(),t0=performance.now(),dur=1400;
+    (function step(now){ var k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);
+      qd.textContent=Math.round(end.d*e); qh.textContent=String(Math.round(end.h*e)).padStart(2,'0');
+      qm.textContent=String(Math.round(end.m*e)).padStart(2,'0'); qs.textContent=String(Math.round(end.s*e)).padStart(2,'0');
+      if(k<1)requestAnimationFrame(step); else setInterval(tick,1000); })(t0); }
+  new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting&&!cdSeen){cdSeen=true;countUp();} });},{threshold:.4}).observe(cd);
+
+  var top=document.getElementById('top'), rsvp=document.getElementById('rsvp');
+  new IntersectionObserver(function(es){es.forEach(function(e){ cta.classList.toggle('show', !e.isIntersecting && opened); });},{threshold:.2}).observe(top);
+  cta.addEventListener('click',function(){ rsvp.scrollIntoView({behavior:'smooth'}); });
+</script>
+</body>
+</html>
