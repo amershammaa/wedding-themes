@@ -112,6 +112,54 @@
   .cd .n{font-family:var(--display);font-size:clamp(38px,9vw,52px);line-height:1;color:var(--green-deep);display:inline-block;will-change:transform}
   .cd .l{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 
+  /* hotels */
+  .hotels{display:grid;gap:14px;margin-top:28px;text-align:center}
+  .hotel{background:var(--paper);border:1px solid var(--line-soft);border-radius:3px;padding:20px 18px 22px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease}
+  .hotel:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(40,50,30,.4)}
+  .hotel svg{width:64px;height:40px;margin-bottom:8px}
+  .hotel svg path{fill:none;stroke:var(--green);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+  .hotel .hn{font-family:var(--display);font-weight:500;font-size:20px;line-height:1.15;color:var(--green-deep)}
+  .hotel .ht{font-family:var(--body);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+  .hotel .maplink2{margin-top:10px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--aqua);text-decoration:none;border-bottom:1px solid var(--line)}
+
+  /* gift registry ledger */
+  .ledger{display:grid;gap:14px;margin-top:26px}
+  .acct{background:var(--paper);border:1px solid var(--line-soft);border-radius:3px;padding:22px 20px;text-align:center}
+  .acct .bank{font-family:var(--display);font-weight:500;font-style:italic;font-size:20px;color:var(--green-deep)}
+  .acct .rows{margin-top:12px;display:grid;gap:8px}
+  .acct .row{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px dashed var(--line-soft);padding-top:8px}
+  .acct .k{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);flex:none}
+  .acct .v{font-size:12.5px;letter-spacing:.04em;color:var(--ink);word-break:break-all;text-align:right}
+  .copy{flex:none;border:1px solid var(--line);background:transparent;border-radius:2px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:5px 9px;cursor:pointer;transition:all .25s;font-family:var(--body)}
+  .copy:hover{border-color:var(--green-deep);color:var(--green-deep)}
+  .copy.done{background:var(--aqua);border-color:var(--aqua);color:#fff}
+  #toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(14px);z-index:80;background:var(--green-deep);color:#fff;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:11px 22px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;font-family:var(--body)}
+  #toast.show{opacity:1;transform:translateX(-50%)}
+
+  /* rsvp box */
+  .rsvp-box{background:rgba(251,246,235,.97);border:1px solid var(--line-soft);border-radius:4px;padding:30px 22px;margin:26px auto 0;max-width:380px;text-align:center;color:var(--ink);box-shadow:0 30px 70px -30px rgba(10,20,10,.55)}
+  .who{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--green)}
+  .gname{font-family:var(--display);font-weight:500;font-size:22px;margin-top:4px;color:var(--green-deep)}
+  .guest{padding:14px 0 4px}
+  .guest+.guest{border-top:1px dashed var(--line-soft);margin-top:10px}
+  .yn{display:flex;justify-content:center;gap:12px;margin-top:12px}
+  .chip{min-width:92px;padding:11px 0;border:1px solid var(--line);border-radius:999px;background:transparent;font-family:var(--body);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .3s;will-change:transform}
+  .chip.on{border-color:var(--green-deep);background:var(--green-deep);color:#fff}
+  .chip.on.no{background:transparent;color:var(--green-deep)}
+  .wish-wrap{margin-top:22px;text-align:left}
+  .wish-l{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);display:block;text-align:center}
+  .rsvp-box textarea{width:100%;margin-top:12px;background:transparent;border:1px solid var(--line);border-radius:3px;padding:13px 14px;font-family:var(--display);font-style:italic;font-size:16px;color:var(--ink);resize:none;min-height:84px;outline:none}
+  .rsvp-box textarea:focus{border-color:var(--aqua)}
+  .count{font-size:10px;color:var(--muted);text-align:right;margin-top:6px;letter-spacing:.1em}
+  .rnote{font-family:var(--display);font-style:italic;font-size:14.5px;color:var(--muted);margin-top:16px}
+  .btn2{display:inline-block;margin-top:20px;padding:14px 40px;border:1px solid var(--green-deep);color:var(--green-deep);background:transparent;font-family:var(--body);font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background .3s,color .3s;will-change:transform}
+  .btn2:hover,.btn2:active{background:var(--green-deep);color:#fff}
+  .thanks{display:none;padding:22px 0 8px}
+  .thanks svg{width:52px;height:48px;margin:0 auto 8px;display:block}
+  .thanks svg path{fill:none;stroke:var(--aqua);stroke-width:1.6;stroke-linecap:round}
+  .thanks .t1{font-family:var(--display);font-style:italic;font-size:23px;color:var(--green-deep)}
+  .thanks .t2{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+
   /* string lights + celebrations */
   .celebrations{padding-top:64px}
   .lights{position:absolute;top:0;left:0;width:100%;height:64px;pointer-events:none;z-index:2;will-change:transform;transform-origin:50% 0}
@@ -288,16 +336,24 @@
         <div class="h">Getting there</div>
         <p class="p">Fly into Malé (MLE). From the airport, a scenic speedboat brings you across to Fulidhoo in about ninety minutes.</p>
       </div>
-      <div class="blk rise d1">
-        <div class="h">Where to stay</div>
-        <p class="p">A preferred room block is held at the Fulidhoo Beach Retreat for our guests, with special rates for a three-night stay.</p>
-        <a class="maplink" href="#" onclick="return false">View the map</a>
-      </div>
+    </div>
+    <div class="hotels" id="hotels"></div>
+    <div class="stay" style="margin-top:24px">
       <div class="blk rise d2">
         <div class="h">Good to know</div>
         <p class="p">Barefoot luxury — pack light linens, swimwear and something lovely for the beach ceremony at golden hour.</p>
       </div>
     </div>
+  </section>
+
+  <!-- GIFT REGISTRY / LISTE DE MARIAGE -->
+  <section class="sec tone-paper" id="gifts">
+    <img class="art garland" src="https://amershammaa.github.io/wedding-themes/beach/art/garland.png" alt="">
+    <div class="eyebrow rise" style="margin-top:30px">Liste de Mariage</div>
+    <h2 class="title rise">Gift registry</h2>
+    <p class="lede rise d1">Your love, laughter and presence are all we could wish for on our special day.</p>
+    <p class="lede rise d1" style="font-size:15px;margin-top:10px;color:var(--muted)">For those who wish, a wedding list is available at</p>
+    <div class="ledger" id="ledger"></div>
   </section>
 
   <!-- RSVP -->
@@ -310,7 +366,24 @@
       <div class="ch rise d1">Kindly reply</div>
       <div class="rise d1" style="width:7px;height:7px;transform:rotate(45deg);background:#fff;opacity:.7;margin:14px auto 0"></div>
       <p class="cb rise d2">Kindly let us know by the 1st of June 2027.</p>
-      <a class="btn rise d2" id="magnet" href="#" onclick="return false">Reply to our invitation</a>
+      <div class="rsvp-box rise d2">
+        <div id="form">
+          <div class="who">Who will be attending?</div>
+          <div id="guests"></div>
+          <div class="wish-wrap">
+            <span class="wish-l">Share your love and wishes</span>
+            <textarea id="wish" maxlength="120" rows="3" placeholder="Write a few words…"></textarea>
+            <div class="count"><span id="wc">0</span> / 120</div>
+          </div>
+          <button class="btn2" id="send">RSVP</button>
+          <div class="rnote">Kindly note that this will be an adult-only party</div>
+        </div>
+        <div class="thanks" id="thanks">
+          <svg viewBox="0 0 52 48" aria-hidden="true"><path id="heartpath" d="M26 42 C10 30 4 20 8 12 q4 -8 13 -4 q4 2 5 6 q1 -4 5 -6 q9 -4 13 4 c4 8 -2 18 -18 30 z"/></svg>
+          <div class="t1">Thank you for your confirmation!</div>
+          <div class="t2">See you there :)</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -318,6 +391,7 @@
 </div>
 
 <button class="cta" id="cta">RSVP</button>
+<div id="toast" role="status">Copied</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
@@ -378,6 +452,85 @@
       h+='<circle class="bulb" cx="'+pt[0].toFixed(1)+'" cy="'+(pt[1]+hang+2.4).toFixed(1)+'" r="2.5" style="animation-delay:'+(Math.random()*2.4).toFixed(2)+'s"/>'; } });
     g.innerHTML=h;
   })();
+
+  /* ---------- CONFIG : hotels, registry, tailored guests ---------- */
+  var CONFIG={
+    hotels:[
+      {name:'Fulidhoo Beach Retreat',town:'Fulidhoo',map:'https://maps.google.com/?q=Fulidhoo+Island+Maldives',ic:'M8 34 V18 q10 -9 20 0 v16 M13 34 v-9 q5 -5 10 0 v9 M42 34 q4 -14 0 -24 q-7 6 -5 15 q1 6 5 9 M52 34 q3 -10 0 -18 q-5 4 -4 11 q1 4 4 7'},
+      {name:'Kinan Sentral',town:'Fulidhoo',map:'https://maps.google.com/?q=Fulidhoo+Maldives+guesthouse',ic:'M8 34 h48 M12 34 V20 h40 v14 M20 20 v-6 h24 v6 M26 27 h4 M36 27 h4 M30 34 v-7 h4 v7'},
+      {name:'Hulhule Island Hotel',town:'Malé Airport',map:'https://maps.google.com/?q=Hulhule+Island+Hotel+Male',ic:'M6 34 h52 M14 34 V16 h20 v18 M18 21 h4 M26 21 h4 M18 27 h4 M26 27 h4 M40 34 v-10 q6 -6 12 0 v10 M44 34 v-6 h4 v6'}
+    ],
+    accounts:[
+      {bank:'OMT — Lebanon',rows:[{k:'Account',v:'70910493'}]},
+      {bank:'Emirates NBD — UAE',rows:[{k:'Beneficiary',v:'Scott Reid'},{k:'IBAN',v:'AE850260001015799194303'},{k:'SWIFT',v:'EBILAEAD'}]}
+    ],
+    guests:{ '144889141':['Amer Chammaa','Nadia El Assi'], 'default':['Amer Chammaa','Nadia El Assi'] }
+  };
+
+  /* hotels */
+  (function(){ var hw=document.getElementById('hotels'); if(!hw)return;
+    CONFIG.hotels.forEach(function(h){
+      var d=document.createElement('div'); d.className='hotel rise';
+      d.innerHTML='<svg viewBox="0 0 64 40"><path d="'+h.ic+'"/></svg><div class="hn">'+h.name+'</div><div class="ht">'+h.town+'</div>'+
+        '<a class="maplink2" href="'+h.map+'" target="_blank" rel="noopener">View map</a>';
+      hw.appendChild(d);
+    });
+  })();
+
+  /* registry + copy */
+  var toast=document.getElementById('toast'), toastT;
+  function showToast(m){ toast.textContent=m; toast.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){toast.classList.remove('show');},1600); }
+  (function(){ var lw=document.getElementById('ledger'); if(!lw)return;
+    CONFIG.accounts.forEach(function(a){
+      var d=document.createElement('div'); d.className='acct rise';
+      d.innerHTML='<div class="bank">'+a.bank+'</div><div class="rows">'+a.rows.map(function(r){
+        return '<div class="row"><span class="k">'+r.k+'</span><span class="v">'+r.v+'</span><button class="copy" data-v="'+r.v+'">Copy</button></div>';}).join('')+'</div>';
+      lw.appendChild(d);
+    });
+    lw.addEventListener('click',function(e){
+      var b=e.target.closest('.copy'); if(!b)return;
+      (navigator.clipboard?navigator.clipboard.writeText(b.getAttribute('data-v')):Promise.reject())
+        .then(function(){ b.classList.add('done'); b.textContent='✓'; showToast('Copied'); setTimeout(function(){b.classList.remove('done');b.textContent='Copy';},1800); })
+        .catch(function(){ showToast(b.getAttribute('data-v')); });
+    });
+  })();
+
+  /* tailored guests + chips + submit */
+  var gid=new URLSearchParams(location.search).get('gid');
+  var party=CONFIG.guests[gid]||CONFIG.guests['default'];
+  var answers={};
+  (function(){ var gw=document.getElementById('guests'); if(!gw)return;
+    party.forEach(function(name,i){
+      var d=document.createElement('div'); d.className='guest';
+      d.innerHTML='<div class="gname">'+name+'</div><div class="yn">'+
+        '<button class="chip" data-g="'+i+'" data-a="yes">Yes</button><button class="chip" data-g="'+i+'" data-a="no">No</button></div>';
+      gw.appendChild(d);
+    });
+    gw.addEventListener('click',function(e){
+      var c=e.target.closest('.chip'); if(!c)return;
+      var g=c.getAttribute('data-g');
+      gw.querySelectorAll('.chip[data-g="'+g+'"]').forEach(function(x){x.classList.remove('on','no');});
+      c.classList.add('on'); if(c.getAttribute('data-a')==='no')c.classList.add('no');
+      answers[g]=c.getAttribute('data-a');
+      if(window.gsap)gsap.fromTo(c,{scale:.92},{scale:1,duration:.5,ease:'elastic.out(1,.4)'});
+    });
+  })();
+  var wish=document.getElementById('wish'), wc=document.getElementById('wc');
+  if(wish)wish.addEventListener('input',function(){ wc.textContent=wish.value.length; });
+  var sendBtn=document.getElementById('send');
+  if(sendBtn)sendBtn.addEventListener('click',function(){
+    if(Object.keys(answers).length<party.length){ showToast('Please answer for everyone'); return; }
+    try{ localStorage.setItem('beach-rsvp-'+(gid||'anon'),JSON.stringify({answers:answers,wish:wish.value})); }catch(e){}
+    document.getElementById('form').style.display='none';
+    var th=document.getElementById('thanks'); th.style.display='block';
+    if(window.gsap){
+      var hp=document.getElementById('heartpath'), len=hp.getTotalLength();
+      hp.style.strokeDasharray=len; hp.style.strokeDashoffset=len;
+      gsap.to(hp,{strokeDashoffset:0,duration:1.6,ease:'power2.inOut'});
+      gsap.from(th,{y:16,opacity:0,duration:.8,ease:'power3.out'});
+    }
+  });
+  try{ if(localStorage.getItem('beach-rsvp-'+(gid||'anon'))){ document.getElementById('form').style.display='none'; document.getElementById('thanks').style.display='block'; } }catch(e){}
 
   /* ---------- CTA scroll-to ---------- */
   var topSec=document.getElementById('top'), rsvpSec=document.getElementById('rsvp');
@@ -519,9 +672,8 @@
   gsap.to('.film .golden',{opacity:1,ease:'none',scrollTrigger:{trigger:'#rsvp',start:'top 80%',end:'center center',scrub:.6}});
   gsap.to('.film .bg',{yPercent:10,ease:'none',scrollTrigger:{trigger:'#rsvp',start:'top bottom',end:'bottom top',scrub:.6}});
 
-  /* magnetic button (fine pointers) + press spring (all) */
-  (function(){
-    var btn=document.getElementById('magnet');
+  /* magnetic buttons (fine pointers) + press spring (all) */
+  gsap.utils.toArray('.btn2, .btn').forEach(function(btn){
     if(window.matchMedia('(pointer: fine)').matches){
       var qx=gsap.quickTo(btn,'x',{duration:.4,ease:'power3'}),
           qy=gsap.quickTo(btn,'y',{duration:.4,ease:'power3'});
@@ -534,7 +686,7 @@
     }
     btn.addEventListener('pointerdown',function(){ gsap.to(btn,{scale:.94,duration:.12}); });
     btn.addEventListener('pointerup',function(){ gsap.to(btn,{scale:1,duration:.7,ease:'elastic.out(1,.3)'}); });
-  })();
+  });
 
   /* ---------- 7. AMBIENT — velocity sway + motes ---------- */
   (function(){
