@@ -333,7 +333,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" async></script>
 <script>
 (function(){
   'use strict';
@@ -414,6 +413,9 @@
   var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasGsap=!!(window.gsap&&window.ScrollTrigger);
   document.body.style.overflow='hidden';
+
+  /* watchdog: never let a stalled opening trap the scroll */
+  gate.addEventListener('click',function(){ setTimeout(function(){ if(document.body.style.overflow==='hidden'){ document.body.style.overflow=''; try{gate.style.display='none';}catch(e){} document.body.classList.add('opened'); } },3500); },{once:true});
 
   /* ---------- hotels ---------- */
   function buildHotels(){
@@ -575,14 +577,6 @@
   document.body.classList.add('js-anim');
   applyLang();
 
-  if(window.Lenis&&window.matchMedia('(pointer: fine) and (min-width: 768px)').matches){
-    var lenis=new Lenis({duration:1.15,smoothWheel:true});
-    lenis.on('scroll',ScrollTrigger.update);
-    gsap.ticker.add(function(t){lenis.raf(t*1000);});
-    gsap.ticker.lagSmoothing(0);
-    lenis.stop();
-    gate.addEventListener('click',function(){setTimeout(function(){lenis.start();},1900);},{once:true});
-  }
 
   gsap.to('#progress i',{scaleX:1,ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.4}});
 

@@ -397,7 +397,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/MotionPathPlugin.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" async></script>
 <script>
 (function(){
   'use strict';
@@ -556,16 +555,6 @@
   gsap.registerPlugin(ScrollTrigger, SplitText, MotionPathPlugin);
   document.body.classList.add('js-anim');
 
-  /* ---------- Lenis smooth glide — desktop fine-pointer only ---------- */
-  if (window.Lenis && window.matchMedia('(pointer: fine) and (min-width: 768px)').matches) {
-    var lenis = new Lenis({ duration: 1.15, smoothWheel: true });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
-    gsap.ticker.lagSmoothing(0);
-    // pause smooth scroll while the gate is up
-    lenis.stop();
-    gate.addEventListener('click', function(){ setTimeout(function(){ lenis.start(); }, 2400); }, { once: true });
-  }
 
   /* ---------- 0. progress hairline ---------- */
   gsap.to('#progress i',{scaleX:1,ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.4}});
@@ -601,6 +590,9 @@
       .call(function(){ gate.style.display='none'; document.body.style.overflow=''; },null,.9)
       .add(heroIntro(),1.15); /* names arrive as the video's curtains open */
     document.body.style.overflow='hidden';
+
+  /* watchdog: never let a stalled opening trap the scroll */
+  gate.addEventListener('click',function(){ setTimeout(function(){ if(document.body.style.overflow==='hidden'){ document.body.style.overflow=''; try{gate.style.display='none';}catch(e){} document.body.classList.add('opened'); } },3500); },{once:true});
   }
   /* subtle breathing on the closed-curtains frame while the gate is up */
   if(hv) gsap.fromTo(hv,{scale:1.03},{scale:1.09,duration:11,yoyo:true,repeat:-1,ease:'sine.inOut'});
