@@ -36,10 +36,10 @@
   .sec{padding:62px 30px;text-align:center;position:relative;z-index:2}
   .lede{font-family:var(--ar-body);font-size:clamp(16px,4.4vw,19px);line-height:1.9;color:var(--ink);max-width:32ch;margin:14px auto 0;opacity:.92}
   html[dir=ltr] .lede{font-family:var(--serif);font-style:italic}
-  .tone-em{background:linear-gradient(175deg,var(--em),var(--em-deep));color:var(--paper)}
-  .tone-em .h2{color:var(--gold-soft)}
-  .tone-em .eyebrow{color:var(--gold)}
-  .tone-em .lede{color:rgba(246,241,230,.92)}
+  .tone-em{background:var(--card);color:var(--ink)}
+  .tone-em .h2{color:var(--em)}
+  .tone-em .eyebrow{color:var(--bronze)}
+  .tone-em .lede{color:var(--ink)}
 
   #progress{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:2px;z-index:95;pointer-events:none}
   #progress i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--em),var(--bronze));transform:scaleX(0);transform-origin:left}
@@ -95,7 +95,7 @@
   @keyframes vdrop{0%,100%{transform:scaleY(.4);opacity:.3}50%{transform:scaleY(1);opacity:.7}}
 
   /* ============ THE ASSEMBLING STAR (signature) ============ */
-  #star{position:fixed;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%);width:min(88vw,420px);height:min(88vw,420px);pointer-events:none;opacity:.1}
+  #star{display:none}
   #star path{fill:none;stroke:var(--em);stroke-width:1.6;stroke-linecap:round}
   #star .gold{stroke:var(--gold)}
   #star-footer{width:120px;height:120px;margin:0 auto 14px}
@@ -103,8 +103,8 @@
 
   /* lantern strings on emerald sections */
   .lanterns{position:absolute;top:0;left:0;width:100%;height:90px;pointer-events:none;z-index:2;transform-origin:50% 0;will-change:transform}
-  .lanterns .wire{fill:none;stroke:var(--gline);stroke-width:1}
-  .lanterns .lan{fill:none;stroke:var(--gold);stroke-width:1.1}
+  .lanterns .wire{fill:none;stroke:var(--line);stroke-width:1}
+  .lanterns .lan{fill:none;stroke:var(--em);stroke-width:1.1;opacity:.55}
   .lanterns .glow{fill:#fff2cf;opacity:.65;animation:twinkle 3s ease-in-out infinite;filter:drop-shadow(0 0 5px rgba(255,238,200,.85))}
   @keyframes twinkle{0%,100%{opacity:.35}50%{opacity:.85}}
 
@@ -112,8 +112,8 @@
   .cd{display:flex;justify-content:center;gap:16px;margin-top:26px}
   .cd .u{text-align:center;min-width:56px;transition:transform .4s ease}
   .cd .u:hover{transform:translateY(-4px)}
-  .cd .n{font-family:var(--serif);font-weight:500;font-size:clamp(32px,8.4vw,44px);line-height:1;color:var(--gold-soft);display:inline-block;will-change:transform}
-  .cd .l{font-family:var(--caps);font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(246,241,230,.75);margin-top:9px}
+  .cd .n{font-family:var(--serif);font-weight:500;font-size:clamp(32px,8.4vw,44px);line-height:1;color:var(--em);display:inline-block;will-change:transform}
+  .cd .l{font-family:var(--caps);font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--bronze);margin-top:9px}
   html[dir=rtl] .cd .l{font-family:var(--ar-body);font-size:12.5px;letter-spacing:.06em;text-transform:none}
   .cd .sep{font-family:var(--serif);font-size:28px;color:var(--gline);align-self:flex-start;padding-top:4px}
 
@@ -122,9 +122,9 @@
   .court-art{width:min(94%,420px);margin-top:24px;mix-blend-mode:multiply}
   .couple-art{width:160px;margin-bottom:16px;mix-blend-mode:multiply}
 
-  .btn{display:inline-block;margin-top:24px;padding:14px 36px;border:1px solid var(--gold);color:var(--gold-soft);background:rgba(9,42,32,.25);font-family:var(--caps);font-size:11px;letter-spacing:.28em;text-transform:uppercase;border-radius:2px;text-decoration:none;transition:background .3s,color .3s;will-change:transform;cursor:pointer}
+  .btn{display:inline-block;margin-top:24px;padding:14px 36px;border:1px solid var(--em);color:var(--em);background:transparent;font-family:var(--caps);font-size:11px;letter-spacing:.28em;text-transform:uppercase;border-radius:2px;text-decoration:none;transition:background .3s,color .3s;will-change:transform;cursor:pointer}
   html[dir=rtl] .btn{font-family:var(--ar-body);font-size:15px;letter-spacing:.08em;text-transform:none}
-  .btn:hover,.btn:active{background:var(--gold);color:var(--em-deep)}
+  .btn:hover,.btn:active{background:var(--em);color:var(--paper)}
   .sec:not(.tone-em) .btn{color:var(--em);border-color:var(--em);background:transparent}
   .sec:not(.tone-em) .btn:hover,.sec:not(.tone-em) .btn:active{background:var(--em);color:var(--paper)}
 
@@ -295,7 +295,7 @@
     <svg class="lanterns" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true"><path class="wire" d="M-4 6 Q100 44 200 10 Q300 46 404 10"/><g class="lans"></g></svg>
     <div class="eyebrow rise" data-t="rsvp_eyebrow">تأكيد الحضور</div>
     <h2 class="h2 rise" data-t="rsvp_title">هل تشرّفوننا؟</h2>
-    <div class="deadline rise d1" style="color:var(--gold-soft)" data-t="deadline">الرجاء الرد قبل ١٥ يونيو ٢٠٢٦</div>
+    <div class="deadline rise d1" data-t="deadline">الرجاء الرد قبل ١٥ يونيو ٢٠٢٦</div>
     <div class="rsvp-box rise d1">
       <img class="art-img couple-art" src="art/q_couple.webp" loading="lazy" decoding="async" alt="" onerror="this.style.display='none'">
       <div id="form">
@@ -596,12 +596,13 @@
     var tl=gsap.timeline();
     tl.fromTo(gate,{scale:1},{scale:1.012,duration:.09,yoyo:true,repeat:1,ease:'power2.in'},0) /* the knock */
       .to('#gate .gtxt',{opacity:0,y:-30,duration:.4,ease:'power3.in'},.15)
-      .to('#seam',{opacity:1,width:26,filter:'blur(10px)',duration:.7,ease:'power2.in'},.2)
+      .to('#seam',{opacity:.9,width:12,filter:'blur(7px)',duration:.6,ease:'power2.in'},.2)
+      .set(gate,{backgroundColor:'transparent'},.55)
       .call(startVideo,null,.55)
       .to('#gate .doorL',{rotateY:-98,duration:1.7,ease:'power3.inOut'},.6)
       .to('#gate .doorR',{rotateY:98,duration:1.7,ease:'power3.inOut'},.6)
       .to('#seam',{opacity:0,duration:.5},.9)
-      .to('#gate .gvig',{opacity:0,duration:1},1.0)
+      .to('#gate .gvig',{opacity:0,duration:.5},.6)
       .to(gate,{opacity:0,duration:.5},1.9)
       .call(function(){ gate.style.display='none'; document.body.style.overflow=''; },null,2.4)
       .add(heroIntro(),2.1);
