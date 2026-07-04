@@ -10,6 +10,7 @@
   Signature: an 8-fold Islamic star that ASSEMBLES as you scroll, completing at the RSVP,
   where a gold wax seal presses your reply. AR default, EN toggle. Engine: beach/voyage v2.
 -->
+<link rel="preload" as="image" href="art/doors.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Almarai:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -218,8 +219,8 @@
 
   <!-- GATE : the palace doors -->
   <div id="gate" role="button" tabindex="0" aria-label="افتح الدعوة">
-    <div class="doorL"><img src="art/doors.png" alt="" onerror="this.parentElement.style.background='linear-gradient(160deg,#1d3a2f,#0c241b)'"></div>
-    <div class="doorR"><img src="art/doors.png" alt="" onerror="this.parentElement.style.background='linear-gradient(200deg,#1d3a2f,#0c241b)'"></div>
+    <div class="doorL"><img src="art/doors.webp" alt="" onerror="this.parentElement.style.background='linear-gradient(160deg,#1d3a2f,#0c241b)'"></div>
+    <div class="doorR"><img src="art/doors.webp" alt="" onerror="this.parentElement.style.background='linear-gradient(200deg,#1d3a2f,#0c241b)'"></div>
     <div class="seam" id="seam"></div>
     <div class="gvig"></div>
     <div class="gtxt">
@@ -233,7 +234,7 @@
 
   <!-- VIDEO HERO -->
   <section class="vhero" id="s-hero">
-    <video id="herovid" muted playsinline preload="auto" poster="art/q_vid_start.png"><source src="art/opener.mp4" type="video/mp4"></video>
+    <video id="herovid" muted playsinline preload="metadata" poster="art/q_vid_start.webp"><source src="art/opener.mp4" type="video/mp4"></video>
     <div class="loopfade" id="loopfade"></div>
     <div class="scrim"></div>
     <div class="vc">
@@ -265,7 +266,7 @@
   <section class="sec" id="s-cel" data-stop>
     <div class="eyebrow rise" data-t="cel_eyebrow">الاحتفال</div>
     <h2 class="h2 rise" data-t="cel_title">المكان والزمان</h2>
-    <img class="art-img court-art rise d1" src="art/q_court.png" alt="" onerror="this.style.display='none'">
+    <img class="art-img court-art rise d1" src="art/q_court.webp" loading="lazy" decoding="async" alt="" onerror="this.style.display='none'">
     <div class="lede rise" style="font-size:clamp(20px,5.6vw,26px);font-family:var(--serif);font-weight:500" data-t="time">٨:٣٠ مساءً</div>
     <div class="rise d1" style="margin-top:14px;font-family:var(--ar-display);font-size:clamp(19px,5vw,23px);color:var(--em)" data-t="venue">قصر بيت الدين</div>
     <div class="eyebrow rise d1" style="margin-top:6px" data-t="venue_sub">بيت الدين · الشوف · لبنان</div>
@@ -296,7 +297,7 @@
     <h2 class="h2 rise" data-t="rsvp_title">هل تشرّفوننا؟</h2>
     <div class="deadline rise d1" style="color:var(--gold-soft)" data-t="deadline">الرجاء الرد قبل ١٥ يونيو ٢٠٢٦</div>
     <div class="rsvp-box rise d1">
-      <img class="art-img couple-art" src="art/q_couple.png" alt="" onerror="this.style.display='none'">
+      <img class="art-img couple-art" src="art/q_couple.webp" loading="lazy" decoding="async" alt="" onerror="this.style.display='none'">
       <div id="form">
         <div class="eyebrow" data-t="who">من سيتشرّف بالحضور؟</div>
         <div id="guests"></div>
