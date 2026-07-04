@@ -755,4 +755,19 @@
   }});
 
   /* ---------- CTA ---------- */
-  Scr
+  ScrollTrigger.create({trigger:'#s-count',start:'top 60%',
+    onEnter:function(){ if(opened)cta.classList.add('show'); },
+    onLeaveBack:function(){ cta.classList.remove('show'); }});
+  ScrollTrigger.create({trigger:document.body,start:'top top',end:'bottom bottom',
+    onUpdate:function(self){ if(!opened)return;
+      if(self.direction===1&&Math.abs(self.getVelocity())>2600)cta.classList.remove('show');
+      else if(self.scroll()>window.innerHeight*.5)cta.classList.add('show'); }});
+  /* hide CTA once at RSVP */
+  ScrollTrigger.create({trigger:'#s-rsvp',start:'top 70%',end:'bottom bottom',
+    onEnter:function(){cta.classList.remove('show');},onLeaveBack:function(){cta.classList.add('show');}});
+
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>

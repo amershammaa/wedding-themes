@@ -679,4 +679,8 @@
   ScrollTrigger.create({trigger:'#s-rsvp',start:'top 70%',end:'bottom bottom',
     onEnter:function(){cta.classList.remove('show');},onLeaveBack:function(){cta.classList.add('show');}});
 
-  if(document.fonts&&document.fonts.ready) doc
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
