@@ -4,20 +4,26 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Rosie &amp; Scott — Fulidhoo, Maldives</title>
+<!--
+  BEACH v2 — "scroll = the tide"
+  GSAP + ScrollTrigger + SplitText + MotionPath. No WebGL. Single file.
+  NOTE: asset URLs point at the LIVE site so this file previews from anywhere.
+  When dropping into the wedding-themes repo, set ART = 'art/' (one constant, bottom script).
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#f3ece0; --paper:#fbf6eb; --green:#4c6651; --green-deep:#33493b; --ink:#46503e; --muted:#8a8a72;
-    --sage:#6f8066; --aqua:#5f928a; --blush:#c6a298; --line:rgba(51,73,59,.16); --line-soft:rgba(51,73,59,.09);
+    --sage:#6f8066; --aqua:#5f928a; --blush:#c6a298; --gold:#e8c98d; --line:rgba(51,73,59,.16); --line-soft:rgba(51,73,59,.09);
     --display:"Cormorant Garamond",serif; --body:"EB Garamond",serif; --script:"Great Vibes",cursive;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  ::selection{background:var(--sage);color:#fff}
   body{font-family:var(--body);color:var(--ink);background:#e7ddc9;-webkit-font-smoothing:antialiased;line-height:1.55}
   img,video{display:block;width:100%;height:100%;object-fit:cover}
-  .wrap{max-width:480px;margin:0 auto;background:var(--cream);position:relative;overflow:hidden;min-height:100vh}
+  .wrap{max-width:480px;margin:0 auto;background:var(--cream);position:relative;overflow:clip;min-height:100vh}
   @media(min-width:768px){.wrap{box-shadow:0 40px 120px -40px rgba(40,50,30,.5)}}
 
   .eyebrow{font-family:var(--body);font-size:10px;letter-spacing:.46em;text-transform:uppercase;color:var(--green)}
@@ -25,135 +31,157 @@
   .sec{padding:54px 26px;text-align:center;position:relative;overflow:hidden}
   .tone-paper{background:var(--paper)}.tone-cream{background:var(--cream)}
 
-  /* OPENER — two watercolor frames cross-fade (start -> end), then reveal */
-  #gate{position:fixed;inset:0;z-index:90;max-width:480px;left:50%;transform:translateX(-50%);cursor:pointer;overflow:hidden;color:#fff;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:opacity 1.1s ease}
+  /* ============ PROGRESS HAIRLINE ============ */
+  #progress{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:2px;z-index:95;pointer-events:none}
+  #progress i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--sage),var(--aqua));transform:scaleX(0);transform-origin:left}
+
+  /* ============ OPENER — the video's own curtains ARE the cover ============
+     The gate is a transparent text layer over the hero video paused on its
+     first frame (curtains closed). Tap = the video itself opens the curtains. */
+  #gate{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:90;cursor:pointer;overflow:hidden;color:#fff;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:opacity .55s ease;background:transparent}
   #gate.gone{opacity:0;visibility:hidden;pointer-events:none}
-  #gate .frame{position:absolute;inset:0}
-  #gate .f1{animation:kb 14s ease-in-out infinite alternate}
-  #gate .f2{opacity:0;transition:opacity 1.8s ease}
-  #gate.playing .f2{opacity:1}
-  #gate.playing .f1{opacity:0;transition:opacity 1.8s ease}
-  #gate .vig{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,28,18,.62),rgba(20,28,18,0) 44%,rgba(20,28,18,.4))}
-  #gate .txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;transition:opacity .6s ease}
-  #gate.playing .txt{opacity:0}
-  #gate .save{font-size:11px;letter-spacing:.46em;text-transform:uppercase;color:rgba(255,255,255,.9);opacity:0;animation:rise 1s .2s forwards}
-  #gate .nm{font-family:var(--script);font-size:82px;line-height:.96;margin-top:12px;text-shadow:0 2px 40px rgba(0,0,0,.45);opacity:0;animation:rise 1.1s .38s forwards}
+  #gate .sweep{position:absolute;top:-10%;bottom:-10%;left:0;width:46%;transform:translateX(-130%) skewX(-14deg);background:linear-gradient(90deg,transparent,rgba(255,250,235,.5),transparent);pointer-events:none;will-change:transform}
+  #gate .vig{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,28,18,.66),rgba(20,28,18,.08) 44%,rgba(20,28,18,.44));pointer-events:none}
+  #herovid{background:linear-gradient(180deg,#31432f,#1e2b1d)} /* readable backdrop until the first frame paints */
+  body:not(.opened):not(.js-anim) .hero .c,body:not(.opened):not(.js-anim) .scrollcue{opacity:0}
+  #gate .txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px}
+  #gate .save{font-size:11px;letter-spacing:.46em;text-transform:uppercase;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.65);opacity:0;animation:rise 1s .2s forwards}
+  #gate .nm{font-family:var(--script);font-size:76px;line-height:.96;margin-top:12px;text-shadow:0 2px 40px rgba(0,0,0,.55);opacity:0;animation:rise 1.1s .38s forwards}
+  #gate .nm .w{display:inline-block;will-change:transform}
   #gate .amp{font-family:var(--display);font-style:italic;opacity:.9}
-  #gate .dt{margin-top:18px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.92);opacity:0;animation:rise 1.1s .56s forwards}
-  #gate .ddia{width:7px;height:7px;transform:rotate(45deg);background:rgba(255,255,255,.7);margin:20px auto 0;opacity:0;animation:rise 1.1s .72s forwards}
-  #gate .tap{margin-top:20px;font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:rgba(255,255,255,.82);opacity:0;animation:rise 1.1s .9s forwards}
+  #gate .dt{margin-top:20px;display:flex;align-items:center;justify-content:center;gap:12px;white-space:nowrap;font-size:clamp(10.5px,3.2vw,12.5px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#fff;text-shadow:0 1px 16px rgba(0,0,0,.7)}
+  #gate .dt{opacity:0;animation:rise 1.1s .56s forwards}
+  #gate .dt::before,#gate .dt::after{content:'';flex:0 1 30px;min-width:12px;height:1px;background:rgba(255,255,255,.75);box-shadow:0 1px 8px rgba(0,0,0,.5)}
+  #gate .ddia{width:7px;height:7px;transform:rotate(45deg);background:rgba(255,255,255,.85);box-shadow:0 1px 8px rgba(0,0,0,.5);margin:22px auto 0;opacity:0;animation:rise 1.1s .72s forwards}
+  #gate .tap{margin-top:20px;font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6);opacity:0;animation:rise 1.1s .9s forwards}
   #gate .tap b{display:inline-block;font-weight:400;animation:pulse 2.4s ease-in-out infinite}
   @keyframes kb{from{transform:scale(1.05)}to{transform:scale(1.16)}}
   @keyframes rise{to{opacity:1;transform:none}}
   @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
 
-  /* HERO (watercolor sea) */
+  /* ============ HERO — living shoreline ============ */
   .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;color:#fff;padding:0 28px 80px;overflow:hidden}
-  .hero .bg{position:absolute;inset:0;z-index:0;animation:kb 20s ease-in-out infinite alternate}
+  .hero .bg{position:absolute;inset:-8% 0;z-index:0;will-change:transform;animation:kb 20s ease-in-out infinite alternate}
   #herovid.bg{animation:none}
   .hero .scr{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(20,28,18,.66),rgba(20,28,18,.04) 50%,rgba(20,28,18,.3))}
-  .hero .c{position:relative;z-index:2;width:100%}
+  .hero .c{position:relative;z-index:2;width:100%;will-change:transform}
   .hero .mono{font-family:var(--script);font-size:34px;opacity:.92}
-  .hero .nm{font-family:var(--script);font-size:78px;line-height:.96;margin-top:2px;text-shadow:0 2px 38px rgba(0,0,0,.45)}
+  .hero .nm{font-family:var(--script);font-size:74px;line-height:.96;margin-top:2px;text-shadow:0 2px 38px rgba(0,0,0,.45)}
+  .hero .nm .w,.hero .sub .ln,.hero .meta .ln{display:inline-block;will-change:transform}
   .hero .amp{font-family:var(--display);font-style:italic;opacity:.9}
   .hero .sub{margin-top:16px;font-family:var(--display);font-style:italic;font-size:18px;color:rgba(255,255,255,.94);max-width:26ch;margin-left:auto;margin-right:auto}
   .hero .meta{margin-top:14px;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.9)}
-  .scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;text-align:center}
+  .scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;text-align:center;will-change:transform,opacity}
   .scrollcue .ln{width:1px;height:34px;margin:0 auto;background:rgba(255,255,255,.6);transform-origin:top;animation:drop 1.9s ease-in-out infinite}
   .scrollcue .t{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:8px}
   @keyframes drop{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:1}}
 
-  /* birds */
+  /* birds — moved by GSAP MotionPath, wings flap in CSS */
   .birds{position:absolute;top:6%;left:0;width:100%;height:90px;pointer-events:none;z-index:1}
-  .birds svg{position:absolute;stroke:#414a36;fill:none;stroke-width:2.1;stroke-linecap:round;opacity:0}
+  .birds svg{position:absolute;stroke:#414a36;fill:none;stroke-width:2.1;stroke-linecap:round;opacity:.75;will-change:transform}
   .hero-birds{top:15%;z-index:2}
-  .hero-birds svg{stroke:#3a4030}
-  .b1{left:16%;width:32px;animation:fly1 11s linear infinite}
-  .b2{left:40%;width:24px;animation:fly2 13s linear 2s infinite}
-  .b3{left:68%;width:28px;animation:fly1 14s linear 1s infinite}
-  @keyframes fly1{0%{opacity:0;transform:translate(0,36px)}12%{opacity:.78}88%{opacity:.78}100%{opacity:0;transform:translate(72px,-52px)}}
-  @keyframes fly2{0%{opacity:0;transform:translate(0,28px)}12%{opacity:.72}88%{opacity:.72}100%{opacity:0;transform:translate(-58px,-48px)}}
+  .hero-birds svg{stroke:#f0ead8;opacity:.85}
+  .birds svg path{transform-origin:50% 50%;animation:flap .5s ease-in-out infinite}
+  @keyframes flap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}
+  .b1{left:10%;width:32px}.b2{left:34%;width:24px}.b3{left:60%;width:28px}.b4{left:46%;width:26px}.b5{left:78%;width:22px}
+
+  /* floating motes */
+  .mote{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,244,214,.9),rgba(255,244,214,0) 70%);pointer-events:none;will-change:transform;z-index:2}
+
+  /* ============ TIDE LINES — the theme signature ============ */
+  .tide{position:relative;line-height:0;overflow:hidden}
+  .tide svg{display:block;width:100%;height:100%}
+  .tide .wave{will-change:transform}
 
   /* watercolor art */
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-  @keyframes floaty2{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(.8deg)}}
-  .art{display:block;margin:0 auto}
+  .art{display:block;margin:0 auto;will-change:transform}
   .crown{width:min(80%,320px);margin:0 auto -6px;position:relative;z-index:1}
   .divider-art{width:170px;margin:14px auto 0}
   .palm-img{width:min(54%,180px);margin:0 auto 8px;animation:floaty 8s ease-in-out infinite}
-  .shells-img{width:min(70%,250px);margin:6px auto 0;animation:floaty2 10s ease-in-out infinite}
-  .boat-img{width:min(86%,360px);margin:6px auto 0;animation:floaty2 11s ease-in-out infinite}
-
   .names-big{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(44px,13vw,72px);line-height:.98;color:var(--green-deep);margin-top:4px}
   .names-big .and{display:block;font-style:italic;text-transform:lowercase;font-weight:400;font-size:.4em;letter-spacing:.04em;color:var(--sage);margin:6px 0}
+  .names-big .ch{display:inline-block;will-change:transform}
   .req{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--green);line-height:2;margin-top:8px}
   .lede{font-family:var(--display);font-style:italic;font-size:clamp(18px,4.6vw,21px);line-height:1.6;color:var(--ink);max-width:30ch;margin:14px auto 0;opacity:.92}
 
   /* countdown */
   .cd{display:flex;justify-content:center;gap:18px;margin-top:24px}
-  .cd .u{text-align:center;min-width:54px}
-  .cd .n{font-family:var(--display);font-size:clamp(38px,9vw,52px);line-height:1;color:var(--green-deep)}
+  .cd .u{text-align:center;min-width:54px;transition:transform .4s ease}
+  .cd .u:hover{transform:translateY(-4px)}
+  .cd .n{font-family:var(--display);font-size:clamp(38px,9vw,52px);line-height:1;color:var(--green-deep);display:inline-block;will-change:transform}
   .cd .l{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 
-  /* stay */
-  .stay{margin-top:26px;display:grid;gap:22px;text-align:center}
-  .stay .blk .h{font-family:var(--display);font-style:italic;font-size:21px;color:var(--green-deep)}
-  .stay .blk .p{font-size:15px;line-height:1.6;color:var(--ink);max-width:34ch;margin:8px auto 0;opacity:.92}
-  .maplink{display:inline-block;margin-top:14px;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--green);border-bottom:1px solid var(--line);padding-bottom:5px;text-decoration:none}
-
-  .btn{display:inline-block;margin-top:24px;padding:15px 42px;border:1px solid rgba(255,255,255,.62);color:#fff;font-family:var(--body);font-size:12px;letter-spacing:.28em;text-transform:uppercase;border-radius:2px;text-decoration:none;transition:.35s}
-  .btn:active{background:#fff;color:var(--green-deep)}
-  .film{position:relative;min-height:92svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 28px;overflow:hidden}
-  .film .bg{position:absolute;inset:0;z-index:0;animation:kb 18s ease-in-out infinite alternate}
-  .film .scr{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(20,28,18,.64),rgba(20,28,18,.06) 50%,rgba(20,28,18,.34))}
-  .film .c{position:relative;z-index:2}
-  .film .ek{font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.82)}
-  .film .ch{font-family:var(--display);font-style:italic;font-size:34px;color:#fff;margin-top:8px;text-shadow:0 2px 24px rgba(0,0,0,.5)}
-  .film .cb{font-family:var(--display);font-style:italic;font-size:18px;line-height:1.5;color:rgba(255,255,255,.92);max-width:30ch;margin:12px auto 0}
-
-  footer{background:var(--green-deep);text-align:center;padding:46px 28px 62px;color:#eef0e2}
-  footer .mn{font-family:var(--script);font-size:44px;color:#fff}
-  footer .tg{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:12px}
-
-  .rise{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
-  .rise.in{opacity:1;transform:none}
-  .rise.d1{transition-delay:.12s}.rise.d2{transition-delay:.24s}.rise.d3{transition-delay:.36s}
-  .cta{position:fixed;z-index:70;left:50%;bottom:18px;transform:translateX(-50%) translateY(16px);background:var(--green-deep);color:#fff;border:none;border-radius:999px;padding:13px 28px;font-family:var(--body);font-size:12px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;box-shadow:0 14px 36px -14px rgba(30,40,20,.7);opacity:0;pointer-events:none;transition:opacity .5s,transform .5s}
-  .cta.show{opacity:1;transform:translateX(-50%);pointer-events:auto}
   /* string lights + celebrations */
   .celebrations{padding-top:64px}
-  .lights{position:absolute;top:0;left:0;width:100%;height:64px;pointer-events:none;z-index:2}
+  .lights{position:absolute;top:0;left:0;width:100%;height:64px;pointer-events:none;z-index:2;will-change:transform;transform-origin:50% 0}
   .lights .wire{fill:none;stroke:var(--sage);stroke-width:1;opacity:.5}
   .lights .bulb-line{stroke:var(--sage);stroke-width:.7;opacity:.4}
   .lights .bulb{fill:#fff3da;animation:twinkle 2.6s ease-in-out infinite;filter:drop-shadow(0 0 3px rgba(255,239,200,.9))}
   @keyframes twinkle{0%,100%{opacity:.4}50%{opacity:1}}
   .events{margin-top:30px;display:grid;gap:0;max-width:340px;margin-left:auto;margin-right:auto}
-  .ev{padding:18px 0;border-top:1px solid var(--line-soft)}
+  .ev{padding:18px 0;border-top:1px solid var(--line-soft);transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease}
   .ev:last-child{border-bottom:1px solid var(--line-soft)}
+  .ev:hover{transform:translateX(6px)}
   .ev-t{font-family:var(--display);font-style:italic;font-size:24px;color:var(--green-deep);line-height:1.1}
   .ev-w{font-size:12.5px;letter-spacing:.08em;color:var(--muted);margin-top:6px;text-transform:uppercase}
-  /* lush florals + fluttering + interactivity */
-  .garland{display:block;width:min(94%,430px);margin:-6px auto 8px;pointer-events:none}
-  .birds svg path{transform-origin:50% 50%;animation:flap .5s ease-in-out infinite}
-  @keyframes flap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}
-  .b4{left:50%;width:26px;animation:fly2 16s linear 4s infinite}
-  .b5{left:82%;width:22px;animation:fly1 18s linear 6s infinite}
-  .ev{transition:transform .45s cubic-bezier(.16,1,.3,1)}
-  .ev:hover{transform:translateX(6px)}
-  .cd .u{transition:transform .4s ease}.cd .u:hover{transform:translateY(-4px)}
-  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none}*{animation:none!important}}
+
+  /* travel + boat crossing */
+  .garland{display:block;width:min(94%,430px);margin:-6px auto 8px;pointer-events:none;will-change:transform;transform-origin:50% 0}
+  .crossing{position:relative;height:190px;margin:18px auto 6px;max-width:480px;overflow:visible}
+  .crossing .wake{position:absolute;left:0;top:58%;width:100%;height:44px}
+  .crossing .wake path{fill:none;stroke:var(--aqua);stroke-width:1.6;stroke-linecap:round;opacity:.55}
+  .crossing .boat{position:absolute;top:6px;left:0;width:230px;height:auto;will-change:transform}
+  .crossing .boat img{width:100%;height:auto;object-fit:contain}
+  .stay{margin-top:26px;display:grid;gap:22px;text-align:center}
+  .stay .blk .h{font-family:var(--display);font-style:italic;font-size:21px;color:var(--green-deep)}
+  .stay .blk .p{font-size:15px;line-height:1.6;color:var(--ink);max-width:34ch;margin:8px auto 0;opacity:.92}
+  .maplink{display:inline-block;margin-top:14px;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--green);border-bottom:1px solid var(--line);padding-bottom:5px;text-decoration:none}
+
+  /* RSVP — golden hour */
+  .film{position:relative;min-height:92svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 28px;overflow:hidden}
+  .film .bg{position:absolute;inset:-6% 0;z-index:0;will-change:transform;animation:kb 18s ease-in-out infinite alternate}
+  .film .scr{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(18,26,17,.78),rgba(18,26,17,.18) 52%,rgba(18,26,17,.42))}
+  .film .golden{position:absolute;inset:0;z-index:1;opacity:0;background:radial-gradient(ellipse 90% 70% at 50% 68%,rgba(232,178,102,.5),rgba(160,90,40,.18) 55%,transparent 80%);mix-blend-mode:soft-light;will-change:opacity}
+  .film .c{position:relative;z-index:2;padding:34px 10px}
+  .film .c::before{content:'';position:absolute;inset:-45% -60%;z-index:-1;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(18,28,18,.42),rgba(18,28,18,.2) 55%,transparent 72%)}
+  .film .ek{font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.95);text-shadow:0 1px 14px rgba(0,0,0,.6)}
+  .film .ch{font-family:var(--display);font-style:italic;font-size:36px;color:#fff;margin-top:8px;text-shadow:0 2px 26px rgba(0,0,0,.65)}
+  .film .cb{font-family:var(--display);font-style:italic;font-size:19px;line-height:1.5;color:#fff;max-width:30ch;margin:12px auto 0;text-shadow:0 1px 18px rgba(0,0,0,.65)}
+  .btn{display:inline-block;margin-top:26px;padding:16px 44px;border:1px solid rgba(255,255,255,.85);color:#fff;background:rgba(18,28,18,.28);backdrop-filter:blur(3px);font-family:var(--body);font-size:12px;letter-spacing:.28em;text-transform:uppercase;border-radius:2px;text-decoration:none;transition:background .35s,color .35s;will-change:transform;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+  .btn:hover,.btn:active{background:#fff;color:var(--green-deep);text-shadow:none}
+
+  footer{background:var(--green-deep);text-align:center;padding:50px 28px 64px;color:#eef0e2;position:relative;overflow:hidden}
+  footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:56px;height:1px;background:rgba(255,255,255,.35);margin-top:0}
+  footer .mn{font-family:var(--script);font-size:46px;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+  footer .tg{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:14px}
+
+  /* reveals — IO fallback transitions; GSAP takes over when present */
+  .rise{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
+  .rise.in{opacity:1;transform:none}
+  .rise.d1{transition-delay:.12s}.rise.d2{transition-delay:.24s}.rise.d3{transition-delay:.36s}
+  body.js-anim .rise{transition:none;transform:none;opacity:0}
+
+  .cta{position:fixed;z-index:70;left:50%;bottom:18px;transform:translateX(-50%) translateY(16px);background:var(--green-deep);color:#fff;border:none;border-radius:999px;padding:13px 28px;font-family:var(--body);font-size:12px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;box-shadow:0 14px 36px -14px rgba(30,40,20,.7);opacity:0;pointer-events:none;transition:opacity .5s,transform .5s}
+  .cta.show{opacity:1;transform:translateX(-50%);pointer-events:auto}
+
+  @media (prefers-reduced-motion:reduce){
+    .rise,body.js-anim .rise{opacity:1;transform:none}
+    *{animation:none!important}
+  }
 </style>
 </head>
 <body>
+<div id="progress" aria-hidden="true"><i></i></div>
 <div class="wrap">
 
-  <!-- OPENER : two watercolor frames -->
+  <!-- OPENER : transparent cover — the video's own curtains sit behind it -->
   <div id="gate" role="button" tabindex="0" aria-label="Tap to open the invitation">
-    <div class="frame"><img src="art/curtain-start.jpg" alt=""></div>
     <div class="vig"></div>
+    <div class="sweep"></div>
     <div class="txt">
       <div class="save">Save the Date</div>
-      <div class="nm">Rosie <span class="amp">&amp;</span> Scott</div>
+      <div class="nm"><span class="w">Rosie</span> <span class="w amp">&amp;</span> <span class="w">Scott</span></div>
       <div class="dt">01 July 2027 · Maldives</div>
       <div class="ddia"></div>
       <div class="tap"><b>Tap to open</b></div>
@@ -162,44 +190,47 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <video id="herovid" class="bg" muted playsinline preload="auto" poster="art/curtain-start.jpg"><source src="art/opener.mp4" type="video/mp4"></video>
+    <video id="herovid" class="bg" muted playsinline preload="auto"><source src="https://amershammaa.github.io/wedding-themes/beach/art/opener.mp4" type="video/mp4"></video>
     <div class="scr"></div>
     <div class="birds hero-birds">
       <svg class="b1" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
       <svg class="b2" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
       <svg class="b3" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
-      <svg class="b4" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
-      <svg class="b5" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
     </div>
     <div class="c">
       <div class="mono">R &amp; S</div>
-      <div class="nm">Rosie <span class="amp">&amp;</span> Scott</div>
-      <div class="sub">invite you to celebrate our wedding week</div>
-      <div class="meta">Fulidhoo, Maldives · 01 July 2027</div>
+      <div class="nm"><span class="w">Rosie</span> <span class="w amp">&amp;</span> <span class="w">Scott</span></div>
+      <div class="sub"><span class="ln">invite you to celebrate our wedding week</span></div>
+      <div class="meta"><span class="ln">Fulidhoo, Maldives · 01 July 2027</span></div>
     </div>
     <div class="scrollcue"><div class="ln"></div><div class="t">Scroll</div></div>
   </section>
 
   <!-- INVITATION -->
-  <section class="sec tone-paper">
+  <section class="sec tone-paper" id="invitation">
     <div class="birds">
       <svg class="b1" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
-      <svg class="b2" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
       <svg class="b3" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
-      <svg class="b4" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
       <svg class="b5" viewBox="0 0 30 14"><path d="M1 9 Q8 1 15 8 Q22 1 29 9"/></svg>
     </div>
-    <img class="art crown rise" src="art/crown.png" alt="">
+    <img class="art crown rise" src="https://amershammaa.github.io/wedding-themes/beach/art/crown.png" alt="">
     <div class="req rise d1">Together with their families<br>request the pleasure of your company</div>
-    <div class="names-big rise d1">Rosie <span class="and">and</span> Scott</div>
-    <img class="art divider-art rise d2" src="art/sprig.png" alt="">
+    <div class="names-big rise d1" id="namesbig">Rosie <span class="and">and</span> Scott</div>
+    <img class="art divider-art rise d2" src="https://amershammaa.github.io/wedding-themes/beach/art/sprig.png" alt="">
     <p class="lede rise d2">Where the tide is slow, the sky turns gold, and the people we love are all in one place.</p>
   </section>
 
+  <!-- tide line 1 : paper -> cream -->
+  <div class="tide" data-tide="1" style="background:var(--paper);height:44px" aria-hidden="true">
+    <svg viewBox="0 0 480 60" preserveAspectRatio="none">
+      <path class="wave wback" fill="rgba(111,128,102,.18)" d="M-160 34 Q-120 22 -80 34 T0 34 T80 34 T160 34 T240 34 T320 34 T400 34 T480 34 T560 34 T640 34 V60 H-160 Z"/>
+      <path class="wave wfront" fill="#f3ece0" d="M-160 40 Q-120 28 -80 40 T0 40 T80 40 T160 40 T240 40 T320 40 T400 40 T480 40 T560 40 T640 40 V60 H-160 Z"/>
+    </svg>
+  </div>
+
   <!-- COUNTDOWN -->
-  <section class="sec tone-cream">
-    <img class="art garland" src="art/garland.png" alt="">
-    <img class="art palm-img rise" src="art/palm.png" alt="" style="margin-top:34px">
+  <section class="sec tone-cream" id="countdown">
+    <img class="art palm-img rise" src="https://amershammaa.github.io/wedding-themes/beach/art/palm.png" alt="" style="margin-top:6px">
     <div class="eyebrow rise">Counting down</div>
     <h2 class="title rise">Until 01 July</h2>
     <div class="cd rise d1" id="cd">
@@ -210,8 +241,16 @@
     </div>
   </section>
 
-  <!-- THE CELEBRATIONS (wedding-week schedule + string lights) -->
-  <section class="sec tone-paper celebrations">
+  <!-- tide line 2 : cream -> paper -->
+  <div class="tide" data-tide="2" style="background:var(--cream);height:56px" aria-hidden="true">
+    <svg viewBox="0 0 480 60" preserveAspectRatio="none">
+      <path class="wave wback" fill="rgba(95,146,138,.18)" d="M-160 32 Q-120 20 -80 32 T0 32 T80 32 T160 32 T240 32 T320 32 T400 32 T480 32 T560 32 T640 32 V60 H-160 Z"/>
+      <path class="wave wfront" fill="#fbf6eb" d="M-160 38 Q-120 26 -80 38 T0 38 T80 38 T160 38 T240 38 T320 38 T400 38 T480 38 T560 38 T640 38 V60 H-160 Z"/>
+    </svg>
+  </div>
+
+  <!-- THE CELEBRATIONS -->
+  <section class="sec tone-paper celebrations" id="celebrations">
     <svg class="lights" viewBox="0 0 400 64" preserveAspectRatio="none" aria-hidden="true">
       <path class="wire" d="M-4 8 Q100 50 200 12 Q300 50 404 12"/>
       <g class="bulbs"></g>
@@ -219,33 +258,31 @@
     <div class="eyebrow rise">The Celebrations</div>
     <h2 class="title rise">Our wedding week</h2>
     <p class="lede rise d1">Over five unforgettable days, we invite you to join us on the island of Fulidhoo, for sunset celebrations, ocean adventures, and the start of our forever.</p>
-
     <div class="events">
-      <div class="ev rise">
-        <div class="ev-t">Welcome Dinner</div>
-        <div class="ev-w">Fulidhoo Beach · 28 June 2027 · 7.30pm</div>
-      </div>
-      <div class="ev rise">
-        <div class="ev-t">Engagement Party</div>
-        <div class="ev-w">Kinan Sentral · 29 June 2027 · 4.30pm</div>
-      </div>
-      <div class="ev rise">
-        <div class="ev-t">The Ceremony</div>
-        <div class="ev-w">Fulidhoo Sandbank · 01 July 2027 · 5.00pm</div>
-      </div>
-      <div class="ev rise">
-        <div class="ev-t">The Reception</div>
-        <div class="ev-w">Fulidhoo Beach · 01 July 2027 · 7.30pm</div>
-      </div>
+      <div class="ev rise"><div class="ev-t">Welcome Dinner</div><div class="ev-w">Fulidhoo Beach · 28 June 2027 · 7.30pm</div></div>
+      <div class="ev rise"><div class="ev-t">Engagement Party</div><div class="ev-w">Kinan Sentral · 29 June 2027 · 4.30pm</div></div>
+      <div class="ev rise"><div class="ev-t">The Ceremony</div><div class="ev-w">Fulidhoo Sandbank · 01 July 2027 · 5.00pm</div></div>
+      <div class="ev rise"><div class="ev-t">The Reception</div><div class="ev-w">Fulidhoo Beach · 01 July 2027 · 7.30pm</div></div>
     </div>
   </section>
 
-  <!-- TRAVEL & STAY -->
-  <section class="sec tone-cream">
-    <img class="art garland" src="art/garland.png" alt="">
+  <!-- tide line 3 : paper -> cream -->
+  <div class="tide" data-tide="3" style="background:var(--paper);height:68px" aria-hidden="true">
+    <svg viewBox="0 0 480 60" preserveAspectRatio="none">
+      <path class="wave wback" fill="rgba(111,128,102,.2)" d="M-160 30 Q-120 16 -80 30 T0 30 T80 30 T160 30 T240 30 T320 30 T400 30 T480 30 T560 30 T640 30 V60 H-160 Z"/>
+      <path class="wave wfront" fill="#f3ece0" d="M-160 36 Q-120 22 -80 36 T0 36 T80 36 T160 36 T240 36 T320 36 T400 36 T480 36 T560 36 T640 36 V60 H-160 Z"/>
+    </svg>
+  </div>
+
+  <!-- TRAVEL & STAY + THE BOAT CROSSING -->
+  <section class="sec tone-cream" id="travel">
+    <img class="art garland" src="https://amershammaa.github.io/wedding-themes/beach/art/garland.png" alt="">
     <div class="eyebrow rise" style="margin-top:30px">Travel &amp; Stay</div>
     <h2 class="title rise">Getting to the island</h2>
-    <img class="art boat-img rise" src="art/boat.png" alt="">
+    <div class="crossing" id="crossing">
+      <svg class="wake" viewBox="0 0 480 44" preserveAspectRatio="none"><path id="wakepath" d="M-20 24 Q60 14 140 24 T300 22 T480 26"/></svg>
+      <div class="boat" id="boat"><img src="https://amershammaa.github.io/wedding-themes/beach/art/boat.png" alt=""></div>
+    </div>
     <div class="stay">
       <div class="blk rise d1">
         <div class="h">Getting there</div>
@@ -265,14 +302,15 @@
 
   <!-- RSVP -->
   <section class="film" id="rsvp">
-    <div class="bg"><img src="art/hero-sea.jpg" alt=""></div>
+    <div class="bg"><img src="https://amershammaa.github.io/wedding-themes/beach/art/hero-sea.jpg" alt=""></div>
     <div class="scr"></div>
+    <div class="golden"></div>
     <div class="c">
-      <div class="ek">Will you join us?</div>
-      <div class="ch">Kindly reply</div>
-      <div style="width:7px;height:7px;transform:rotate(45deg);background:#fff;opacity:.7;margin:14px auto 0"></div>
-      <p class="cb">Kindly let us know by the 1st of June 2027.</p>
-      <a class="btn" href="#" onclick="return false">Reply to our invitation</a>
+      <div class="ek rise">Will you join us?</div>
+      <div class="ch rise d1">Kindly reply</div>
+      <div class="rise d1" style="width:7px;height:7px;transform:rotate(45deg);background:#fff;opacity:.7;margin:14px auto 0"></div>
+      <p class="cb rise d2">Kindly let us know by the 1st of June 2027.</p>
+      <a class="btn rise d2" id="magnet" href="#" onclick="return false">Reply to our invitation</a>
     </div>
   </section>
 
@@ -281,23 +319,57 @@
 
 <button class="cta" id="cta">RSVP</button>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/MotionPathPlugin.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
-  var gate=document.getElementById('gate'), cta=document.getElementById('cta');
-  var opened=false;
-  var hv=document.getElementById('herovid');
-  // after the curtains finish opening, keep the video looping from second 2 (sea + boat only)
-  if(hv) hv.addEventListener('ended', function(){ try{hv.currentTime=2;}catch(e){} hv.play().catch(function(){}); });
-  function open(){ if(opened)return; opened=true;
-    if(hv){ hv.muted=true; try{hv.currentTime=0;}catch(e){} hv.play().catch(function(){}); }
-    gate.classList.add('gone'); document.body.style.overflow=''; }
-  document.body.style.overflow='hidden';
-  gate.addEventListener('click',open);
-  gate.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();open();} });
+(function(){
+  'use strict';
+  // When this file lives inside the repo, assets are relative — nothing to change here;
+  // media URLs above are absolute so the file previews from anywhere.
 
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.16,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.rise').forEach(function(el){io.observe(el);});
+  var gate = document.getElementById('gate');
+  var cta = document.getElementById('cta');
+  var hv = document.getElementById('herovid');
+  var opened = false;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = !!(window.gsap && window.ScrollTrigger);
 
-  // hang fairy-light bulbs along the swag
+  document.body.style.overflow = 'hidden';
+
+  /* ---------- video loop (kept from v1; new mp4 drops straight in) ---------- */
+  if (hv) hv.addEventListener('ended', function(){ try{hv.currentTime=2;}catch(e){} hv.play().catch(function(){}); });
+  // play from 0 — the video's own curtain opening IS the reveal; loop returns to 2s (open sea)
+  function startVideo(){ if(hv){ hv.muted=true; try{hv.currentTime=0;}catch(e){} hv.play().catch(function(){}); } }
+  // hold the closed-curtains first frame while the gate is up
+  if(hv){ hv.addEventListener('loadeddata', function(){ try{ if(!opened) hv.currentTime=0; }catch(e){} }, {once:true}); }
+
+  /* ---------- countdown (count-up entrance kept, digit roll added) ---------- */
+  var target = new Date('2027-07-01T16:00:00').getTime(), cd = document.getElementById('cd');
+  var qd=cd.querySelector('[data-d]'),qh=cd.querySelector('[data-h]'),qm=cd.querySelector('[data-m]'),qs=cd.querySelector('[data-s]');
+  function rem(){ var d=target-Date.now(); if(d<0)d=0; return {d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)}; }
+  var lastS = null;
+  function tick(){
+    var r=rem();
+    qd.textContent=r.d; qh.textContent=String(r.h).padStart(2,'0'); qm.textContent=String(r.m).padStart(2,'0');
+    var s=String(r.s).padStart(2,'0');
+    if(s!==lastS){
+      qs.textContent=s;
+      if(hasGsap && !reduced) gsap.fromTo(qs,{yPercent:-42,opacity:0},{yPercent:0,opacity:1,duration:.32,ease:'power2.out',overwrite:true});
+      lastS=s;
+    }
+  }
+  var cdSeen=false;
+  function countUp(){ var end=rem(),t0=performance.now(),dur=1400;
+    (function step(now){ var k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);
+      qd.textContent=Math.round(end.d*e); qh.textContent=String(Math.round(end.h*e)).padStart(2,'0');
+      qm.textContent=String(Math.round(end.m*e)).padStart(2,'0'); qs.textContent=String(Math.round(end.s*e)).padStart(2,'0');
+      if(k<1)requestAnimationFrame(step); else setInterval(tick,1000); })(t0); }
+  new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting&&!cdSeen){cdSeen=true;countUp();} });},{threshold:.4}).observe(cd);
+
+  /* ---------- fairy-light bulbs on the swags (kept) ---------- */
   (function(){ var g=document.querySelector('.lights .bulbs'); if(!g)return;
     function quad(p,c,q,t){var u=1-t;return [u*u*p[0]+2*u*t*c[0]+t*t*q[0], u*u*p[1]+2*u*t*c[1]+t*t*q[1]];}
     var swags=[[[-4,8],[100,50],[200,12]],[[200,12],[300,50],[404,12]]], h='';
@@ -307,21 +379,218 @@
     g.innerHTML=h;
   })();
 
-  var target=new Date('2027-07-01T16:00:00').getTime(), cd=document.getElementById('cd');
-  var qd=cd.querySelector('[data-d]'),qh=cd.querySelector('[data-h]'),qm=cd.querySelector('[data-m]'),qs=cd.querySelector('[data-s]');
-  function rem(){ var d=target-Date.now(); if(d<0)d=0; return {d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)}; }
-  function tick(){ var r=rem(); qd.textContent=r.d; qh.textContent=String(r.h).padStart(2,'0'); qm.textContent=String(r.m).padStart(2,'0'); qs.textContent=String(r.s).padStart(2,'0'); }
-  var cdSeen=false;
-  function countUp(){ var end=rem(),t0=performance.now(),dur=1400;
-    (function step(now){ var k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);
-      qd.textContent=Math.round(end.d*e); qh.textContent=String(Math.round(end.h*e)).padStart(2,'0');
-      qm.textContent=String(Math.round(end.m*e)).padStart(2,'0'); qs.textContent=String(Math.round(end.s*e)).padStart(2,'0');
-      if(k<1)requestAnimationFrame(step); else setInterval(tick,1000); })(t0); }
-  new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting&&!cdSeen){cdSeen=true;countUp();} });},{threshold:.4}).observe(cd);
+  /* ---------- CTA scroll-to ---------- */
+  var topSec=document.getElementById('top'), rsvpSec=document.getElementById('rsvp');
+  cta.addEventListener('click',function(){ rsvpSec.scrollIntoView({behavior:'smooth'}); });
 
-  var top=document.getElementById('top'), rsvp=document.getElementById('rsvp');
-  new IntersectionObserver(function(es){es.forEach(function(e){ cta.classList.toggle('show', !e.isIntersecting && opened); });},{threshold:.2}).observe(top);
-  cta.addEventListener('click',function(){ rsvp.scrollIntoView({behavior:'smooth'}); });
+  /* =====================================================================
+     FALLBACK PATH — no GSAP or reduced motion: v1 behavior (IO reveals)
+  ===================================================================== */
+  function fallbackInit(){
+    function open(){ if(opened)return; opened=true; document.body.classList.add('opened'); startVideo(); gate.classList.add('gone'); document.body.style.overflow=''; }
+    gate.addEventListener('click',open);
+    gate.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();open();} });
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.16,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rise').forEach(function(el){io.observe(el);});
+    new IntersectionObserver(function(es){es.forEach(function(e){ cta.classList.toggle('show', !e.isIntersecting && opened); });},{threshold:.2}).observe(topSec);
+  }
+
+  if(!hasGsap || reduced){ fallbackInit(); return; }
+
+  /* =====================================================================
+     GSAP PATH — the living page
+  ===================================================================== */
+  gsap.registerPlugin(ScrollTrigger, SplitText, MotionPathPlugin);
+  document.body.classList.add('js-anim');
+
+  /* ---------- Lenis smooth glide — desktop fine-pointer only ---------- */
+  if (window.Lenis && window.matchMedia('(pointer: fine) and (min-width: 768px)').matches) {
+    var lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    // pause smooth scroll while the gate is up
+    lenis.stop();
+    gate.addEventListener('click', function(){ setTimeout(function(){ lenis.start(); }, 2400); }, { once: true });
+  }
+
+  /* ---------- 0. progress hairline ---------- */
+  gsap.to('#progress i',{scaleX:1,ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.4}});
+
+  /* ---------- 1. OPENER — curtains part ---------- */
+  var heroNameWords = gsap.utils.toArray('.hero .nm .w');
+  var heroLines = gsap.utils.toArray('.hero .sub .ln, .hero .meta .ln');
+  gsap.set(heroNameWords,{yPercent:60,opacity:0});
+  gsap.set(heroLines,{y:26,opacity:0});
+  gsap.set('.hero .mono',{opacity:0,y:14});
+  gsap.set('.scrollcue',{opacity:0});
+
+  function heroIntro(){
+    var tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.to('.hero .mono',{opacity:.92,y:0,duration:.7},0)
+      .to(heroNameWords,{yPercent:0,opacity:1,duration:1.1,stagger:.12,ease:'back.out(1.4)'},.15)
+      .to(heroLines,{y:0,opacity:1,duration:.9,stagger:.14},.55)
+      .to('.scrollcue',{opacity:1,duration:.8},1.2);
+    return tl;
+  }
+
+  function open(){
+    if(opened)return; opened=true;
+    document.body.classList.add('opened');
+    startVideo(); // the video's own curtains open — the gate just gets out of the way
+    if(hv) gsap.to(hv,{scale:1,duration:1.8,ease:'power2.out',overwrite:true});
+    var gateWords=gsap.utils.toArray('#gate .txt .save, #gate .txt .nm .w, #gate .txt .dt, #gate .txt .ddia, #gate .txt .tap');
+    /* FAST exit — gate text is gone in ~0.6s, zero overlap with the reveal */
+    var tl=gsap.timeline();
+    tl.to(gateWords,{y:-46,opacity:0,duration:.45,stagger:.025,ease:'power3.in'},0)
+      .to('#gate .sweep',{xPercent:560,duration:.85,ease:'power2.inOut'},0)
+      .to('#gate .vig',{opacity:0,duration:.75,ease:'power1.inOut'},.12)
+      .call(function(){ gate.style.display='none'; document.body.style.overflow=''; },null,.9)
+      .add(heroIntro(),1.15); /* names arrive as the video's curtains open */
+    document.body.style.overflow='hidden';
+  }
+  /* subtle breathing on the closed-curtains frame while the gate is up */
+  if(hv) gsap.fromTo(hv,{scale:1.03},{scale:1.09,duration:11,yoyo:true,repeat:-1,ease:'sine.inOut'});
+  gate.addEventListener('click',open);
+  gate.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();open();} });
+
+  /* ---------- 2. HERO — parallax shoreline ---------- */
+  gsap.to('.hero .bg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.6}});
+  gsap.to('.hero .c',{yPercent:-16,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.6}});
+  gsap.to('.scrollcue',{opacity:0,y:20,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'20% top',scrub:true}});
+
+  /* birds released by scroll (motion paths), wings keep CSS flap */
+  function releaseBirds(sel, trigger){
+    gsap.utils.toArray(sel).forEach(function(b,i){
+      var dir = i%2 ? -1 : 1;
+      gsap.to(b,{
+        motionPath:{path:[{x:0,y:0},{x:dir*60,y:-34-14*i},{x:dir*130,y:-58-10*i},{x:dir*210,y:-96-16*i}],curviness:1.3},
+        ease:'none',
+        scrollTrigger:{trigger:trigger,start:'top 80%',end:'bottom top',scrub:1.2}
+      });
+    });
+  }
+  releaseBirds('.hero-birds svg','.hero');
+  releaseBirds('#invitation .birds svg','#invitation');
+
+  /* ---------- 3. REVEALS — GSAP batch (blur-kissed rise) ---------- */
+  gsap.utils.toArray('.rise').forEach(function(el){
+    var isArt = el.classList.contains('art');
+    gsap.fromTo(el,
+      {y:36,opacity:0,scale:isArt?1.06:1,filter:'blur(5px)'},
+      {y:0,opacity:1,scale:1,filter:'blur(0px)',duration:1.05,ease:'power3.out',
+       delay:el.classList.contains('d1')?.12:el.classList.contains('d2')?.24:0,
+       scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+  });
+
+  /* names-big letters cascade */
+  (function(){
+    var split=new SplitText('#namesbig',{type:'chars',charsClass:'ch'});
+    gsap.set(split.chars,{opacity:0,y:26,rotation:function(){return gsap.utils.random(-6,6);}});
+    gsap.to(split.chars,{opacity:1,y:0,rotation:0,duration:.9,stagger:.035,ease:'back.out(1.6)',
+      scrollTrigger:{trigger:'#namesbig',start:'top 85%',once:true}});
+  })();
+
+  /* ---------- 4. TIDE LINES — breathe with scroll ---------- */
+  gsap.utils.toArray('.tide').forEach(function(t,i){
+    var back=t.querySelector('.wback'), front=t.querySelector('.wfront');
+    gsap.to(back,{x:80,ease:'none',scrollTrigger:{trigger:t,start:'top bottom',end:'bottom top',scrub:.8}});
+    gsap.to(front,{x:-80,ease:'none',scrollTrigger:{trigger:t,start:'top bottom',end:'bottom top',scrub:.5}});
+    gsap.to(t.querySelector('svg'),{y:-4,duration:3+i*.6,yoyo:true,repeat:-1,ease:'sine.inOut'});
+  });
+
+  /* ---------- 5. BOAT CROSSING — pinned voyage ---------- */
+  (function(){
+    var wake=document.getElementById('wakepath');
+    var len=wake.getTotalLength();
+    wake.style.strokeDasharray=len;
+    wake.style.strokeDashoffset=len;
+    var tl=gsap.timeline({
+      scrollTrigger:{trigger:'#travel',start:'top 78%',end:'bottom 40%',scrub:.7}
+    });
+    tl.to('#boat',{
+        motionPath:{path:[{x:-250,y:16},{x:-60,y:-8},{x:140,y:12},{x:320,y:-6},{x:520,y:8}],curviness:1.4,autoRotate:true},
+        ease:'none'},0)
+      .to(wake,{strokeDashoffset:0,ease:'none'},0);
+    gsap.set('#boat',{x:-250,y:16});
+  })();
+
+  /* ---------- 6. GOLDEN-HOUR RSVP ---------- */
+  gsap.to('.film .golden',{opacity:1,ease:'none',scrollTrigger:{trigger:'#rsvp',start:'top 80%',end:'center center',scrub:.6}});
+  gsap.to('.film .bg',{yPercent:10,ease:'none',scrollTrigger:{trigger:'#rsvp',start:'top bottom',end:'bottom top',scrub:.6}});
+
+  /* magnetic button (fine pointers) + press spring (all) */
+  (function(){
+    var btn=document.getElementById('magnet');
+    if(window.matchMedia('(pointer: fine)').matches){
+      var qx=gsap.quickTo(btn,'x',{duration:.4,ease:'power3'}),
+          qy=gsap.quickTo(btn,'y',{duration:.4,ease:'power3'});
+      btn.addEventListener('pointermove',function(e){
+        var r=btn.getBoundingClientRect();
+        qx((e.clientX-(r.left+r.width/2))*.28);
+        qy((e.clientY-(r.top+r.height/2))*.34);
+      });
+      btn.addEventListener('pointerleave',function(){ gsap.to(btn,{x:0,y:0,duration:.8,ease:'elastic.out(1,.35)'}); });
+    }
+    btn.addEventListener('pointerdown',function(){ gsap.to(btn,{scale:.94,duration:.12}); });
+    btn.addEventListener('pointerup',function(){ gsap.to(btn,{scale:1,duration:.7,ease:'elastic.out(1,.3)'}); });
+  })();
+
+  /* ---------- 7. AMBIENT — velocity sway + motes ---------- */
+  (function(){
+    var swayEls=gsap.utils.toArray('.lights, .garland');
+    var qsway=swayEls.map(function(el){ return gsap.quickTo(el,'rotation',{duration:.65,ease:'power3'}); });
+    ScrollTrigger.create({
+      trigger:document.body,start:'top top',end:'bottom bottom',
+      onUpdate:function(self){
+        var v=gsap.utils.clamp(-2.2,2.2,self.getVelocity()/-320);
+        qsway.forEach(function(q){ q(v); });
+      }
+    });
+    ScrollTrigger.addEventListener('scrollEnd',function(){ qsway.forEach(function(q){ q(0); }); });
+  })();
+
+  function motes(container,count,light){
+    var host=document.querySelector(container); if(!host)return;
+    for(var i=0;i<count;i++){
+      var m=document.createElement('span'); m.className='mote';
+      var s=gsap.utils.random(3,6);
+      m.style.width=s+'px'; m.style.height=s+'px';
+      m.style.left=gsap.utils.random(6,94)+'%';
+      m.style.top=gsap.utils.random(12,86)+'%';
+      m.style.opacity=gsap.utils.random(.12,light?.45:.3);
+      host.appendChild(m);
+      gsap.to(m,{y:gsap.utils.random(-34,-14),x:gsap.utils.random(-16,16),duration:gsap.utils.random(4,8),yoyo:true,repeat:-1,ease:'sine.inOut',delay:gsap.utils.random(0,4)});
+    }
+  }
+  motes('.hero',10,true);
+  motes('#countdown',7,false);
+  motes('#rsvp',9,true);
+
+  /* event rows cascade */
+  ScrollTrigger.batch('.ev',{start:'top 90%',once:true,onEnter:function(els){
+    gsap.fromTo(els,{y:30,opacity:0},{y:0,opacity:1,duration:.8,stagger:.12,ease:'power3.out'});
+  }});
+
+  /* ---------- 8. CTA — velocity-aware show/hide ---------- */
+  ScrollTrigger.create({
+    trigger:topSec,start:'bottom top',
+    onEnter:function(){ if(opened) cta.classList.add('show'); },
+    onLeaveBack:function(){ cta.classList.remove('show'); }
+  });
+  ScrollTrigger.create({
+    trigger:document.body,start:'top top',end:'bottom bottom',
+    onUpdate:function(self){
+      if(!opened) return;
+      var pastHero = self.scroll() > window.innerHeight*.9;
+      if(self.direction===1 && Math.abs(self.getVelocity())>2600) cta.classList.remove('show');
+      else if(pastHero) cta.classList.add('show');
+    }
+  });
+
+  /* refresh once fonts settle (SplitText accuracy) */
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+})();
 </script>
 </body>
 </html>
