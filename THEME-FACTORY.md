@@ -72,6 +72,11 @@ Work in a local clone of the repo (never stage through OneDrive). `git add/commi
 - Idle buffering: on `window load` (+800ms) the page flips the video to `preload="auto"` — it buffers silently while the guest reads the cover, so tap→play is instant even on 3G.
 - Page budget: ≤ 1.5MB before video, video ≤ 700KB, music ≤ 500KB (loads only after tap).
 
+## Taste rules (client-locked)
+- **Avoid gold** as a UI/palette accent — client dislikes it. Prefer ivory, champagne-cream (only when the ART demands it, e.g. deco), sage, powder blue, blush, emerald, terracotta. Never flat gold text/buttons.
+- Demo guests are always neutral placeholders (Sami & Lina Haddad) — never real people's names.
+- No thick ornate Arabic display (Aref Ruqaa banned) — El Messiri or refined Naskh only.
+
 ## Hard-won rules (do not relearn these)
 1. **No Lenis / no scroll-hijack libraries.** Native scroll only. (Broke the site three ways.)
 2. **OneDrive lies** — sandbox reads/writes of big files truncate mid-sync. Build in /tmp, verify `</html>` tail + node --check before any commit.
