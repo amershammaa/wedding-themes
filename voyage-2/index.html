@@ -213,6 +213,10 @@
     *{animation:none!important}
     #route .pin,#route .pin-dot{opacity:1;transform:scale(1)}
   }
+  .bgmbtn{position:fixed;z-index:75;bottom:18px;inset-inline-start:calc(50% - 240px + 14px);width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(15,15,18,.55);color:#fff;font-size:15px;cursor:pointer;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .5s}
+  @media(max-width:520px){.bgmbtn{inset-inline-start:14px}}
+  .bgmbtn.show{opacity:.85;pointer-events:auto}
+  .bgmbtn.off{opacity:.35}
 </style>
 </head>
 <body>
@@ -386,6 +390,8 @@
 <button class="cta" id="cta">RSVP</button>
 <div id="toast" role="status">Copied</div>
 
+<audio id="bgm" loop preload="none" src="../music.m4a"></audio>
+<button class="bgmbtn" id="bgmbtn" aria-label="music" type="button">&#9834;</button>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
@@ -427,6 +433,16 @@
 
   /* watchdog: never let a stalled opening trap the scroll */
   gate.addEventListener('click',function(){ setTimeout(function(){ if(document.body.style.overflow==='hidden'){ document.body.style.overflow=''; try{gate.style.display='none';}catch(e){} document.body.classList.add('opened'); } },3500); },{once:true});
+
+  /* music: starts on the opening tap (user gesture), tasteful toggle */
+  (function(){ var m=document.getElementById('bgm'), b=document.getElementById('bgmbtn'); if(!m||!b) return;
+    gate.addEventListener('click',function(){ m.volume=.5; m.play().catch(function(){}); b.classList.add('show'); },{once:true});
+    b.addEventListener('click',function(e){ e.stopPropagation();
+      if(m.paused){ m.play().catch(function(){}); b.classList.remove('off'); }
+      else { m.pause(); b.classList.add('off'); } });
+  })();
+  /* start buffering the opener video during idle, after page assets are in */
+  window.addEventListener('load',function(){ setTimeout(function(){ var v=document.getElementById('herovid'); if(v && !opened){ try{ v.preload='auto'; v.load(); }catch(e){} } },800); });
 
   /* ---------- build hotels ---------- */
   var hwrap=document.getElementById('hotels');

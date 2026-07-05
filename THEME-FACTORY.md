@@ -57,6 +57,21 @@ The page loops it with the paper-wash crossfade automatically.
 
 Work in a local clone of the repo (never stage through OneDrive). `git add/commit/push` → GitHub Pages builds (~2–10 min; if a big-media build errors, push an empty commit to retrigger). Add the theme card to root `index.html`. Live at `amershammaa.github.io/wedding-themes/<slug>/?gid=<guestId>`.
 
+
+## 7. Music (shared across all themes)
+
+- One shared track at repo root: `music.m4a` — referenced by every theme as `../music.m4a`.
+- Wiring (already in every theme): `<audio id="bgm" loop preload="none">` + round `.bgmbtn` toggle. Playback starts on the gate tap (the user gesture browsers require); `preload="none"` = zero cost until then.
+- **Generating a new song:** use Suno / Higgsfield `generate_audio` — prompt formula: *"instrumental [oud & strings / piano & strings / oriental orchestral] wedding processional, warm, elegant, gentle build, loopable, no vocals, 30-60 seconds"*. Then normalize + fade + compress:
+  `ffmpeg -i song.wav -af "afade=t=in:d=1.5,afade=t=out:st=<len-2.5>:d=2.5,loudnorm" -c:a aac -b:a 96k music.m4a`  (target ≤ 500KB)
+- Per-theme songs: put `music.m4a` inside the theme's `art/` and change the src to `art/music.m4a`.
+
+## 8. Performance targets (updated)
+
+- Video: `-crf 30 -vf scale=540:-2 -an +faststart` → 330–710KB per 5s clip.
+- Idle buffering: on `window load` (+800ms) the page flips the video to `preload="auto"` — it buffers silently while the guest reads the cover, so tap→play is instant even on 3G.
+- Page budget: ≤ 1.5MB before video, video ≤ 700KB, music ≤ 500KB (loads only after tap).
+
 ## Hard-won rules (do not relearn these)
 1. **No Lenis / no scroll-hijack libraries.** Native scroll only. (Broke the site three ways.)
 2. **OneDrive lies** — sandbox reads/writes of big files truncate mid-sync. Build in /tmp, verify `</html>` tail + node --check before any commit.
