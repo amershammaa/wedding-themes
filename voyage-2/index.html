@@ -39,11 +39,11 @@
   #progress i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
 
   /* ============ GATE / COVER ============ */
-  #gate{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:90;cursor:pointer;overflow:hidden;background:var(--paper);touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:opacity .55s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px 30px 0}
+  #gate{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:90;cursor:pointer;overflow:hidden;background:url(art/cover.webp) center bottom/cover no-repeat,var(--paper);touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:opacity .55s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px 30px 0}
   #gate.gone{opacity:0;visibility:hidden;pointer-events:none}
-  #gate .mono-svg{width:150px;height:126px;display:block;margin:0 auto}
-  #gate .ticket{max-width:368px;width:100%;margin:24px auto 0;cursor:pointer}
-  #gate .board{margin-top:30px;display:inline-block;font-family:var(--caps);font-weight:400;font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:14px 38px;white-space:nowrap}
+  #gate .mono-svg{width:150px;height:126px;display:block;margin:0 auto;filter:drop-shadow(0 2px 14px rgba(247,244,239,.95))}
+  #gate .ticket{max-width:368px;width:100%;margin:24px auto 0;cursor:pointer;box-shadow:0 26px 64px -32px rgba(43,43,40,.5)}
+  #gate .board{margin-top:30px;background:rgba(247,244,239,.72);backdrop-filter:blur(3px);display:inline-block;font-family:var(--caps);font-weight:400;font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:14px 38px;white-space:nowrap}
   #gate .board b{font-weight:400;animation:pulse 2.4s ease-in-out infinite;display:inline-block}
   #gplane{position:absolute;left:0;top:0;width:34px;height:34px;z-index:5;opacity:0;pointer-events:none;will-change:transform}
   #gtrail{position:absolute;inset:0;z-index:4;pointer-events:none}
@@ -271,26 +271,7 @@
     <svg id="gtrail" aria-hidden="true"><path id="gtrailpath" d=""/></svg>
     <div id="gplane" aria-hidden="true"><svg viewBox="0 0 26 26"><g class="sk-accent" stroke-width="1.4"><path d="M2 14 L22 10 M22 10 L15 13.4 M22 10 L16.6 7.4 M8 12.8 L6 17 M10.5 12.3 L12 7"/></g></svg></div>
     <!-- line-art panorama : hills + estate + cypress, 3 parallax groups -->
-    <div class="pano" aria-hidden="true">
-      <svg viewBox="0 0 480 150" preserveAspectRatio="xMidYMax meet">
-        <g id="pano-far">
-          <path class="sk-soft" d="M0 108 Q70 84 150 100 Q230 116 300 92 Q380 68 480 96"/>
-          <path class="sk-soft" d="M40 104 q10 -16 22 -2 M330 88 q12 -18 24 -4"/>
-          <circle class="sk-soft" cx="404" cy="46" r="13"/>
-        </g>
-        <g id="pano-mid">
-          <path class="sk" d="M120 118 V84 q0 -8 8 -8 h30 q8 0 8 8 v34 M132 118 v-16 q0 -6 6 -6 h8 q6 0 6 6 v16 M126 84 q14 -14 34 0"/>
-          <path class="sk" d="M180 118 V92 h44 v26 M186 92 l16 -12 16 12 M192 118 v-12 h12 v12 M212 104 h8 v6 h-8 z"/>
-          <path class="sk" d="M258 118 V88 q12 -10 24 0 v30 M264 118 v-14 q6 -6 12 0 v14"/>
-          <path class="sk" d="M96 118 q4 -22 0 -34 q-8 6 -6 16 q2 8 6 18 M96 84 q6 -10 4 -18 M310 118 q4 -18 0 -30 q-7 5 -5 14 q2 8 5 16"/>
-        </g>
-        <g id="pano-near">
-          <path class="sk" d="M0 132 Q120 120 240 130 Q360 140 480 126"/>
-          <path class="sk-soft" d="M60 132 q6 -8 12 0 M150 130 q6 -8 12 0 M390 128 q6 -8 12 0"/>
-          <g class="sk" id="pano-couple"><path d="M228 128 q-2 -8 3 -10 q4 -1 5 3 q1 5 -3 8 M236 128 q0 -9 5 -10 q5 -1 5 4 q0 5 -4 7 M231 112 a2.6 2.6 0 1 0 .1 0 M241 111 a2.6 2.6 0 1 0 .1 0 M234 118 q2 2 4 0"/></g>
-        </g>
-      </svg>
-    </div>
+    
   </div>
 
   <!-- 0.5 VIDEO HERO : the sketch comes alive — carries the full invitation -->
