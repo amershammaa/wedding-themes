@@ -49,27 +49,27 @@
   #progress{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:2px;z-index:95;pointer-events:none}
   #progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--em),var(--blush))}
 
-  /* ============ GATE — petals BLOOM open (no hinge) ============ */
-  #gate{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:90;cursor:pointer;overflow:hidden;background:var(--paper);touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:opacity .9s ease .6s}
+  /* ============ GATE — the camera DIVES THROUGH the petals (no split, real depth) ============ */
+  #gate{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:90;cursor:pointer;overflow:hidden;background:var(--paper);touch-action:manipulation;-webkit-tap-highlight-color:transparent;perspective:1100px;perspective-origin:50% 46%;transition:opacity .7s ease .95s}
   #gate.gone{opacity:0;visibility:hidden;pointer-events:none}
-  .half{position:absolute;top:0;bottom:0;width:50.4%;overflow:hidden;will-change:transform,opacity;transition:transform 1.9s cubic-bezier(.55,0,.15,1),opacity 1.5s ease .35s,filter 1.6s ease}
-  .halfL{left:0} .halfR{right:0}
-  .half img{position:absolute;top:0;height:100%;width:200%;max-width:none;object-fit:cover}
-  .halfL img{left:0} .halfR img{right:0}
-  #gate.open .halfL{transform:translateX(-13%) scale(1.2);opacity:0;filter:blur(3px)}
-  #gate.open .halfR{transform:translateX(13%) scale(1.2);opacity:0;filter:blur(3px)}
-  .bloom{position:absolute;left:50%;top:50%;width:14px;height:14px;border-radius:50%;pointer-events:none;z-index:4;
-    background:radial-gradient(circle,#fff 0%,rgba(255,255,255,.9) 38%,rgba(255,252,247,0) 72%);
-    transform:translate(-50%,-50%) scale(1);opacity:.55;transition:transform 1.9s cubic-bezier(.4,0,.15,1),opacity 1.9s ease;
-    animation:pulseBloom 4.5s ease-in-out infinite}
-  #gate.open .bloom{transform:translate(-50%,-50%) scale(190);opacity:1;animation:none}
-  @keyframes pulseBloom{0%,100%{opacity:.4}50%{opacity:.75}}
-  .seam{position:absolute;top:8%;bottom:8%;left:50%;width:2px;transform:translateX(-50%);z-index:3;pointer-events:none;
-    background:linear-gradient(180deg,transparent,rgba(255,250,242,.95) 22%,rgba(255,250,242,.95) 78%,transparent);filter:blur(1.5px);
-    transition:opacity .8s ease}
-  #gate.open .seam{opacity:0}
-  .gtxt{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 34px;pointer-events:none;transition:opacity .5s ease,transform .8s cubic-bezier(.4,0,.2,1)}
-  #gate.open .gtxt{opacity:0;transform:scale(1.08)}
+  .layer{position:absolute;inset:-6%;will-change:transform,opacity,filter;transform-style:preserve-3d}
+  .layer img{width:100%;height:100%;object-fit:cover;display:block}
+  /* back plate: the petal field you fly toward */
+  .lBack{transform:translateZ(-260px) scale(1.34);transition:transform 2.1s cubic-bezier(.5,0,.15,1),filter 2.1s ease,opacity 1.4s ease .7s}
+  #gate.dive .lBack{transform:translateZ(60px) scale(1.72);filter:blur(2px);opacity:0}
+  /* front plate: the petals that rush past the camera */
+  .lFront{transform:translateZ(0) scale(1);transition:transform 2s cubic-bezier(.55,0,.1,1),opacity 1.5s ease .25s,filter 1.7s ease}
+  .lFront img{-webkit-mask-image:radial-gradient(ellipse 58% 46% at 50% 47%,transparent 34%,#000 74%);mask-image:radial-gradient(ellipse 58% 46% at 50% 47%,transparent 34%,#000 74%)}
+  #gate.dive .lFront{transform:translateZ(560px) scale(2.1);opacity:0;filter:blur(9px)}
+  /* soft light in the opening you dive into */
+  .core{position:absolute;left:50%;top:47%;width:58%;height:40%;transform:translate(-50%,-50%) scale(1);pointer-events:none;z-index:3;
+    background:radial-gradient(ellipse at center,rgba(255,255,255,.92) 0%,rgba(255,252,246,.55) 42%,rgba(255,252,246,0) 72%);
+    opacity:.55;transition:transform 2s cubic-bezier(.5,0,.15,1),opacity 1.8s ease;animation:corePulse 5s ease-in-out infinite}
+  #gate.dive .core{transform:translate(-50%,-50%) scale(6.5);opacity:1;animation:none}
+  @keyframes corePulse{0%,100%{opacity:.42}50%{opacity:.72}}
+  .gtxt{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 34px;pointer-events:none;
+    transition:opacity .9s ease,transform 2s cubic-bezier(.55,0,.1,1),filter 1.6s ease}
+  #gate.dive .gtxt{opacity:0;transform:scale(2.4) translateZ(300px);filter:blur(5px)}
   .gmono{font-family:var(--serif);font-weight:300;font-size:clamp(50px,14vw,66px);letter-spacing:.16em;color:var(--ink);text-shadow:0 2px 30px rgba(255,255,255,.95),0 0 60px rgba(255,255,255,.8)}
   .gmono i{font-style:italic;font-size:.58em;color:var(--em);letter-spacing:0;padding:0 .1em}
   .grule{width:64px;height:1px;background:var(--line);margin:26px auto 0}
@@ -123,8 +123,9 @@
   .btn:hover{background:var(--ink);color:var(--paper)}
 
   .stack{display:grid;gap:14px;margin-top:34px}
-  .card{background:rgba(255,253,250,.86);border:1px solid var(--line-soft);border-radius:3px;padding:26px 20px;backdrop-filter:blur(2px);transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .55s}
-  .card:hover{transform:translateY(-5px);box-shadow:0 24px 52px -28px rgba(63,55,48,.4)}
+  .card{background:rgba(255,253,250,.86);border:1px solid var(--line-soft);border-radius:3px;padding:26px 20px;backdrop-filter:blur(2px);box-shadow:0 18px 40px -30px rgba(63,55,48,.5);transform-style:preserve-3d;will-change:transform}
+  .card:hover{box-shadow:0 30px 60px -30px rgba(63,55,48,.45)}
+  .court,.rosette,.divide img,.bleed,.hero .hc,.hero video{will-change:transform}
   .card .cn{font-family:var(--serif);font-weight:400;font-size:21px;letter-spacing:.08em}
   .card .ct{font-family:var(--caps);font-weight:300;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--bronze);margin-top:7px}
   .card .maplink{display:inline-block;margin-top:14px;font-family:var(--caps);font-weight:300;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--em-deep);text-decoration:none;border-bottom:1px solid var(--line)}
@@ -167,15 +168,14 @@
 </style>
 </head>
 <body style="">
-<div id="progress" aria-hidden="true"><i></i></div>
+<div id="progress" aria-hidden="true"><i style=""></i></div>
 <div class="wrap" id="wrap">
 
-  <!-- GATE : petals bloom open -->
+  <!-- GATE : the camera dives through the petals -->
   <div id="gate" role="button" tabindex="0" aria-label="Tap to open the invitation">
-    <div class="half halfL"><img id="dL" alt=""></div>
-    <div class="half halfR"><img id="dR" alt=""></div>
-    <div class="seam"></div>
-    <div class="bloom"></div>
+    <div class="layer lBack"><img id="dBack" alt=""></div>
+    <div class="layer lFront"><img id="dFront" alt=""></div>
+    <div class="core"></div>
     <div class="gtxt">
       <div class="gmono">S<i>&amp;</i>L</div>
       <div class="grule"></div>
@@ -186,10 +186,10 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <video id="herovid" muted="" playsinline="" loop="" preload="auto"></video>
+    <video id="herovid" muted="" playsinline="" loop="" preload="auto" style=""></video>
     <div class="lift"></div>
     <div class="veil"></div>
-    <div class="hc">
+    <div class="hc" style="">
       <div class="heyebrow hl">Together with their families</div>
       <div class="hnm hl">Sami <i>&amp;</i> Lina</div>
       <div class="hlede hl">invite you to share the joy of their wedding</div>
@@ -198,11 +198,11 @@
     </div>
   </section>
 
-  <div class="divide" style="background:var(--card)"><span></span><img class="divimg" alt=""><span></span></div>
+  <div class="divide" style="background:var(--card)"><span></span><img class="divimg" alt="" style=""><span></span></div>
 
   <!-- COUNTDOWN -->
   <section class="sec tone-card" id="s-count">
-    <img class="bleed tl divimg-b" alt="">
+    <img class="bleed tl divimg-b" alt="" style="">
     <div class="arch rise"><div class="eyebrow">Counting down</div><h2 class="h2">Until <em>the day</em></h2></div>
     <div class="cd rise d1" id="cd">
       <div class="u"><div class="n" data-d="">00</div><div class="l">Days</div></div>
@@ -296,8 +296,8 @@
     ],
     guests:{'144889141':['Sami Haddad','Lina Haddad'],'default':['Sami Haddad','Lina Haddad']}
   };
-  document.getElementById('dL').src=ART.doors;
-  document.getElementById('dR').src=ART.doors;
+  document.getElementById('dBack').src=ART.hero;
+  document.getElementById('dFront').src=ART.doors;
   document.getElementById('courtImg').src=ART.court;
   document.getElementById('rosetteImg').src=ART.rose;
   document.querySelectorAll('.divimg').forEach(function(i){i.src=ART.rose;i.loading='lazy';});
@@ -385,12 +385,38 @@
     document.head.appendChild(st);
   })();
 
+  /* ---- 3D DEPTH THROUGHOUT: parallax layers + card tilt ---- */
   var pi=document.querySelector('#progress i');
-  addEventListener('scroll',function(){
+  var depth=[], ticking=false;
+  document.querySelectorAll('.bleed').forEach(function(el){depth.push([el,70,0]);});
+  document.querySelectorAll('.court,.rosette,.divide img').forEach(function(el){depth.push([el,-34,4]);});
+  document.querySelectorAll('.hero .hc').forEach(function(el){depth.push([el,-46,0]);});
+  document.querySelectorAll('.hero video').forEach(function(el){depth.push([el,54,0]);});
+  function frame(){
+    ticking=false;
+    var vh=innerHeight, mid=vh/2;
+    depth.forEach(function(d){
+      var el=d[0], amt=d[1], tilt=d[2];
+      var r=el.getBoundingClientRect();
+      if(r.bottom<-200||r.top>vh+200) return;
+      var p=((r.top+r.height/2)-mid)/vh;           /* -1 … 1 */
+      var t='translate3d(0,'+(p*amt).toFixed(1)+'px,0)';
+      if(tilt) t='perspective(1000px) rotateX('+(-p*tilt).toFixed(2)+'deg) '+t;
+      el.style.transform=t;
+    });
+    document.querySelectorAll('.card').forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.bottom<-100||r.top>vh+100) return;
+      var p=((r.top+r.height/2)-mid)/vh;
+      el.style.transform='perspective(950px) rotateX('+(-p*3.4).toFixed(2)+'deg) translate3d(0,'+(p*-8).toFixed(1)+'px,0)';
+    });
     var h=document.documentElement.scrollHeight-innerHeight;
     pi.style.width=(h>0?(scrollY/h*100):0)+'%';
     if(opened) cta.classList.toggle('show', scrollY>innerHeight*.6 && scrollY<h-420);
-  },{passive:true});
+  }
+  addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(frame);} },{passive:true});
+  addEventListener('resize',frame,{passive:true});
+  frame();
   cta.addEventListener('click',function(){document.getElementById('s-rsvp').scrollIntoView({behavior:'smooth'})});
 
   var m=document.getElementById('bgm'), b=document.getElementById('bgmbtn');
@@ -398,11 +424,11 @@
 
   function open(){
     if(opened)return; opened=true;
-    gate.classList.add('open');
+    gate.classList.add('dive');
     document.body.classList.add('opened');
     try{hv.play().catch(function(){})}catch(e){}
     m.volume=.5; m.play().catch(function(){}); b.classList.add('show');
-    setTimeout(function(){ gate.classList.add('gone'); document.body.style.overflow=''; },1900);
+    setTimeout(function(){ gate.classList.add('gone'); document.body.style.overflow=''; },2000);
     setTimeout(function(){ if(document.body.style.overflow==='hidden'){document.body.style.overflow=''} },3500);
   }
   gate.addEventListener('click',open);
