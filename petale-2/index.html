@@ -25,7 +25,15 @@
   .h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,8vw,38px);letter-spacing:.17em;text-transform:uppercase;color:var(--ink);margin-top:14px;line-height:1.22}
   .h2 em{font-style:italic;text-transform:none;letter-spacing:.02em;font-size:.78em;color:var(--em)}
   .lede{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(16.5px,4.4vw,19.5px);line-height:1.8;color:var(--ink-soft);max-width:30ch;margin:18px auto 0}
-  .sec{padding:78px 30px;text-align:center;position:relative;z-index:2;overflow:hidden}
+  .sec{--travel:0;--glow-y:52%;padding:78px 30px;text-align:center;position:relative;z-index:2;overflow:hidden;isolation:isolate}
+  .sec>*{position:relative;z-index:1}
+  /* The paper itself shifts while scrolling: material and light, never extra decoration. */
+  .sec::before{content:'';position:absolute;inset:-22% -30%;z-index:0;pointer-events:none;opacity:.72;background:radial-gradient(ellipse 48% 28% at 50% var(--glow-y),rgba(255,255,255,.9),transparent 72%);transform:translateY(calc(var(--travel) * -24px));transition:transform .08s linear}
+  /* A single raking-light pass gives each paper section a material, living quality. */
+  .sec::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
+    background:linear-gradient(108deg,transparent 34%,rgba(255,255,255,.78) 50%,transparent 66%);transform:translateX(-115%)}
+  .sec.scene-in::after{animation:rake 1.45s cubic-bezier(.2,.75,.2,1) both}
+  @keyframes rake{0%{opacity:0;transform:translateX(-115%)}18%{opacity:.9}100%{opacity:0;transform:translateX(115%)}}
   .tone-card{background:
       radial-gradient(ellipse 70% 40% at 50% 0%,rgba(233,217,206,.5),transparent 70%),
       var(--card)}
@@ -106,13 +114,20 @@
   .cd .u{text-align:center;min-width:54px}
   .cd .n{font-family:var(--serif);font-weight:300;font-size:clamp(34px,9vw,48px);line-height:1;color:var(--ink)}
   .cd .l{font-family:var(--caps);font-weight:300;font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze);margin-top:12px}
+  #s-count .u{opacity:0;transform:translateY(18px);transition:opacity .75s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+  #s-count.scene-in .u{opacity:1;transform:none}
+  #s-count.scene-in .u:nth-child(2){transition-delay:.1s}#s-count.scene-in .u:nth-child(3){transition-delay:.2s}#s-count.scene-in .u:nth-child(4){transition-delay:.3s}
+  #s-count::before{background:radial-gradient(ellipse 56% 24% at 50% var(--glow-y),rgba(233,217,206,.75),transparent 75%)}
+  #s-cel::before{background:linear-gradient(90deg,transparent 12%,rgba(176,141,122,.11) 12.2%,transparent 12.5%,transparent 87.5%,rgba(176,141,122,.11) 87.8%,transparent 88%),radial-gradient(ellipse 52% 28% at 50% var(--glow-y),rgba(255,255,255,.92),transparent 72%)}
+  #s-cel.scene-in .h2{animation:wordmark .95s cubic-bezier(.16,1,.3,1) both .1s}
+  @keyframes wordmark{from{letter-spacing:.29em;opacity:0}to{letter-spacing:.17em;opacity:1}}
 
 
   .btn{display:inline-block;margin-top:30px;padding:15px 38px;border:1px solid var(--ink);color:var(--ink);background:transparent;font-family:var(--caps);font-weight:300;font-size:10px;letter-spacing:.34em;text-transform:uppercase;border-radius:2px;text-decoration:none;cursor:pointer;transition:.4s}
   .btn:hover{background:var(--ink);color:var(--paper)}
 
   .stack{display:grid;gap:14px;margin-top:34px}
-  .card{background:rgba(255,253,250,.86);border:1px solid var(--line-soft);border-radius:3px;padding:26px 20px;backdrop-filter:blur(2px);box-shadow:0 18px 40px -30px rgba(63,55,48,.5);transform-style:preserve-3d;will-change:transform}
+  .card{background:rgba(255,253,250,.86);border:1px solid var(--line-soft);border-radius:3px;padding:26px 20px;backdrop-filter:blur(2px);box-shadow:0 18px 40px -30px rgba(63,55,48,.5)}
   .card:hover{box-shadow:0 30px 60px -30px rgba(63,55,48,.45)}
   .hero .hc,.hero video{will-change:transform}
   .card .cn{font-family:var(--serif);font-weight:400;font-size:21px;letter-spacing:.08em}
@@ -123,6 +138,23 @@
   .v{font-family:var(--caps);font-weight:300;font-size:12px;color:var(--ink);word-break:break-all;text-align:right}
   .copy{flex:none;border:1px solid var(--line);background:transparent;border-radius:2px;font-family:var(--caps);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze);padding:6px 10px;cursor:pointer;transition:.25s}
   .copy.done{background:var(--em);border-color:var(--em);color:#fff}
+  #s-stay .card,#s-gift .card,#s-rsvp .card{opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .9s cubic-bezier(.16,1,.3,1),box-shadow .45s ease}
+  #s-stay.scene-in .card,#s-gift.scene-in .card,#s-rsvp.scene-in .card{opacity:1;transform:none}
+  #s-stay.scene-in .card:nth-child(2),#s-gift.scene-in .card:nth-child(2){transition-delay:.12s}
+  #s-stay.scene-in .card:nth-child(3),#s-gift.scene-in .card:nth-child(3){transition-delay:.24s}
+  #s-gift.scene-in .row{animation:inkline .75s ease both}
+  #s-gift.scene-in .row:nth-child(2){animation-delay:.18s}#s-gift.scene-in .row:nth-child(3){animation-delay:.32s}#s-gift.scene-in .row:nth-child(4){animation-delay:.46s}
+  @keyframes inkline{from{opacity:0;transform:scaleX(.7);transform-origin:center}to{opacity:1;transform:none}}
+  #s-cel .btn{overflow:hidden;position:relative}#s-cel .btn::after{content:'';position:absolute;inset:0;background:var(--ink);transform:translateX(-101%);transition:transform .7s cubic-bezier(.2,.8,.2,1);z-index:-1}
+  #s-cel .btn:hover{color:var(--paper)}#s-cel .btn:hover::after{transform:none}
+  #s-stay::before{background:radial-gradient(ellipse 52% 32% at 50% var(--glow-y),rgba(233,217,206,.7),transparent 74%)}
+  #s-stay .maplink{position:relative;border:0;padding-bottom:5px}
+  #s-stay .maplink::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--em);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+  #s-stay.scene-in .maplink::after{transform:scaleX(1)}
+  #s-stay.scene-in .card:nth-child(2) .maplink::after{transition-delay:.32s}#s-stay.scene-in .card:nth-child(3) .maplink::after{transition-delay:.44s}
+  #s-gift::before{background:linear-gradient(90deg,transparent 0 17%,rgba(63,55,48,.045) 17.2% 17.5%,transparent 17.7% 82.3%,rgba(63,55,48,.045) 82.5% 82.8%,transparent 83%),radial-gradient(ellipse 48% 30% at 50% var(--glow-y),rgba(255,255,255,.95),transparent 70%)}
+  #s-rsvp::before{background:radial-gradient(ellipse 55% 32% at 50% var(--glow-y),rgba(233,217,206,.68),transparent 74%)}
+  #s-rsvp.scene-in .card{box-shadow:0 27px 56px -32px rgba(63,55,48,.5)}
 
   .guest{padding:18px 0 4px}
   .guest+.guest{border-top:1px dashed var(--line-soft);margin-top:14px}
@@ -338,9 +370,15 @@
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rise, .arch').forEach(function(el){io.observe(el)});
 
-  /* ---- 3D DEPTH THROUGHOUT: parallax layers + card tilt ---- */
+  /* Each section gets one composed entrance—not a repeated generic effect. */
+  var sectionIO=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('scene-in');sectionIO.unobserve(e.target)}
+  })},{threshold:.2,rootMargin:'0px 0px -12% 0px'});
+  document.querySelectorAll('.sec').forEach(function(el){sectionIO.observe(el)});
+
+  /* The hero keeps a gentle depth; the inner pages are alive through paper and light. */
   var pi=document.querySelector('#progress i');
-  var depth=[], ticking=false;
+  var depth=[], scenes=[].slice.call(document.querySelectorAll('.sec')), ticking=false;
   document.querySelectorAll('.hero .hc').forEach(function(el){depth.push([el,-46,0]);});
   document.querySelectorAll('.hero video').forEach(function(el){depth.push([el,54,0]);});
   function frame(){
@@ -355,11 +393,11 @@
       if(tilt) t='perspective(1000px) rotateX('+(-p*tilt).toFixed(2)+'deg) '+t;
       el.style.transform=t;
     });
-    document.querySelectorAll('.card').forEach(function(el){
-      var r=el.getBoundingClientRect();
-      if(r.bottom<-100||r.top>vh+100) return;
-      var p=((r.top+r.height/2)-mid)/vh;
-      el.style.transform='perspective(950px) rotateX('+(-p*3.4).toFixed(2)+'deg) translate3d(0,'+(p*-8).toFixed(1)+'px,0)';
+    scenes.forEach(function(sec){
+      var sr=sec.getBoundingClientRect();
+      var sp=Math.max(-1,Math.min(1,(mid-(sr.top+sr.height/2))/(vh*.8)));
+      sec.style.setProperty('--travel',sp.toFixed(3));
+      sec.style.setProperty('--glow-y',(52-sp*16).toFixed(1)+'%');
     });
     var h=document.documentElement.scrollHeight-innerHeight;
     pi.style.width=(h>0?(scrollY/h*100):0)+'%';
