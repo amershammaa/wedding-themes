@@ -41,9 +41,7 @@
       radial-gradient(ellipse 60% 34% at 50% 100%,rgba(233,217,206,.42),transparent 72%),
       var(--paper)}
   /* signature: debossed arch behind headings */
-  .arch{position:relative;display:inline-block;padding:30px 40px 0}
-  .arch::before{content:'';position:absolute;left:0;right:0;top:0;bottom:-10px;border:1px solid var(--line);border-bottom:0;border-radius:50% 50% 0 0/40% 40% 0 0;transform:scaleY(0);transform-origin:bottom;transition:transform 1.4s cubic-bezier(.16,1,.3,1) .12s}
-  .arch.in::before,.in .arch::before{transform:scaleY(1)}
+  .arch{position:relative;display:inline-block;padding:0}
 
   /* quiet rule — hairline + hollow diamond, no imagery */
   .divide{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto;padding:0 30px;position:relative;z-index:2;height:1px}
@@ -130,11 +128,7 @@
   .card{background:rgba(255,253,250,.86);border:1px solid var(--line-soft);border-radius:3px;padding:26px 20px;backdrop-filter:blur(2px);box-shadow:0 18px 40px -30px rgba(63,55,48,.5)}
   .card:hover{box-shadow:0 30px 60px -30px rgba(63,55,48,.45)}
   .hero .hc,.hero video{will-change:transform}
-  .paper-scene{position:relative;min-height:92svh;overflow:hidden;display:grid;place-items:center;text-align:center;background:#eee9e1;isolation:isolate}
-  .paper-scene img{position:absolute;inset:-5%;width:110%;height:110%;object-fit:cover;z-index:0;will-change:transform;filter:contrast(.96) saturate(.78)}
-  .paper-scene:after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 48% 28% at 50% 50%,rgba(255,255,255,.62),rgba(246,242,236,.12) 75%);z-index:1}
-  .paper-copy{position:relative;z-index:2;max-width:280px;padding:26px 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(246,242,236,.28);backdrop-filter:blur(3px)}
-  .paper-copy .p-title{font-family:var(--serif);font-size:clamp(34px,9vw,46px);font-style:italic;font-weight:300;line-height:1.05;margin-top:12px}
+  .sec::before{background:radial-gradient(ellipse 68% 30% at calc(50% + var(--travel)*18%) var(--glow-y),rgba(255,255,255,.92),transparent 70%)}
   .card .cn{font-family:var(--serif);font-weight:400;font-size:21px;letter-spacing:.08em}
   .card .ct{font-family:var(--caps);font-weight:300;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--bronze);margin-top:7px}
   .card .maplink{display:inline-block;margin-top:14px;font-family:var(--caps);font-weight:300;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--em-deep);text-decoration:none;border-bottom:1px solid var(--line)}
@@ -222,11 +216,6 @@
       <div class="hdate hl"><span class="m">July</span><span class="bar"></span><span class="d">04</span><span class="bar"></span><span class="y">2026</span></div>
       <div class="cue hl"></div>
     </div>
-  </section>
-
-  <section class="paper-scene" id="paper-scene">
-    <img src="art/paper-interlude.png" loading="lazy" decoding="async" alt="Sculptural ivory paper installation">
-    <div class="paper-copy"><div class="eyebrow">A moment to arrive</div><div class="p-title">Made of light,<br>made for love.</div></div>
   </section>
 
   <!-- COUNTDOWN -->
@@ -385,7 +374,6 @@
     if(e.isIntersecting){e.target.classList.add('scene-in');sectionIO.unobserve(e.target)}
   })},{threshold:.2,rootMargin:'0px 0px -12% 0px'});
   document.querySelectorAll('.sec').forEach(function(el){sectionIO.observe(el)});
-  var paperScene=document.getElementById('paper-scene');
 
   /* The hero keeps a gentle depth; the inner pages are alive through paper and light. */
   var pi=document.querySelector('#progress i');
@@ -410,7 +398,6 @@
       sec.style.setProperty('--travel',sp.toFixed(3));
       sec.style.setProperty('--glow-y',(52-sp*16).toFixed(1)+'%');
     });
-    if(paperScene){var pr=paperScene.getBoundingClientRect(), pp=((pr.top+pr.height/2)-mid)/vh; var pim=paperScene.querySelector('img'); if(pim)pim.style.transform='scale('+(1.04-Math.abs(pp)*.035)+') translateY('+(-pp*24).toFixed(1)+'px)';}
     var h=document.documentElement.scrollHeight-innerHeight;
     pi.style.width=(h>0?(scrollY/h*100):0)+'%';
     if(opened) cta.classList.toggle('show', scrollY>innerHeight*.6 && scrollY<h-420);
